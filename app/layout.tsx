@@ -21,12 +21,14 @@ export const metadata: Metadata = {
   title: "MONOLITH | Global Architectural Archive",
   description: "A cinematic digital archive of global brutalist and modern architecture.",
   icons: {
-    icon: "/images/webaigen_cropped.png",
-    shortcut: "/images/webaigen_cropped.png",
-    apple: "/images/webaigen_cropped.png",
+    icon: [
+      { url: "/images/favicon_black_multi.ico" },
+      { url: "/images/favicon_32_black.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/images/favicon_black_multi.ico",
+    apple: "/images/favicon_32_black.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
