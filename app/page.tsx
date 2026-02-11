@@ -1,65 +1,107 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
+
+// Components
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import ProjectCard from "./components/Gallery/ProjectCard";
+import Lightbox from "./components/Lightbox";
+import Footer from "./components/Footer";
+import Vision from "./components/Vision";
+import LogoLoader from "./components/LogoLoader"; // ✅ ADD THIS
+
+const projects = [
+  { id: "01", type: "BRUTALISM", title: "The Concrete Echo", src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80", span: "tall" },
+  { id: "02", type: "MODERNISM", title: "Glass Monoliths", src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80", span: "wide" },
+  { id: "03", type: "FUTURISM", title: "Neo-Tokyo Voids", src: "https://images.unsplash.com/photo-1490761668535-35497054764d?auto=format&fit=crop&w=1200&q=80", span: "wide" },
+  { id: "04", type: "TRADITION", title: "Stone Origins", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80", span: "tall" },
+];
 
 export default function Home() {
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="bg-[#050505] min-h-screen text-white selection:bg-[#d4af37] selection:text-black">
+      {/* 1. INITIAL PAGE PRELOADER */}
+      <div
+        className={`fixed inset-0 z-[100] bg-[#050505] flex items-center justify-center transition-transform duration-[1500ms] cubic-bezier ${
+          !isLoading ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
+        {/* ✅ swapped your old preloader content for the logo loader */}
+        <LogoLoader size={110} label="Loading Monolith…" />
+      </div>
+
+      {/* 2. THE NAVIGATION & HERO */}
+      <div className={`transition-opacity duration-1000 delay-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+        <Navbar />
+        <Hero />
+      </div>
+
+      {/* 3. CONTENT FLOW */}
+      <div className="relative z-10">
+        <Vision />
+
+        {/* PROJECT GALLERY */}
+        <section className="px-[10%] py-40 md:py-60 bg-[#050505]">
+          <div className="mb-32 flex flex-col md:flex-row justify-between items-end gap-8">
+            <h2 className="font-cormorant text-6xl md:text-8xl font-light tracking-tighter">
+              Selected <br /> <span className="italic opacity-50">Works.</span>
+            </h2>
+            <p className="font-montserrat text-[0.6rem] tracking-[5px] uppercase text-white/40 max-w-[300px] leading-relaxed">
+              A curated archive of structures built between silence and noise. 2018 — 2026.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-12 md:gap-x-12 gap-y-24 md:gap-y-48">
+            {projects.map((p) => (
+              <ProjectCard key={p.id} project={p} onOpen={setSelectedImg} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* 4. FINAL CLOSURE */}
+      <Footer />
+
+      {/* 5. OVERLAYS */}
+      {selectedImg && <Lightbox src={selectedImg} onClose={() => setSelectedImg(null)} />}
+
+      {/* GLOBAL ANIMATION INJECTIONS */}
+      <style jsx global>{`
+        @keyframes grow-h {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        .cubic-bezier {
+          transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        ::-webkit-scrollbar {
+          width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #d4af3733;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #d4af37;
+        }
+      `}</style>
+    </main>
   );
 }

@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* MONOLITH Brand Colors */
+  --background: #050505;
+  --foreground: #ffffff;
+  --accent: #d4af37;
+  
+  /* Cubic Bezier for Luxury Transitions */
+  --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --font-montserrat: var(--font-montserrat);
+  --font-cormorant: var(--font-cormorant);
+  
+  /* Adding the animation to the Tailwind theme for easy use */
+  --animate-marquee: marquee 50s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animation Definitions */
+
+/* Optimized Marquee: Use -100% for the double-buffer loop technique */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes grow-v {
+  from { height: 0; opacity: 0; }
+  to { height: 100px; opacity: 1; }
+}
+
+@keyframes grow-h {
+  from { width: 0; }
+  to { width: 300px; }
+}
+
+/* Utility Classes */
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+  will-change: transform; /* Forces GPU rendering for smoothness */
+}
+
+/* Pause marquee on hover for better readability if the user wants to look closer */
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+.animate-in {
+  animation: fadeIn 0.5s var(--ease-luxury) forwards;
+}
+
+/* Scrollbar & Selection */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+::selection {
+  background-color: var(--accent);
+  color: #000;
 }

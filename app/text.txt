@@ -1,0 +1,4 @@
+ <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
+          <div className="w-5 h-9 border border-white rounded-full relative after:content-[''] after:w-1 after:h-1 after:bg-white after:absolute after:left-1/2 after:-translate-x-1/2 after:top-2 after:rounded-full after:animate-bounce" />
+          <span className="text-[0.6rem] tracking-[2px] font-montserrat">SCROLL</span>
+        </div>
