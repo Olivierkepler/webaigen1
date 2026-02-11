@@ -18,8 +18,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+
   title: "MONOLITH | Global Architectural Archive",
   description: "A cinematic digital archive of global brutalist and modern architecture.",
+  icons: {
+    icon: "/images/webaigen_cropped.png",
+    shortcut: "/images/webaigen_cropped.png",
+    apple: "/images/webaigen_cropped.png"}
 };
 
 export default function RootLayout({
