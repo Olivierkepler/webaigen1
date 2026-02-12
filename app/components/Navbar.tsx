@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 w-full px-[5%] py-6 md:py-8 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5 transition-all duration-500">
+      <nav className="fixed top-0 w-full px-[5%] py-4 md:py-6 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5 transition-all duration-500">
         {/* Logo */}
         <Link href="/" className="text-xl tracking-[10px] text-[#d4af37] font-semibold font-montserrat hover:opacity-80 transition-opacity">
           <Image 
