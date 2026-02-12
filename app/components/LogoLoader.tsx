@@ -23,16 +23,16 @@ export default function LogoLoader({
         aria-label={label}
       >
         {/* subtle glow */}
-        <span className="absolute inset-0 rounded-full bg-white/50 blur-xl" />
+        <span className="absolute inset-0 rounded-full bg-white/10 blur-xl" />
 
         {/* spinning ring */}
-        <span className="absolute inset-0 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+        <span className="absolute inset-0 rounded-full border-2 border-white/10 border-t-white animate-spin" />
 
         {/* logo */}
         <div className="absolute inset-0 grid place-items-center">
           <div className="animate-pulse">
             <Image
-              src="/images/webaigen_cropped.png"
+              src="/images/weiagenlogo1.png"
               alt=""
               width={Math.round(size * 0.68)}
               height={Math.round(size * 0.68)}

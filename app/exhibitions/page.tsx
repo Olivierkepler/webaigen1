@@ -49,11 +49,15 @@ export default function ExhibitionsPage() {
              </span>
           </div>
           <div className="overflow-hidden mt-4">
-            <h1 className="font-cormorant text-8xl md:text-[12rem] italic font-light tracking-tighter leading-none animate-[slide-up_1.5s_cubic-bezier(0.23,1,0.32,1)_forwards]">
-              Installations.
-            </h1>
+            <div className="flex items-start gap-10">
+              {/* (spacer) */}
+              <span className="block w-7 md:w-10" />
+              <h1 className="font-cormorant text-[clamp(4.5rem,14vw,11rem)] md:text-7xl italic font-light tracking-tighter leading-none animate-[slide-up_1.5s_cubic-bezier(0.23,1,0.32,1)_forwards]">
+                Installations.
+              </h1>
+            </div>
           </div>
-          <div className="w-0 h-px bg-white/20 mt-12 animate-[grow-h_1.5s_ease-in-out_0.5s_forwards]" />
+          <div className="w-0 h-px bg-white/20 mt-12  animate-[grow-h_1.5s_ease-in-out_0.5s_forwards]" />
         </div>
       </header>
 
