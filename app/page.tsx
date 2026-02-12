@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
+
 // Components
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -12,6 +13,8 @@ import LogoLoader from "./components/LogoLoader"; // ✅ ADD THIS
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Subnav from "./components/Subnav";
+import Testimonial from "./components/ArchitectureTestimonials"
+
 
 const projects = [
   { id: "01", type: "BRUTALISM", title: "The Concrete Echo", src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80", span: "tall" },
@@ -48,6 +51,7 @@ export default function Home() {
         <Subnav/>
         <Hero />
       </div>
+      
 
       {/* 3. CONTENT FLOW */}
       <div className="relative z-10">
@@ -73,6 +77,7 @@ export default function Home() {
       </div>
       <Pricing/>
       <FAQ/>
+      <Testimonial/>
 
       {/* 4. FINAL CLOSURE */}
       <Footer />

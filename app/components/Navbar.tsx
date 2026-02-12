@@ -17,8 +17,9 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 w-full px-[5%] py-4 md:py-6 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5 transition-all duration-500">
-        {/* Logo */}
-        <Link href="/" className="text-xl tracking-[10px] text-[#d4af37] font-semibold font-montserrat hover:opacity-80 transition-opacity">
+       {/* <div> */}
+         {/* Logo */}
+         {/* <Link href="/" className="text-xl tracking-[10px] text-[#d4af37] font-semibold font-montserrat hover:opacity-80 transition-opacity"> */}
           {/* <Image 
             src="/images/weiagenlogo1.png" 
             alt="Monolith Logo" 
@@ -27,8 +28,46 @@ export default function Navbar() {
             draggable={false}
             priority
           /> */}
-          <NodeALogo/>
-        </Link>
+          {/* <NodeALogo/> */}
+          
+        {/* </Link> */}
+        {/*  add a  text */}
+       {/* </div> */}
+
+       <div className="group relative flex items-center gap-6">
+  {/* Logo Container with a subtle glow on hover */}
+  <Link 
+    href="/" 
+    className="relative transition-transform duration-500 ease-in-out group-hover:scale-105"
+  >
+    <div className="absolute inset-0 bg-[#d4af37] opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-20" />
+    <NodeALogo size={48} />
+  </Link>
+
+  {/* Vertical Divider Line */}
+  <div className="h-10 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+
+  {/* Text Content */}
+  <div className="flex flex-col">
+    <Link href="/" className="overflow-hidden">
+      <span className="block text-xl font-bold tracking-[12px] text-[#d4af37] font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[15px]">
+        Monolith
+      </span>
+    </Link>
+    
+    <div className="mt-1.5 flex items-center gap-2">
+      {/* Tiny Animated Status Dot */}
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d4af37] opacity-40"></span>
+        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#d4af37]"></span>
+      </span>
+      
+      <span className="font-mono text-[8px] tracking-[3px] text-white/40 uppercase">
+        World Building Archive — 2026
+      </span>
+    </div>
+  </div>
+</div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-12">

@@ -1,5 +1,6 @@
 "use client";
 import Footer from "../components/Footer";
+import Banner from "../components/Banner"
 
 const members = [
   { name: "Elias Thorne", role: "Principal Architect", origin: "London", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" },
@@ -40,6 +41,7 @@ export default function CollectivePage() {
           ))}
         </div>
       </section>
+      <Banner/>
       <Footer />
     </main>
   );
