@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import MonolithReveal from "../components/MonolithReveal"
+// import MonolithReveal from "../components/MonolithReveal"
 
 export default function Hero() {
   const targetY = useRef(0);
@@ -63,12 +63,12 @@ export default function Hero() {
       {/* 2. Main Content Layer */}
       <div className="px-[10%] z-10 relative w-full">
         <div className="overflow-hidden mb-6">
-          <p className="font-montserrat  font-extralight tracking-[8px] uppercase text-[0.95rem] text-[#d4af37] animate-[slide-up_1s_ease-out_forwards]">
+          <p className="font-montserrat font-bold font-extralight tracking-[8px] uppercase text-[0.95rem] text-[#d4af37] animate-[slide-up_1s_ease-out_forwards]">
             Global Architecture Collective
           </p>
         </div>
 
-        {/* <h1 className="font-cormorant text-[clamp(4rem,12vw,10rem)] leading-[0.8] font-light tracking-tighter">
+        <h1 className="font-cormorant text-[clamp(4rem,12vw,10rem)] leading-[0.8] font-light tracking-tighter">
           <span className="block overflow-hidden">
             <span className="block animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.2s_forwards]">
               The Soul
@@ -82,13 +82,13 @@ export default function Hero() {
               </span>
             </span>
           </span>
-        </h1> */}
-        <MonolithReveal/>
+        </h1>
+        {/* <MonolithReveal/> */}
 
         {/* 3. The "Get Started" Architectural Button */}
         <div className="mt-16 overflow-hidden">
           <div className="animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.8s_forwards] opacity-0">
-            <button className="group relative px-12 py-5 overflow-hidden border border-white/10 transition-all duration-500 hover:border-[#d4af37]/50">
+            <button className="group cursor-pointer relative px-12 py-5 overflow-hidden border border-white/10 transition-all duration-500 hover:border-[#d4af37]/50">
               <div className="absolute inset-0 w-0 bg-[#d4af37] transition-all duration-[700ms] cubic-bezier(0.23,1,0.32,1) group-hover:w-full" />
               <span className="relative z-10 font-bold cursor-pointer font-montserrat text-[0.65rem] tracking-[5px] uppercase text-white group-hover:text-black transition-colors duration-500">
                 Begin Exploration

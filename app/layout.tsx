@@ -29,22 +29,25 @@ export const metadata: Metadata = {
     apple: "/images/favicon_32_black.png",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${cormorant.variable}`}>
+    /* Added bg-black to html to fix mobile overscroll "white flash" */
+    <html lang="en" className={`${montserrat.variable} ${cormorant.variable} bg-[#050505]`}>
       <body
-        className={`bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black`}
+        className={`bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black min-h-screen`}
       >
-        {/* Global Components: These stay active across all routes */}
         <CustomCursor />
         <Navbar />
         
-        {/* Page Content: Injected from app/page.tsx or subfolders */}
-        {children}
+        {/* main tag ensures the content area at least fills the mobile viewport */}
+        <main className="min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
