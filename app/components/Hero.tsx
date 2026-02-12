@@ -1,14 +1,24 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-// import MonolithReveal from "../components/MonolithReveal"
 
 export default function Hero() {
   const targetY = useRef(0);
   const rafId = useRef<number | null>(null);
 
-  // This is the smoothed scroll value used by the UI
   const [smoothY, setSmoothY] = useState(0);
 
+  // 🔥 Background carousel index
+  const [bgIndex, setBgIndex] = useState(0);
+
+  // Put your images here (local /public paths or URLs)
+  const bgImages = [
+    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1920&q=80",
+  ];
+  
+
+  // Smooth scroll/parallax
   useEffect(() => {
     const onScroll = () => {
       targetY.current = window.scrollY || 0;
@@ -18,22 +28,18 @@ export default function Hero() {
     const tick = () => {
       rafId.current = null;
 
-      // Smoothly move toward targetY (lerp)
       setSmoothY((current) => {
-        const next = current + (targetY.current - current) * 0.08; // 0.06–0.12 feels good
-        // Stop tiny micro-updates
+        const next = current + (targetY.current - current) * 0.08;
         return Math.abs(targetY.current - next) < 0.1 ? targetY.current : next;
       });
 
-      // Keep animating while we’re not “caught up”
+      // keep animating if not caught up
       if (Math.abs(targetY.current - smoothY) > 0.5) {
         rafId.current = requestAnimationFrame(tick);
       }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-
-    // initialize
     targetY.current = window.scrollY || 0;
     setSmoothY(targetY.current);
 
@@ -44,18 +50,44 @@ export default function Hero() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ✅ Carousel autoplay (respects reduced motion)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+
+    const id = window.setInterval(() => {
+      setBgIndex((i) => (i + 1) % bgImages.length);
+    }, 6000);
+
+    return () => window.clearInterval(id);
+  }, [bgImages.length]);
+
   return (
     <header className="relative h-screen w-full flex items-center overflow-hidden bg-[#050505]">
-      {/* 1. Parallax Background Layer */}
+      {/* 1) Parallax Background + Carousel Stack */}
       <div
         className="absolute inset-0 z-0 will-change-transform"
         style={{
           transform: `translate3d(0, ${smoothY * 0.2}px, 0) scale(${1 + smoothY * 0.0005})`,
-          backgroundImage: `url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1920&q=80')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
       >
+        {/* Carousel slides */}
+        <div className="absolute inset-0">
+          {bgImages.map((src, i) => (
+            <div
+              key={src}
+              className={[
+                "absolute inset-0 bg-cover bg-center",
+                "transition-opacity duration-1000 ease-in-out",
+                i === bgIndex ? "opacity-100" : "opacity-0",
+              ].join(" ")}
+              style={{ backgroundImage: `url('${src}')` }}
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+
+        {/* Keep your overlays on top of the slides */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#050505]" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
       </div>
@@ -83,9 +115,8 @@ export default function Hero() {
             </span>
           </span>
         </h1>
-        {/* <MonolithReveal/> */}
 
-        {/* 3. The "Get Started" Architectural Button */}
+        {/* Button */}
         <div className="mt-16 overflow-hidden">
           <div className="animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.8s_forwards] opacity-0">
             <button className="group cursor-pointer relative px-12 py-5 overflow-hidden border border-white/10 transition-all duration-500 hover:border-[#d4af37]/50">
@@ -102,33 +133,24 @@ export default function Hero() {
         <div className="h-px bg-[#d4af37]/40 mt-16 w-0 animate-[grow-h_1.5s_ease-in-out_1s_forwards]" />
       </div>
 
-      {/* 4. Refined Scroll Indicator (smooth) */}
-    {/* 4. Refined Scroll Indicator (professional) */}
-<div
-  className="absolute bottom-10 left-1/2 z-10 flex flex-col items-center gap-3 pointer-events-none select-none"
-  style={{
-    // Fade out as the user scrolls
-    opacity: Math.max(0, 0.75 - smoothY / 320),
-    // Subtle drift for depth (keeps the -50% centering stable)
-    transform: `translate3d(-50%, ${Math.min(18, smoothY * 0.06)}px, 0)`,
-  }}
-  role="presentation"
-  aria-hidden="true"
->
-  {/* "Mouse" shell */}
-  <div className="relative h-14 w-8 rounded-full border border-white/35 bg-white/[0.02] shadow-[0_0_0_1px_rgba(0,0,0,0.35)_inset] backdrop-blur-[2px]">
-    {/* Inner guide line */}
-    <span className="absolute left-1/2 top-3 h-7 w-px -translate-x-1/2 bg-white/10" />
-
-    {/* Indicator dot */}
-    <span className="absolute left-2/3 top-3 h-2 w-2 -translate-x-1/2 rounded-full bg-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.35)] animate-[scrollDot_2.4s_cubic-bezier(0.23,1,0.32,1)_infinite]" />
-  </div>
-
-  {/* Label */}
-  <span className="text-[0.55rem] font-montserrat uppercase tracking-[5px] text-white">
-    Scroll
-  </span>
-</div>
+      {/* Scroll Indicator */}
+      <div
+        className="absolute bottom-10 left-1/2 z-10 flex flex-col items-center gap-3 pointer-events-none select-none"
+        style={{
+          opacity: Math.max(0, 0.75 - smoothY / 320),
+          transform: `translate3d(-50%, ${Math.min(18, smoothY * 0.06)}px, 0)`,
+        }}
+        role="presentation"
+        aria-hidden="true"
+      >
+        <div className="relative h-14 w-8 rounded-full border border-white/35 bg-white/[0.02] shadow-[0_0_0_1px_rgba(0,0,0,0.35)_inset] backdrop-blur-[2px]">
+          <span className="absolute left-1/2 top-3 h-7 w-px -translate-x-1/2 bg-white/10" />
+          <span className="absolute left-2/3 top-3 h-2 w-2 -translate-x-1/2 rounded-full bg-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.35)] animate-[scrollDot_2.4s_cubic-bezier(0.23,1,0.32,1)_infinite]" />
+        </div>
+        <span className="text-[0.55rem] font-montserrat uppercase tracking-[5px] text-white">
+          Scroll
+        </span>
+      </div>
 
       {/* Side Decorative Metadata */}
       <div className="absolute mt-50 left-12 top-1/2 -rotate-90 origin-left z-10 hidden md:block opacity-20">
@@ -142,25 +164,23 @@ export default function Hero() {
           -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
         }
 
-       
-
         @keyframes scrollDot {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -2px);
-  }
-  20% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-    transform: translate(-50%, 14px);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 20px);
-  }
-}
+          0% {
+            opacity: 0;
+            transform: translate(-50%, -2px);
+          }
+          20% {
+            opacity: 1;
+          }
+          60% {
+            opacity: 1;
+            transform: translate(-50%, 14px);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+          }
+        }
       `}</style>
     </header>
   );
