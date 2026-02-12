@@ -63,10 +63,10 @@ export default function Hero() {
   }, [bgImages.length]);
 
   return (
-    <header className="relative h-screen w-full flex items-center overflow-hidden bg-[#050505]">
+    <header className="relative h-screen w-full  flex items-center overflow-hidden bg-[#050505]">
       {/* 1) Parallax Background + Carousel Stack */}
       <div
-        className="absolute inset-0 z-0 will-change-transform"
+        className="absolute inset-0 z-0 will-change-transform  "
         style={{
           transform: `translate3d(0, ${smoothY * 0.2}px, 0) scale(${1 + smoothY * 0.0005})`,
         }}
@@ -93,7 +93,7 @@ export default function Hero() {
       </div>
 
       {/* 2. Main Content Layer */}
-      <div className="px-[10%] z-10 relative w-full">
+      <div className="px-[10%] z-10 relative w-full mt-10">
         <div className="overflow-hidden mb-6">
           <p className="font-montserrat font-bold font-extralight tracking-[8px] uppercase text-[0.95rem] text-[#d4af37] animate-[slide-up_1s_ease-out_forwards]">
             Global Architecture Collective
