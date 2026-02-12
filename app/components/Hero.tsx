@@ -79,7 +79,7 @@ export default function Hero() {
         }}
       >
         <div className="w-10 h-16 border-2 border-white rounded-full relative">
-          <div className="w-4 h-4 bg-yellow-500 absolute left-1/2 -translate-x-1/2 rounded-full animate-[scroll-anim_2s_infinite]" />
+          <div className="w-4 h-4 bg-[#d4af37] absolute left-1/2 -translate-x-1/2 top-3 rounded-full animate-bounce" /> 
         </div>
         <span className="text-[0.5rem] tracking-[3px] font-montserrat uppercase opacity-40">Scroll</span>
       </div>

@@ -9,6 +9,8 @@ import Lightbox from "./components/Lightbox";
 import Footer from "./components/Footer";
 import Vision from "./components/Vision";
 import LogoLoader from "./components/LogoLoader"; // ✅ ADD THIS
+import Pricing from "./components/Pricing";
+import FAQ from "./components/FAQ";
 
 const projects = [
   { id: "01", type: "BRUTALISM", title: "The Concrete Echo", src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80", span: "tall" },
@@ -67,6 +69,8 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <Pricing/>
+      <FAQ/>
 
       {/* 4. FINAL CLOSURE */}
       <Footer />
