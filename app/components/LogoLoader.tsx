@@ -1,5 +1,6 @@
 // components/LogoLoader.tsx
 import Image from "next/image";
+import Logo from "../components/logo"
 
 type LogoLoaderProps = {
   size?: number;            // px
@@ -26,12 +27,12 @@ export default function LogoLoader({
         <span className="absolute inset-0 rounded-full bg-white/10 blur-xl" />
 
         {/* spinning ring */}
-        <span className="absolute inset-0 rounded-full border-2 border-white/10 border-t-white animate-spin" />
+        <span className="absolute inset-0 rounded-full border-2 border-white/10 border-t-[#d4af37] animate-spin" />
 
         {/* logo */}
         <div className="absolute inset-0 grid place-items-center">
-          <div className="animate-pulse">
-            <Image
+          <div className="animate-pulse ">
+            {/* <Image
               src="/images/weiagenlogo1.png"
               alt=""
               width={Math.round(size * 0.68)}
@@ -39,12 +40,13 @@ export default function LogoLoader({
               priority
               className="select-none"
               draggable={false}
-            />
+            /> */}
+            <Logo/>
           </div>
         </div>
       </div>
 
-      {showLabel && <span className="text-sm text-white/80">{label}</span>}
+      {showLabel && <span className="text-sm text-[#d4af37]">{label}</span>}
     </div>
   );
 }

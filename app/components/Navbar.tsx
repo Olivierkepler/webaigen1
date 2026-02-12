@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
+import NodeALogo from "../components/NodeALogo"
 
 const navLinks = [
   { name: "Archive", href: "/archive" },
@@ -18,14 +19,15 @@ export default function Navbar() {
       <nav className="fixed top-0 w-full px-[5%] py-4 md:py-6 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5 transition-all duration-500">
         {/* Logo */}
         <Link href="/" className="text-xl tracking-[10px] text-[#d4af37] font-semibold font-montserrat hover:opacity-80 transition-opacity">
-          <Image 
+          {/* <Image 
             src="/images/weiagenlogo1.png" 
             alt="Monolith Logo" 
             width={56} 
             height={56} 
             draggable={false}
             priority
-          />
+          /> */}
+          <NodeALogo/>
         </Link>
 
         {/* Desktop Links */}

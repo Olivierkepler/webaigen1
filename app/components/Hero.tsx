@@ -100,7 +100,7 @@ export default function Hero() {
           </p>
         </div>
 
-        <h1 className="font-cormorant text-[clamp(4rem,12vw,10rem)] leading-[0.8] font-light tracking-tighter">
+        <h1 className="font-cormorant text-[clamp(2rem,6vw,5rem)] leading-[0.85] font-light tracking-tighter">
           <span className="block overflow-hidden">
             <span className="block animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.2s_forwards]">
               The Soul
