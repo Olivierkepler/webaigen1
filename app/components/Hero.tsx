@@ -36,7 +36,7 @@ export default function Hero() {
   }, [bgImages.length]);
 
   return (
-    <section className="relative h-screen top-10 sm:top-0 w-full overflow-hidden bg-[#030303] text-white">
+    <section className="relative h-screen  w-full overflow-hidden bg-[#030303] text-white">
       
       {/* --- BACKGROUND LAYER --- */}
       <motion.div 
