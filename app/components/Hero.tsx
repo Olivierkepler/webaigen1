@@ -131,7 +131,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 1 }}
-            className="mt-20 flex flex-wrap gap-8 border-t border-white/10 pt-8"
+            className="mt-20 hidden sm:flex flex-wrap gap-8 border-t border-white/10 pt-8"
           >
              <Stat label="Uptime Guarantee" value="99.9%" />
              <Stat label="Projects Shipped" value="150+" />
