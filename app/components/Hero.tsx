@@ -113,16 +113,18 @@ export default function Hero() {
             Deploy production-ready systems that are <span className="text-white">secure by design</span>.
           </motion.p>
 
-          {/* Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-12 flex flex-wrap items-center gap-4"
-          >
-            <PrimaryButton href="/contact">Start Project</PrimaryButton>
-            <SecondaryButton href="/work">View Case Studies</SecondaryButton>
-          </motion.div>
+        {/* Buttons Container */}
+{/* Buttons Container */}
+<motion.div 
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.8, duration: 0.8 }}
+  // Changed: flex-col on mobile, flex-row on small screens and up
+  className="mt-12 flex w-full flex-col gap-3 sm:flex-row sm:w-auto sm:items-center sm:gap-4"
+>
+  <PrimaryButton href="/contact">Start Project</PrimaryButton>
+  <SecondaryButton href="/work">View Case Studies</SecondaryButton>
+</motion.div>
 
           {/* Stats / Trust (The "Footer" of the hero) */}
           <motion.div 
@@ -143,10 +145,13 @@ export default function Hero() {
 }
 
 // --- Micro-Components for cleanness ---
-
 function PrimaryButton({ children, href }: { children: React.ReactNode, href: string }) {
   return (
-    <Link href={href} className="group relative overflow-hidden rounded-full bg-white px-8 py-4 transition-all hover:scale-[1.02] active:scale-[0.98]">
+    <Link 
+      href={href} 
+      // Added: w-full sm:w-auto, justify-center
+      className="group relative flex w-full items-center justify-center overflow-hidden rounded-full bg-white px-8 py-4 transition-all hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
+    >
       <span className="relative z-10 font-montserrat text-xs font-bold uppercase tracking-[3px] text-black">
         {children}
       </span>
@@ -158,10 +163,15 @@ function PrimaryButton({ children, href }: { children: React.ReactNode, href: st
 
 function SecondaryButton({ children, href }: { children: React.ReactNode, href: string }) {
   return (
-    <Link href={href} className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-4 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10">
+    <Link 
+      href={href} 
+      // Added: w-full sm:w-auto, justify-center
+      className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-4 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10 sm:w-auto"
+    >
       <span className="font-montserrat text-xs font-medium uppercase tracking-[3px] text-white">
         {children}
       </span>
+      {/* Arrow stays nicely aligned */}
       <span className="text-white/50 transition-transform duration-300 group-hover:translate-x-1">→</span>
     </Link>
   );
