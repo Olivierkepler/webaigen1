@@ -19,7 +19,7 @@ export default function ContactSubnav() {
               href="tel:+442079460123" 
               className="font-montserrat text-[9px] md:text-[10px] tracking-[1px] md:tracking-[2px] hover:text-[#d4af37] transition-colors duration-300"
             >
-              +44 20 7946 0123
+              +6173808053
             </a>
           </div>
           
@@ -32,7 +32,7 @@ export default function ContactSubnav() {
               href="mailto:studio@monolith.arc" 
               className="font-montserrat text-[9px] md:text-[10px] tracking-[1px] md:tracking-[2px] hover:text-[#d4af37] transition-colors duration-300 uppercase"
             >
-              studio@monolith.arc
+             webaigen3@gmail.com
             </a>
           </div>
         </div>
@@ -51,9 +51,10 @@ export default function ContactSubnav() {
               }
             `}</style>
           </div>
-          <span className=" font-mono text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] uppercase text-white/50 whitespace-nowrap">
-            Available 2026
-          </span>
+          <span className="font-mono text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] uppercase text-white/50 whitespace-nowrap">
+  Accepting New Projects
+</span>
+
         </div>
 
       </div>

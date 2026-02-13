@@ -54,7 +54,7 @@ export default function Navbar() {
             <div className="hidden sm:flex flex-col">
               <Link href="/" className="overflow-hidden">
                 <span className="block text-base md:text-lg font-bold tracking-[10px] md:tracking-[12px] text-[#d4af37] font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[13px] md:group-hover:tracking-[15px]">
-                  Monolith
+                  WebAiGen
                 </span>
               </Link>
 
@@ -65,7 +65,7 @@ export default function Navbar() {
                 </span>
 
                 <span className="font-mono text-[8px] tracking-[3px] text-white/40 uppercase">
-                  World Building Archive — 2026
+                AI Solutions & Web Services
                 </span>
               </div>
             </div>

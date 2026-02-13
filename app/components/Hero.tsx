@@ -94,23 +94,26 @@ export default function Hero() {
 
       {/* 2. Main Content Layer */}
       <div className="px-[10%] z-10 relative w-full mt-10">
-        <div className="overflow-hidden mb-6">
+        <div className="overflow-hidden mb-6 max-w-2xl">
           <p className="font-montserrat font-bold font-extralight tracking-[8px] uppercase text-[0.95rem] text-[#d4af37] animate-[slide-up_1s_ease-out_forwards]">
-            Global Architecture Collective
+            {/* Global Architecture Collective */}
+            WebAiGen provides a premium platform for developers 
+            and agencies to ship faster, look better, 
+             and dominate the digital landscape.
           </p>
         </div>
 
         <h1 className="font-cormorant text-[clamp(2rem,6vw,5rem)] leading-[0.85] font-light tracking-tighter">
           <span className="block overflow-hidden">
             <span className="block animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.2s_forwards]">
-              The Soul
+            Design and build 
             </span>
           </span>
           <span className="block overflow-hidden mt-2">
             <span className="block italic font-light animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.4s_forwards]">
-              of the{" "}
+            at the{" "}
               <span className="not-italic stroke-text text-transparent">
-                Structure.
+              speed of light.
               </span>
             </span>
           </span>
