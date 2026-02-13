@@ -36,7 +36,7 @@ export default function Hero() {
   }, [bgImages.length]);
 
   return (
-    <section className="relative h-screen top-30 md:top-0 w-full overflow-hidden bg-[#030303] text-white">
+    <section className="relative h-screen top-35 sm:top-0 w-full overflow-hidden bg-[#030303] text-white">
       
       {/* --- BACKGROUND LAYER --- */}
       <motion.div 
@@ -79,7 +79,7 @@ export default function Hero() {
           
 
           {/* Headline */}
-          <h1 className="font-cormorant text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.85] font-light tracking-tight text-white mix-blend-color-dodge">
+          <h1 className="font-cormorant text-[clamp(2.5rem,6vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.85] font-light tracking-tight text-white mix-blend-color-dodge">
             <span className="block overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}
@@ -99,10 +99,7 @@ export default function Hero() {
               >
                  at the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-amber-200 to-[#d4af37] animate-gradient-x bg-[length:200%_auto]">speed of light.</span>
               </motion.span>
-
-             
             </span>
-            
           </h1>
 
           {/* Subtext */}
