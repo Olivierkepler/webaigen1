@@ -1,0 +1,47 @@
+[
+  {
+    "type": "section",
+    "page": "Contact",
+    "component": "ContactPage",
+    "title": "Inquiry & Concept",
+    "href": "/contact",
+    "summary": "Connect with the Archive. Whether you are looking to contribute to the archive, inquire about a specific structure, or discuss a future collaboration, our collective is listening.",
+    "keywords": ["contact", "inquiry", "concept", "connect", "archive", "collaboration", "contribute"]
+  },
+  {
+    "type": "headline",
+    "page": "Contact",
+    "component": "ContactPage",
+    "title": "Connect with the Archive",
+    "href": "/contact",
+    "summary": "Section label for contact page.",
+    "keywords": ["connect", "archive", "contact"]
+  },
+  {
+    "type": "label",
+    "page": "Contact",
+    "component": "ContactPage",
+    "title": "Location",
+    "href": "/contact",
+    "summary": "Omotesando, Tokyo, JP.",
+    "keywords": ["location", "omotesando", "tokyo", "japan", "address"]
+  },
+  {
+    "type": "label",
+    "page": "Contact",
+    "component": "ContactPage",
+    "title": "Direct",
+    "href": "/contact",
+    "summary": "contact@monolith-archive.co",
+    "keywords": ["direct", "email", "contact", "monolith-archive"]
+  },
+  {
+    "type": "form",
+    "page": "Contact",
+    "component": "ContactPage",
+    "title": "Send Inquiry",
+    "href": "/contact",
+    "summary": "Contact form with Full Name, Email Address, Your Message.",
+    "keywords": ["send", "inquiry", "form", "message", "full name", "email"]
+  }
+]

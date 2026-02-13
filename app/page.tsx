@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-
 // Components
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -9,18 +8,41 @@ import ProjectCard from "./components/Gallery/ProjectCard";
 import Lightbox from "./components/Lightbox";
 import Footer from "./components/Footer";
 import Vision from "./components/Vision";
-import LogoLoader from "./components/LogoLoader"; // ✅ ADD THIS
+import LogoLoader from "./components/LogoLoader";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Subnav from "./components/Subnav";
-import Testimonial from "./components/ArchitectureTestimonials"
-
+import Testimonial from "./components/ArchitectureTestimonials";
 
 const projects = [
-  { id: "01", type: "BRUTALISM", title: "The Concrete Echo", src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80", span: "tall" },
-  { id: "02", type: "MODERNISM", title: "Glass Monoliths", src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80", span: "wide" },
-  { id: "03", type: "FUTURISM", title: "Neo-Tokyo Voids", src: "https://images.unsplash.com/photo-1490761668535-35497054764d?auto=format&fit=crop&w=1200&q=80", span: "wide" },
-  { id: "04", type: "TRADITION", title: "Stone Origins", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80", span: "tall" },
+  {
+    id: "01",
+    type: "BRUTALISM",
+    title: "The Concrete Echo",
+    src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80",
+    span: "tall",
+  },
+  {
+    id: "02",
+    type: "MODERNISM",
+    title: "Glass Monoliths",
+    src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    span: "wide",
+  },
+  {
+    id: "03",
+    type: "FUTURISM",
+    title: "Neo-Tokyo Voids",
+    src: "https://images.unsplash.com/photo-1490761668535-35497054764d?auto=format&fit=crop&w=1200&q=80",
+    span: "wide",
+  },
+  {
+    id: "04",
+    type: "TRADITION",
+    title: "Stone Origins",
+    src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80",
+    span: "tall",
+  },
 ];
 
 export default function Home() {
@@ -35,30 +57,39 @@ export default function Home() {
 
   return (
     <main className="bg-[#050505] min-h-screen text-white selection:bg-[#d4af37] selection:text-black">
-      {/* 1. INITIAL PAGE PRELOADER */}
+      {/* 1) INITIAL PAGE PRELOADER */}
       <div
         className={`fixed inset-0 z-[100] bg-[#050505] flex items-center justify-center transition-transform duration-[1500ms] cubic-bezier ${
           !isLoading ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        {/* ✅ swapped your old preloader content for the logo loader */}
         <LogoLoader size={110} label="Loading Monolith…" />
       </div>
 
-      {/* 2. THE NAVIGATION & HERO */}
-      <div className={`transition-opacity duration-1000 delay-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      {/* 2) NAVIGATION + HERO */}
+      <section
+        id="hero"
+        className={`scroll-mt-28 transition-opacity duration-1000 delay-700 ${
+          isLoading ? "opacity-0" : "opacity-100"
+        }`}
+      >
         <Navbar />
-        <Subnav/>
+        <Subnav />
         <Hero />
-      </div>
-      
+      </section>
 
-      {/* 3. CONTENT FLOW */}
+      {/* 3) CONTENT FLOW */}
       <div className="relative z-10">
-        <Vision />
+        {/* Vision */}
+        <section id="vision" className="scroll-mt-28">
+          <Vision />
+        </section>
 
-        {/* PROJECT GALLERY */}
-        <section className="px-[10%] py-40 md:py-60 bg-[#050505]">
+        {/* Selected Works */}
+        <section
+          id="selected-works"
+          className="scroll-mt-28 px-[10%] py-40 md:py-60 bg-[#050505]"
+        >
           <div className="mb-32 flex flex-col md:flex-row justify-between items-end gap-8">
             <h2 className="font-cormorant text-6xl md:text-8xl font-light tracking-tighter">
               Selected <br /> <span className="italic opacity-50">Works.</span>
@@ -75,15 +106,31 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <Pricing/>
-      <FAQ/>
-      <Testimonial/>
 
-      {/* 4. FINAL CLOSURE */}
-      <Footer />
+      {/* Pricing */}
+      <section id="pricing" className="scroll-mt-28">
+        <Pricing />
+      </section>
 
-      {/* 5. OVERLAYS */}
-      {selectedImg && <Lightbox src={selectedImg} onClose={() => setSelectedImg(null)} />}
+      {/* FAQ */}
+      <section id="faq" className="scroll-mt-28">
+        <FAQ />
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="scroll-mt-28">
+        <Testimonial />
+      </section>
+
+      {/* Footer */}
+      <footer id="footer" className="scroll-mt-28">
+        <Footer />
+      </footer>
+
+      {/* Lightbox overlay */}
+      {selectedImg && (
+        <Lightbox src={selectedImg} onClose={() => setSelectedImg(null)} />
+      )}
 
       {/* GLOBAL ANIMATION INJECTIONS */}
       <style jsx global>{`

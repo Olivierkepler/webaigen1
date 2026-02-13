@@ -1,0 +1,38 @@
+[
+  {
+    "type": "section",
+    "page": "Home",
+    "component": "Subnav",
+    "title": "Subnav",
+    "href": "/#hero",
+    "summary": "Sticky contact bar with phone, email, and availability. Sits below navbar in hero area.",
+    "keywords": ["subnav", "contact", "inquiry", "phone", "email", "availability"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Subnav",
+    "title": "Inquiry",
+    "href": "/contact",
+    "summary": "Phone contact: +44 20 7946 0123. Links to contact page.",
+    "keywords": ["inquiry", "phone", "contact", "+44", "7946", "0123"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Subnav",
+    "title": "Email",
+    "href": "/contact",
+    "summary": "Email: studio@monolith.arc. Links to contact page.",
+    "keywords": ["email", "studio", "monolith", "contact", "studio@monolith.arc"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Subnav",
+    "title": "Available 2026",
+    "href": "/#hero",
+    "summary": "Operational status indicator.",
+    "keywords": ["available", "2026", "status", "operational"]
+  }
+]

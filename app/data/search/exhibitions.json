@@ -1,0 +1,56 @@
+[
+  {
+    "type": "section",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "Installations",
+    "href": "/exhibitions",
+    "summary": "Global Circuit. Exhibition installations and shows.",
+    "keywords": ["exhibitions", "installations", "global circuit", "shows", "events"]
+  },
+  {
+    "type": "headline",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "Global Circuit",
+    "href": "/exhibitions",
+    "summary": "Section label for exhibitions.",
+    "keywords": ["global", "circuit", "exhibitions"]
+  },
+  {
+    "type": "exhibition",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "Shadow & Void",
+    "href": "/exhibitions",
+    "summary": "Upcoming MAR 2026 — Tokyo, National Art Center. An immersive exploration of brutalist shadows through 1:1 scale light installations.",
+    "keywords": ["shadow", "void", "upcoming", "tokyo", "national art center", "brutalist", "light installations", "2026"]
+  },
+  {
+    "type": "exhibition",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "The Silent Monolith",
+    "href": "/exhibitions",
+    "summary": "Current JAN 2026 — London, Tate Modern. Documenting the decaying concrete structures of the post-soviet era.",
+    "keywords": ["silent", "monolith", "current", "london", "tate modern", "concrete", "post-soviet", "2026"]
+  },
+  {
+    "type": "exhibition",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "Glass Ethics",
+    "href": "/exhibitions",
+    "summary": "Archive OCT 2025 — New York, MoMA. The evolution of transparency in 21st-century corporate architecture.",
+    "keywords": ["glass", "ethics", "archive", "new york", "moma", "transparency", "corporate", "architecture", "2025"]
+  },
+  {
+    "type": "cta",
+    "page": "Exhibitions",
+    "component": "ExhibitionsPage",
+    "title": "Request Entry",
+    "href": "/exhibitions",
+    "summary": "Button to request exhibition entry or tickets.",
+    "keywords": ["request", "entry", "tickets", "reserve"]
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "type": "section",
+    "page": "Try",
+    "component": "TryPage",
+    "title": "Try",
+    "href": "/try",
+    "summary": "Try page with logo.",
+    "keywords": ["try", "logo", "test"]
+  }
+]

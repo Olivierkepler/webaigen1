@@ -5,40 +5,56 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Search, Command, X } from "lucide-react";
 
-type SearchItem = {
-  title: string;
-  href: string;
-  description?: string;
-  keywords?: string[];
-};
+import { getSearchItems, type SearchItem } from "@/app/lib/searchIndex";
 
 type SearchBarProps = {
   items?: SearchItem[];
   placeholder?: string;
 };
 
-const DEFAULT_ITEMS: SearchItem[] = [
-  { title: "Archive", href: "/archive", description: "Browse the archive", keywords: ["library", "index"] },
-  { title: "Collective", href: "/collective", description: "Our studio & collaborators", keywords: ["team", "about"] },
-  { title: "Exhibitions", href: "/exhibitions", description: "Current and past exhibitions", keywords: ["shows", "gallery"] },
-  { title: "Inquiry", href: "/contact", description: "Contact and inquiries", keywords: ["email", "form"] },
-];
-
-export default function SearchBar({
-  items = DEFAULT_ITEMS,
-  placeholder = "Search…",
-}: SearchBarProps) {
+export default function SearchBar({ items, placeholder = "Search…" }: SearchBarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const searchItems = useMemo(() => items ?? getSearchItems(), [items]);
 
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Cmd+K / Ctrl+K to focus
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return searchItems.slice(0, 7);
+
+    return searchItems
+      .map((item) => {
+        const haystack = [
+          item.title,
+          item.description ?? "",
+          ...(item.keywords ?? []),
+          item.href,
+          item.meta ?? "",
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        const score =
+          (item.title.toLowerCase().includes(q) ? 4 : 0) +
+          ((item.keywords ?? []).some((k) => k.toLowerCase().includes(q)) ? 2 : 0) +
+          (haystack.includes(q) ? 1 : 0);
+
+        return { item, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((x) => x.item)
+      .slice(0, 10);
+  }, [searchItems, query]);
+
+  // Cmd+K / Ctrl+K to focus + keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
@@ -50,7 +66,6 @@ export default function SearchBar({
         return;
       }
 
-      // When dropdown open, support keyboard nav
       if (!isOpen) return;
 
       if (key === "escape") {
@@ -58,10 +73,10 @@ export default function SearchBar({
         inputRef.current?.blur();
       } else if (key === "arrowdown") {
         e.preventDefault();
-        setActiveIndex((i) => i + 1);
+        setActiveIndex((i) => clamp(i + 1, 0, Math.max(0, filtered.length - 1)));
       } else if (key === "arrowup") {
         e.preventDefault();
-        setActiveIndex((i) => i - 1);
+        setActiveIndex((i) => clamp(i - 1, 0, Math.max(0, filtered.length - 1)));
       } else if (key === "enter") {
         e.preventDefault();
         const target = filtered[clamp(activeIndex, 0, Math.max(0, filtered.length - 1))];
@@ -75,44 +90,14 @@ export default function SearchBar({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, activeIndex]);
+  }, [isOpen, activeIndex, filtered, router]);
 
-  // Close dropdown on route change (nice UX)
+  // Close dropdown on route change
   useEffect(() => {
     setIsOpen(false);
-    // keep query if you want; most nav search clears:
-    // setQuery("");
   }, [pathname]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return items.slice(0, 6);
-
-    return items
-      .map((item) => {
-        const haystack = [
-          item.title,
-          item.description ?? "",
-          ...(item.keywords ?? []),
-          item.href,
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        const score =
-          (item.title.toLowerCase().includes(q) ? 3 : 0) +
-          (haystack.includes(q) ? 1 : 0);
-
-        return { item, score };
-      })
-      .filter((x) => x.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map((x) => x.item)
-      .slice(0, 8);
-  }, [items, query]);
-
-  // keep activeIndex in bounds when filtered changes
+  // Reset selection on query change
   useEffect(() => {
     setActiveIndex(0);
   }, [query]);
@@ -148,7 +133,6 @@ export default function SearchBar({
           }}
           onBlur={() => {
             setIsFocused(false);
-            // Delay close so clicks on results register
             window.setTimeout(() => setIsOpen(false), 120);
           }}
           className="bg-transparent border-none outline-none text-sm text-white/85 w-full placeholder:text-white/35"
@@ -158,11 +142,10 @@ export default function SearchBar({
           autoComplete="off"
         />
 
-        {/* Clear button */}
         {query.length > 0 && (
           <button
             type="button"
-            onMouseDown={(e) => e.preventDefault()} // prevents input blur
+            onMouseDown={(e) => e.preventDefault()}
             onClick={() => {
               setQuery("");
               inputRef.current?.focus();
@@ -175,39 +158,36 @@ export default function SearchBar({
           </button>
         )}
 
-        {/* Shortcut badge */}
         <div className="hidden md:flex items-center gap-1 px-1.5 py-0.5 rounded border border-white/10 bg-white/[0.03] text-[10px] text-white/45 font-medium">
           <Command className="w-3 h-3" />
           <span>K</span>
         </div>
       </div>
 
-      {/* Results dropdown */}
       {showDropdown && (
         <div
           id="navbar-search-results"
           className="absolute left-0 right-0 mt-2 rounded-xl border border-white/10 bg-[#050505]/95 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.55)] overflow-hidden"
           role="listbox"
         >
-          <div className="px-3 py-2 border-b border-white/5">
-            <p className="text-[10px] font-montserrat uppercase tracking-[4px] text-white/40">
-              Results
-            </p>
+          <div className="px-3 py-2 border-b border-white/5 flex items-center justify-between">
+            <p className="text-[10px] font-montserrat uppercase tracking-[4px] text-white/40">Results</p>
+            <p className="text-[10px] font-mono text-white/35">{filtered.length}</p>
           </div>
 
           {filtered.length === 0 ? (
             <div className="px-4 py-5 text-sm text-white/55">
-              No results for <span className="text-white/85">“{query.trim()}”</span>
+              No results for <span className="text-white/85">"{query.trim()}"</span>
             </div>
           ) : (
             <ul className="py-1">
               {filtered.map((item, idx) => {
                 const isActive = idx === clamp(activeIndex, 0, filtered.length - 1);
                 return (
-                  <li key={item.href} role="option" aria-selected={isActive}>
+                  <li key={`${item.title}-${item.href}`} role="option" aria-selected={isActive}>
                     <Link
                       href={item.href}
-                      onMouseDown={(e) => e.preventDefault()} // prevents blur before navigation
+                      onMouseDown={(e) => e.preventDefault()}
                       onMouseEnter={() => setActiveIndex(idx)}
                       onClick={() => {
                         setIsOpen(false);
@@ -225,12 +205,14 @@ export default function SearchBar({
                           {item.title}
                         </p>
                         {item.description && (
-                          <p className="text-xs text-white/45 mt-1 truncate">
-                            {item.description}
-                          </p>
+                          <p className="text-xs text-white/45 mt-1 line-clamp-1">{item.description}</p>
+                        )}
+                        {item.meta && (
+                          <p className="text-[10px] text-white/35 font-mono mt-2">{item.meta}</p>
                         )}
                       </div>
-                      <span className="ml-auto text-[10px] text-white/35 font-mono">
+
+                      <span className="ml-auto text-[10px] text-white/35 font-mono hidden sm:block">
                         {item.href}
                       </span>
                     </Link>
@@ -241,12 +223,8 @@ export default function SearchBar({
           )}
 
           <div className="px-4 py-2 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[10px] text-white/35 font-mono">
-              ↑ ↓ navigate • ↵ open • esc close
-            </span>
-            <span className="text-[10px] text-white/35 font-mono">
-              ⌘K / Ctrl+K
-            </span>
+            <span className="text-[10px] text-white/35 font-mono">↑ ↓ navigate • ↵ open • esc close</span>
+            <span className="text-[10px] text-white/35 font-mono">⌘K / Ctrl+K</span>
           </div>
         </div>
       )}

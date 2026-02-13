@@ -1,0 +1,39 @@
+[
+    {
+      "type": "project",
+      "id": "01",
+      "title": "The Concrete Echo",
+      "subtitle": "BRUTALISM",
+      "href": "/#selected-works",
+      "summary": "Brutalist concrete form study.",
+      "keywords": ["brutalism", "concrete", "monolith", "structure", "selected works"]
+    },
+    {
+      "type": "project",
+      "id": "02",
+      "title": "Glass Monoliths",
+      "subtitle": "MODERNISM",
+      "href": "/#selected-works",
+      "summary": "Modern glass and vertical composition.",
+      "keywords": ["modernism", "glass", "tower", "selected works"]
+    },
+    {
+      "type": "project",
+      "id": "03",
+      "title": "Neo-Tokyo Voids",
+      "subtitle": "FUTURISM",
+      "href": "/#selected-works",
+      "summary": "Futurist city voids and light geometry.",
+      "keywords": ["futurism", "tokyo", "city", "voids", "selected works"]
+    },
+    {
+      "type": "project",
+      "id": "04",
+      "title": "Stone Origins",
+      "subtitle": "TRADITION",
+      "href": "/#selected-works",
+      "summary": "Traditional stone and heritage forms.",
+      "keywords": ["tradition", "stone", "heritage", "selected works"]
+    }
+  ]
+  

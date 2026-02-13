@@ -1,0 +1,65 @@
+[
+  {
+    "type": "section",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Navigation",
+    "href": "/",
+    "summary": "Global navigation: Archive, Collective, Exhibitions, Inquiry, and search.",
+    "keywords": ["navbar", "navigation", "menu", "nav", "links"]
+  },
+  {
+    "type": "nav",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Archive",
+    "href": "/archive",
+    "summary": "Browse the archive.",
+    "keywords": ["archive", "library", "works", "nav"]
+  },
+  {
+    "type": "nav",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Collective",
+    "href": "/collective",
+    "summary": "Studio and collaborators.",
+    "keywords": ["collective", "team", "about", "nav"]
+  },
+  {
+    "type": "nav",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Exhibitions",
+    "href": "/exhibitions",
+    "summary": "Shows and events.",
+    "keywords": ["exhibitions", "shows", "events", "nav"]
+  },
+  {
+    "type": "nav",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Inquiry",
+    "href": "/contact",
+    "summary": "Contact form and inquiry.",
+    "keywords": ["inquiry", "contact", "email", "nav"]
+  },
+  {
+    "type": "label",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "Monolith",
+    "href": "/",
+    "summary": "Brand wordmark linking to home.",
+    "keywords": ["monolith", "brand", "home", "logo"]
+  },
+  {
+    "type": "label",
+    "page": "Site",
+    "component": "Navbar",
+    "title": "World Building Archive — 2026",
+    "href": "/",
+    "summary": "Brand tagline.",
+    "keywords": ["world", "building", "archive", "2026"]
+  }
+]

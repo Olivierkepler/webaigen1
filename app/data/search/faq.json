@@ -1,0 +1,56 @@
+[
+  {
+    "type": "section",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "FAQ",
+    "href": "/#faq",
+    "summary": "Common dialogues: frequently asked questions about Monolith philosophy, global logistics, interior deconstruction, and project timelines.",
+    "keywords": ["faq", "questions", "help", "common", "dialogues", "inquiry", "support", "process"]
+  },
+  {
+    "type": "headline",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "Common Dialogues",
+    "href": "/#faq",
+    "summary": "Section headline for the FAQ accordion.",
+    "keywords": ["common", "dialogues", "faq", "questions"]
+  },
+  {
+    "type": "question",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "What is the 'Monolith' philosophy?",
+    "href": "/#faq",
+    "summary": "Our approach prioritizes mass over ornament. We believe a structure should feel like it was extracted from the earth rather than simply placed upon it.",
+    "keywords": ["monolith", "philosophy", "mass", "ornament", "extracted", "earth", "approach"]
+  },
+  {
+    "type": "question",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "How do you handle global site logistics?",
+    "href": "/#faq",
+    "summary": "We utilize 1:1 digital twins and local material sourcing to ensure the environmental footprint matches the structural intent, regardless of coordinates.",
+    "keywords": ["global", "site", "logistics", "digital twins", "material sourcing", "environmental", "footprint", "coordinates"]
+  },
+  {
+    "type": "question",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "Do you offer interior deconstruction?",
+    "href": "/#faq",
+    "summary": "Yes. We view the interior as a continuation of the external void. We design custom furniture and lighting to serve the primary volume.",
+    "keywords": ["interior", "deconstruction", "furniture", "lighting", "void", "custom"]
+  },
+  {
+    "type": "question",
+    "page": "Home",
+    "component": "FAQ",
+    "title": "What is the typical project timeline?",
+    "href": "/#faq",
+    "summary": "Quality requires gravity. Concept to completion typically spans 12 to 24 months, depending on the material deconstruction involved.",
+    "keywords": ["timeline", "project", "12 months", "24 months", "concept", "completion", "gravity"]
+  }
+]

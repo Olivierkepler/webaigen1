@@ -75,6 +75,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             <div className="w-[260px] xl:w-[320px]">
               <SearchBar />
+
             </div>
 
             <div className="flex items-center gap-8 xl:gap-12">

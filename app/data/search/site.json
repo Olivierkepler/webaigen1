@@ -1,0 +1,7 @@
+[
+  {"type":"page","page":"Site","component":"Navigation","title":"Home","href":"/","summary":"Landing page.","keywords":["home","landing","monolith"]},
+  {"type":"page","page":"Site","component":"Navigation","title":"Archive","href":"/archive","summary":"Browse the archive.","keywords":["archive","library","works"]},
+  {"type":"page","page":"Site","component":"Navigation","title":"Collective","href":"/collective","summary":"Studio and collaborators.","keywords":["collective","team","about"]},
+  {"type":"page","page":"Site","component":"Navigation","title":"Exhibitions","href":"/exhibitions","summary":"Shows and events.","keywords":["exhibitions","shows","events"]},
+  {"type":"page","page":"Site","component":"Navigation","title":"Inquiry","href":"/contact","summary":"Contact and inquiry form.","keywords":["inquiry","contact","email"]}
+]

@@ -1,0 +1,114 @@
+
+[
+    {
+      "type": "section",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Pricing & Value",
+      "href": "/#pricing",
+      "summary": "Investment tiers for conceptual work through full design-build oversight.",
+      "keywords": [
+        "pricing",
+        "value",
+        "investment",
+        "tiers",
+        "plans",
+        "architecture",
+        "monolith",
+        "draft",
+        "estate"
+      ]
+    },
+    {
+      "type": "headline",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Investment",
+      "href": "/#pricing",
+      "summary": "Pricing section label.",
+      "keywords": ["investment", "pricing", "value"]
+    },
+    {
+      "type": "tier",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Draft",
+      "href": "/#pricing",
+      "summary": "$4,500 — For conceptual explorations and structural ideation.",
+      "keywords": [
+        "draft",
+        "tier 01",
+        "4500",
+        "$4,500",
+        "concept",
+        "ideation",
+        "initial concept sketches",
+        "3d massing study",
+        "material board",
+        "2 revision cycles",
+        "start exploration"
+      ]
+    },
+    {
+      "type": "tier",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Monolith",
+      "href": "/#pricing",
+      "summary": "$12,000 — Full architectural blueprinting for luxury residential projects. (Most Selected)",
+      "keywords": [
+        "monolith",
+        "tier 02",
+        "12000",
+        "$12,000",
+        "most selected",
+        "luxury residential",
+        "full technical drawings",
+        "vr spatial walkthrough",
+        "lighting analysis",
+        "contractor liaison",
+        "acquire blueprint"
+      ]
+    },
+    {
+      "type": "tier",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Estate",
+      "href": "/#pricing",
+      "summary": "$45,000 — Comprehensive design-build oversight for commercial icons.",
+      "keywords": [
+        "estate",
+        "tier 03",
+        "45000",
+        "$45,000",
+        "commercial",
+        "design-build",
+        "oversight",
+        "global site analysis",
+        "bespoke material sourcing",
+        "on-site directorship",
+        "unlimited revisions",
+        "commence project"
+      ]
+    },
+    {
+      "type": "note",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Prices subject to site complexity analysis.",
+      "href": "/#pricing",
+      "summary": "Final pricing varies based on scope and complexity.",
+      "keywords": ["site complexity", "analysis", "pricing note"]
+    },
+    {
+      "type": "note",
+      "page": "Home",
+      "component": "Pricing",
+      "title": "Global availability: Tokyo / London / NYC",
+      "href": "/#pricing",
+      "summary": "Service availability locations.",
+      "keywords": ["global availability", "tokyo", "london", "nyc", "new york"]
+    }
+  ]
+  

@@ -1,0 +1,38 @@
+[
+  {
+    "type": "section",
+    "page": "Home",
+    "component": "Hero",
+    "title": "Hero",
+    "href": "/#hero",
+    "summary": "Landing hero with headline The Soul of the Structure, Global Architecture Collective tagline, and Begin Exploration CTA.",
+    "keywords": ["hero", "landing", "soul", "structure", "global", "architecture", "collective", "monolith"]
+  },
+  {
+    "type": "headline",
+    "page": "Home",
+    "component": "Hero",
+    "title": "The Soul of the Structure",
+    "href": "/#hero",
+    "summary": "Main hero headline.",
+    "keywords": ["soul", "structure", "headline", "hero"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Hero",
+    "title": "Global Architecture Collective",
+    "href": "/#hero",
+    "summary": "Tagline above the hero headline.",
+    "keywords": ["global", "architecture", "collective", "tagline"]
+  },
+  {
+    "type": "cta",
+    "page": "Home",
+    "component": "Hero",
+    "title": "Begin Exploration",
+    "href": "/#hero",
+    "summary": "Primary call-to-action button.",
+    "keywords": ["begin", "exploration", "cta", "button", "start"]
+  }
+]

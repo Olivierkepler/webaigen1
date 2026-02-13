@@ -1,0 +1,34 @@
+[
+    {
+      "type": "section",
+      "page": "Home",
+      "component": "Vision",
+      "title": "Vision",
+      "href": "/#vision",
+      "summary": "Interactive vision section with 3D tilt image, scanner line, and kinetic typography.",
+      "keywords": [
+        "vision",
+        "curating",
+        "void",
+        "monolith",
+        "architecture",
+        "interactive",
+        "home vision section"
+      ]
+    },
+    {
+      "type": "headline",
+      "page": "Home",
+      "component": "Vision",
+      "title": "Curating THE VOID",
+      "href": "/#vision",
+      "summary": "Main headline of the Vision section.",
+      "keywords": [
+        "vision",
+        "curating",
+        "void",
+        "headline"
+      ]
+    }
+  ]
+  

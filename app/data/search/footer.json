@@ -1,0 +1,65 @@
+[
+  {
+    "type": "section",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Footer",
+    "href": "/#footer",
+    "summary": "Let's build the void. Site navigation, Tokyo/London clocks, newsletter signup, social links, and back to top.",
+    "keywords": ["footer", "contact", "navigation", "newsletter", "social", "tokyo", "london", "archive", "void"]
+  },
+  {
+    "type": "headline",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Let's build the void",
+    "href": "/#footer",
+    "summary": "Footer headline and call to action.",
+    "keywords": ["void", "build", "headline", "cta"]
+  },
+  {
+    "type": "navigation",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Archive",
+    "href": "/archive",
+    "summary": "Link to the archive section from footer.",
+    "keywords": ["archive", "navigation", "footer", "link"]
+  },
+  {
+    "type": "navigation",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Collective",
+    "href": "/collective",
+    "summary": "Link to the collective section from footer.",
+    "keywords": ["collective", "navigation", "footer", "link"]
+  },
+  {
+    "type": "navigation",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Exhibitions",
+    "href": "/exhibitions",
+    "summary": "Link to exhibitions from footer.",
+    "keywords": ["exhibitions", "navigation", "footer", "link"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Newsletter",
+    "href": "/#footer",
+    "summary": "Email signup for newsletter in footer.",
+    "keywords": ["newsletter", "email", "signup", "subscribe"]
+  },
+  {
+    "type": "label",
+    "page": "Home",
+    "component": "Footer",
+    "title": "Monolith Archive",
+    "href": "/#footer",
+    "summary": "Brand tagline and copyright. Built for the future.",
+    "keywords": ["monolith", "archive", "2026", "copyright", "built for the future"]
+  }
+]

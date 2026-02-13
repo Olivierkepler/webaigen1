@@ -1,0 +1,47 @@
+[
+  {
+    "type": "section",
+    "page": "Home",
+    "component": "ArchitectureTestimonials",
+    "title": "Testimonials",
+    "href": "/#testimonials",
+    "summary": "Client perspective and feedback. Quotes from Adrian Voss (Arca Global), Elena Rossi (V&A Museum), and Dr. Kenji Tanaka (Tokyo Metro).",
+    "keywords": ["testimonials", "reviews", "perspective", "clients", "feedback", "quotes", "archive"]
+  },
+  {
+    "type": "headline",
+    "page": "Home",
+    "component": "ArchitectureTestimonials",
+    "title": "Perspective",
+    "href": "/#testimonials",
+    "summary": "Section headline for client testimonials.",
+    "keywords": ["perspective", "testimonials", "headline"]
+  },
+  {
+    "type": "quote",
+    "page": "Home",
+    "component": "ArchitectureTestimonials",
+    "title": "Adrian Voss — Arca Global",
+    "href": "/#testimonials",
+    "summary": "Monolith doesn't just design spaces; they curate silence and light. Their brutalist approach to our headquarters redefined our corporate identity.",
+    "keywords": ["adrian voss", "arca global", "ceo", "brutalist", "headquarters", "corporate identity", "silence", "light", "2025"]
+  },
+  {
+    "type": "quote",
+    "page": "Home",
+    "component": "ArchitectureTestimonials",
+    "title": "Elena Rossi — V&A Museum",
+    "href": "/#testimonials",
+    "summary": "The interplay of raw concrete and digital glass creates an atmosphere that feels both ancient and futuristic. Truly the soul of the structure.",
+    "keywords": ["elena rossi", "v&a museum", "curator", "concrete", "glass", "ancient", "futuristic", "soul", "2026"]
+  },
+  {
+    "type": "quote",
+    "page": "Home",
+    "component": "ArchitectureTestimonials",
+    "title": "Dr. Kenji Tanaka — Tokyo Metro",
+    "href": "/#testimonials",
+    "summary": "Working with Monolith was like witnessing poetry in structure. Their vision for the public library merged classicism with groundbreaking materials.",
+    "keywords": ["kenji tanaka", "tokyo metro", "urban planner", "poetry", "structure", "library", "classicism", "materials", "2024"]
+  }
+]

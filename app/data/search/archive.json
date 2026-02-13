@@ -1,0 +1,56 @@
+[
+  {
+    "type": "section",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "The Archive",
+    "href": "/archive",
+    "summary": "Index of archived projects: Obsidian Voids, The Glass Spine, Concrete Silence, Steel Ribs, Stone Origin.",
+    "keywords": ["archive", "index", "library", "projects", "works", "2020", "2021", "2022", "2023", "2024"]
+  },
+  {
+    "type": "item",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "Obsidian Voids",
+    "href": "/archive",
+    "summary": "2024 — Reykjavík — Monolith.",
+    "keywords": ["obsidian", "voids", "reykjavík", "iceland", "monolith", "2024"]
+  },
+  {
+    "type": "item",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "The Glass Spine",
+    "href": "/archive",
+    "summary": "2023 — Berlin — Modernism.",
+    "keywords": ["glass", "spine", "berlin", "germany", "modernism", "2023"]
+  },
+  {
+    "type": "item",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "Concrete Silence",
+    "href": "/archive",
+    "summary": "2022 — Tokyo — Brutalism.",
+    "keywords": ["concrete", "silence", "tokyo", "japan", "brutalism", "2022"]
+  },
+  {
+    "type": "item",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "Steel Ribs",
+    "href": "/archive",
+    "summary": "2021 — Chicago — Industrial.",
+    "keywords": ["steel", "ribs", "chicago", "industrial", "2021"]
+  },
+  {
+    "type": "item",
+    "page": "Archive",
+    "component": "ArchivePage",
+    "title": "Stone Origin",
+    "href": "/archive",
+    "summary": "2020 — Oslo — Minimalism.",
+    "keywords": ["stone", "origin", "oslo", "norway", "minimalism", "2020"]
+  }
+]

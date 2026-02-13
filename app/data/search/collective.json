@@ -1,0 +1,47 @@
+[
+  {
+    "type": "section",
+    "page": "Collective",
+    "component": "CollectivePage",
+    "title": "Collective",
+    "href": "/collective",
+    "summary": "The Minds. A global network of structural philosophers, dedicated to the preservation and evolution of the monolith. We don't build spaces; we archive the soul of the structure.",
+    "keywords": ["collective", "team", "minds", "philosophers", "monolith", "structural", "archive", "soul"]
+  },
+  {
+    "type": "headline",
+    "page": "Collective",
+    "component": "CollectivePage",
+    "title": "The Minds",
+    "href": "/collective",
+    "summary": "Section headline for the collective.",
+    "keywords": ["minds", "collective", "team"]
+  },
+  {
+    "type": "member",
+    "page": "Collective",
+    "component": "CollectivePage",
+    "title": "Elias Thorne",
+    "href": "/collective",
+    "summary": "Principal Architect — London.",
+    "keywords": ["elias", "thorne", "principal", "architect", "london"]
+  },
+  {
+    "type": "member",
+    "page": "Collective",
+    "component": "CollectivePage",
+    "title": "Sanae Ito",
+    "href": "/collective",
+    "summary": "Lead Curator — Tokyo.",
+    "keywords": ["sanae", "ito", "curator", "tokyo", "lead"]
+  },
+  {
+    "type": "member",
+    "page": "Collective",
+    "component": "CollectivePage",
+    "title": "Marcus Vane",
+    "href": "/collective",
+    "summary": "Structural Lead — Oslo.",
+    "keywords": ["marcus", "vane", "structural", "lead", "oslo"]
+  }
+]

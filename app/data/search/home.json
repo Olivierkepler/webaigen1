@@ -1,0 +1,63 @@
+{
+    "page": "Home",
+    "href": "/",
+    "sections": [
+      {
+        "id": "hero",
+        "title": "Hero",
+        "component": "Hero",
+        "href": "/#hero",
+        "summary": "Global Architecture Collective introduction and call to action.",
+        "keywords": ["monolith", "architecture", "hero", "landing", "global", "collective"]
+      },
+      {
+        "id": "vision",
+        "title": "Vision",
+        "component": "Vision",
+        "href": "/#vision",
+        "summary": "Brand vision, philosophy, and design direction.",
+        "keywords": ["vision", "philosophy", "brand", "story", "direction"]
+      },
+      {
+        "id": "selected-works",
+        "title": "Selected Works",
+        "component": "ProjectCard Gallery",
+        "href": "/#selected-works",
+        "summary": "Curated archive of selected architectural works (2018—2026).",
+        "keywords": ["projects", "gallery", "works", "portfolio", "archive", "2018", "2026"]
+      },
+      {
+        "id": "pricing",
+        "title": "Pricing",
+        "component": "Pricing",
+        "href": "/#pricing",
+        "summary": "Service tiers and pricing options.",
+        "keywords": ["pricing", "plans", "tiers", "services", "packages"]
+      },
+      {
+        "id": "faq",
+        "title": "FAQ",
+        "component": "FAQ",
+        "href": "/#faq",
+        "summary": "Frequently asked questions about process and services.",
+        "keywords": ["faq", "questions", "help", "support", "process"]
+      },
+      {
+        "id": "testimonials",
+        "title": "Testimonials",
+        "component": "ArchitectureTestimonials",
+        "href": "/#testimonials",
+        "summary": "Client and collaborator feedback.",
+        "keywords": ["testimonials", "reviews", "clients", "feedback", "trust"]
+      },
+      {
+        "id": "footer",
+        "title": "Footer",
+        "component": "Footer",
+        "href": "/#footer",
+        "summary": "Site links, brand closure, and contact paths.",
+        "keywords": ["footer", "contact", "links", "copyright"]
+      }
+    ]
+  }
+  
