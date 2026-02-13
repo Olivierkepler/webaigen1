@@ -48,14 +48,14 @@ export default function Navbar() {
             <div className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
             {/* Wordmark */}
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
               <Link href="/" className="overflow-hidden">
                 <span className="block text-base md:text-lg font-bold tracking-[10px] md:tracking-[12px] text-[#d4af37] font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[13px] md:group-hover:tracking-[15px]">
                   WebAiGen
                 </span>
               </Link>
 
-              <div className="mt-1.5 flex items-center gap-2">
+              <div className="mt-1.5 flex items-center gap-2 justify-center sm:justify-start">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d4af37] opacity-35"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#d4af37]"></span>
