@@ -69,7 +69,7 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
   );
 };
 
-export default function MonolithReveal() {
+export default function MonolithReveal() { 
   return (
     <div className="relative z-10 select-none">
       <h1 className="font-cormorant text-[clamp(4rem,12vw,10rem)] leading-[0.8] font-light tracking-tighter text-white">
