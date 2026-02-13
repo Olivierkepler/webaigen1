@@ -104,7 +104,7 @@ export default function Footer() {
               <span className="text-transparent [-webkit-text-stroke:1px_rgba(212,175,55,0.6)]">the void.</span>
             </h2>
             
-            <div className="grid grid-cols-2 gap-8">
+            {/* <div className="grid grid-cols-2 gap-8">
               <div className="border-l border-white/10 pl-4">
                 <p className="text-[#d4af37] text-[0.5rem] tracking-[3px] uppercase mb-2">Tokyo JST</p>
                 <p className="font-mono text-xl opacity-80">{formatTime(9)}</p>
@@ -113,7 +113,7 @@ export default function Footer() {
                 <p className="text-[#d4af37] text-[0.5rem] tracking-[3px] uppercase mb-2">London GMT</p>
                 <p className="font-mono text-xl opacity-80">{formatTime(0)}</p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">

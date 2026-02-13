@@ -105,7 +105,7 @@ export default function SearchBar({ items, placeholder = "Search…" }: SearchBa
   const showDropdown = isOpen && (query.trim().length > 0 || filtered.length > 0);
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full max-w-md z-[10000] bg-black">
       {/* Input shell */}
       <div
         className={[
