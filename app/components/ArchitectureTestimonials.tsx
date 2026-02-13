@@ -44,19 +44,20 @@ export default function ArchitectureTestimonials() {
     <section ref={ref} className="relative bg-[#050505] py-32 px-[10%] overflow-hidden">
       {/* Parallax Background Image */}
       <motion.div
-        style={{ y: yBg }}
-        className="absolute inset-0 z-0 opacity-10" // Reduced opacity for subtlety
-      >
-        <Image
-          src="https://images.unsplash.com/photo-1542866632-1574d30c5e75?auto=format&fit=crop&w=1920&q=80" // Another architectural image
-          alt="Testimonial Background"
-          fill
-          sizes="100vw"
-          className="object-cover grayscale-[80%]"
-          priority // Prioritize loading as it's a key visual
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" /> {/* Dark overlay for blending */}
-      </motion.div>
+  style={{ y: yBg }}
+  className="absolute inset-0 z-0 opacity-10" // Opacité réduite pour la subtilité
+>
+  <Image
+    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80" 
+    alt="Fond de témoignage"
+    fill
+    sizes="100vw"
+    className="object-cover grayscale-[80%]"
+    priority // Chargement prioritaire car c'est un visuel clé
+  />
+  {/* Superposition sombre pour le dégradé */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" /> 
+</motion.div>
 
       {/* Background Subtle Watermark */}
       <div className="absolute top-10 right-[-5%] pointer-events-none select-none z-10">

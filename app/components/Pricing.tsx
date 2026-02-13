@@ -95,7 +95,7 @@ export default function Pricing() {
                     <span className="font-mono text-[10px] text-white/20 uppercase ml-2">USD / Fixed</span>
                   </div>
 
-                  <button className={`w-full py-4 border transition-all duration-500 uppercase font-montserrat text-[0.6rem] tracking-[4px]
+                  <button className={`w-full py-4 border transition-all cursor-pointer duration-500 uppercase font-montserrat text-[0.6rem] tracking-[4px]
                     ${hoveredIndex === idx ? 'bg-[#d4af37] text-black border-[#d4af37]' : 'bg-transparent text-white border-white/10'}
                   `}>
                     {tier.cta}
