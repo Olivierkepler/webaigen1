@@ -79,7 +79,7 @@ export default function Hero() {
           
 
           {/* Headline */}
-          <h1 className="font-cormorant text-[clamp(2.5rem,6vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.85] font-light tracking-tight text-white mix-blend-color-dodge">
+          <h1 className="font-cormorant text-[clamp(3rem,7vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.85] font-light tracking-tight text-white mix-blend-color-dodge">
             <span className="block overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}
@@ -107,7 +107,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-8 max-w-2xl text-base sm:text-lg text-white/60 font-light leading-relaxed border-l border-white/20 pl-6"
+            className="mt-2 sm:mt-8 max-w-2xl text-base sm:text-lg text-white/60 font-light leading-relaxed border-l border-white/20 pl-6"
           >
             WebAiGen helps founders build high-converting interfaces and automate operations. 
             Deploy production-ready systems that are <span className="text-white">secure by design</span>.
