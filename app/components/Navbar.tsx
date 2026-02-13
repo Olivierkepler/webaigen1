@@ -6,16 +6,15 @@ import NodeALogo from "../components/NodeALogo";
 import SearchBar from "./SearchBar";
 
 const navLinks = [
-  { name: "Archive", href: "/archive" },
-  { name: "Collective", href: "/collective" },
-  { name: "Exhibitions", href: "/exhibitions" },
-  { name: "Inquiry", href: "/contact" },
+  { name: "Services", href: "/services" },
+  { name: "AI Solutions", href: "/ai" },
+  { name: "Work", href: "/work" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close on Escape + lock body scroll when menu is open
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
@@ -34,8 +33,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 inset-x-0 z-[1000]">
-        {/* Top bar */}
-        <div className="px-[5%] py-3 md:py-5 flex items-center justify-between border-b border-white/5 backdrop-blur-md bg-black/20">
+        <div className="px-[5%] py-3 md:py-5 flex items-center justify-between border-b border-white/5 backdrop-blur-md ">
           {/* Brand */}
           <div className="group relative flex items-center gap-4 md:gap-6">
             <Link
@@ -47,7 +45,6 @@ export default function Navbar() {
               <NodeALogo size={44} />
             </Link>
 
-            {/* Divider */}
             <div className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
             {/* Wordmark */}
@@ -65,7 +62,7 @@ export default function Navbar() {
                 </span>
 
                 <span className="font-mono text-[8px] tracking-[3px] text-white/40 uppercase">
-                AI Solutions & Web Services
+                  AI Solutions & Web Services
                 </span>
               </div>
             </div>
@@ -75,7 +72,6 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             <div className="w-[260px] xl:w-[320px]">
               <SearchBar />
-
             </div>
 
             <div className="flex items-center gap-8 xl:gap-12">
@@ -165,7 +161,7 @@ export default function Navbar() {
               >
                 <NodeALogo size={36} />
                 <span className="text-sm font-montserrat tracking-[6px] uppercase text-[#d4af37]">
-                  Monolith
+                  WebAiGen
                 </span>
               </Link>
 
@@ -202,7 +198,7 @@ export default function Navbar() {
             <div className="mt-auto pt-10">
               <div className="w-10 h-px bg-[#d4af37]/80" />
               <p className="mt-4 text-[0.65rem] tracking-[4px] text-white/40 uppercase font-montserrat">
-                Global Archive © 2026
+                WebAiGen © 2026 — AI + Web Services
               </p>
             </div>
           </div>

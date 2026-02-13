@@ -1,190 +1,180 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import { 
+  motion, 
+  useScroll, 
+  useTransform, 
+  AnimatePresence, 
+  useSpring 
+} from "framer-motion";
 
 export default function Hero() {
-  const targetY = useRef(0);
-  const rafId = useRef<number | null>(null);
-
-  const [smoothY, setSmoothY] = useState(0);
-
-  // 🔥 Background carousel index
   const [bgIndex, setBgIndex] = useState(0);
 
-  // Put your images here (local /public paths or URLs)
-  const bgImages = [
-    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1920&q=80",
-  ];
+  // 1. Physics-based Scroll Parallax
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]); // Background moves slower
+  const y2 = useTransform(scrollY, [0, 1000], [0, -150]); // Content moves up faster
   
+  // Add a spring physics smoothing to the scroll for that "weighty" feel
+  const smoothY = useSpring(y1, { stiffness: 100, damping: 20, restDelta: 0.001 });
 
-  // Smooth scroll/parallax
+  // 2. High-End Curated Backgrounds
+  const bgImages = [
+    "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2500&auto=format&fit=crop", // Abstract Dark Mesh
+    "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2500&auto=format&fit=crop", // Deep Space / AI
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2500&auto=format&fit=crop", // Network/Globe
+  ];
+
   useEffect(() => {
-    const onScroll = () => {
-      targetY.current = window.scrollY || 0;
-      if (rafId.current == null) rafId.current = requestAnimationFrame(tick);
-    };
-
-    const tick = () => {
-      rafId.current = null;
-
-      setSmoothY((current) => {
-        const next = current + (targetY.current - current) * 0.08;
-        return Math.abs(targetY.current - next) < 0.1 ? targetY.current : next;
-      });
-
-      // keep animating if not caught up
-      if (Math.abs(targetY.current - smoothY) > 0.5) {
-        rafId.current = requestAnimationFrame(tick);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    targetY.current = window.scrollY || 0;
-    setSmoothY(targetY.current);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ✅ Carousel autoplay (respects reduced motion)
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) return;
-
-    const id = window.setInterval(() => {
-      setBgIndex((i) => (i + 1) % bgImages.length);
-    }, 6000);
-
-    return () => window.clearInterval(id);
+    const timer = setInterval(() => {
+      setBgIndex((prev) => (prev + 1) % bgImages.length);
+    }, 8000);
+    return () => clearInterval(timer);
   }, [bgImages.length]);
 
   return (
-    <header className="relative h-screen w-full  flex items-center overflow-hidden bg-[#050505]">
-      {/* 1) Parallax Background + Carousel Stack */}
-      <div
-        className="absolute inset-0 z-0 will-change-transform  "
-        style={{
-          transform: `translate3d(0, ${smoothY * 0.2}px, 0) scale(${1 + smoothY * 0.0005})`,
-        }}
+    <section className="relative h-[110svh] w-full overflow-hidden bg-[#030303] text-white">
+      
+      {/* --- BACKGROUND LAYER --- */}
+      <motion.div 
+        style={{ y: smoothY, scale: 1.05 }} 
+        className="absolute inset-0 z-0"
       >
-        {/* Carousel slides */}
-        <div className="absolute inset-0">
-          {bgImages.map((src, i) => (
-            <div
-              key={src}
-              className={[
-                "absolute inset-0 bg-cover bg-center",
-                "transition-opacity duration-1000 ease-in-out",
-                i === bgIndex ? "opacity-100" : "opacity-0",
-              ].join(" ")}
-              style={{ backgroundImage: `url('${src}')` }}
-              aria-hidden="true"
-            />
-          ))}
-        </div>
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={bgIndex}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2.5, ease: "easeInOut" }} // Long, cinematic crossfade
+            className="absolute inset-0 h-full w-full bg-cover bg-center"
+            style={{ backgroundImage: `url('${bgImages[bgIndex]}')` }}
+          />
+        </AnimatePresence>
 
-        {/* Keep your overlays on top of the slides */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#050505]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
-      </div>
+        {/* Cinematic Overlays (The "Expensive" Look) */}
+        <div className="absolute inset-0 bg-black/60" /> {/* Dimmer */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030303]/90 via-transparent to-[#030303]/30" />
+        
+        {/* Noise Texture: Essential for modern "AI" feel */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+             style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }} 
+        />
+      </motion.div>
 
-      {/* 2. Main Content Layer */}
-      <div className="px-[10%] z-10 relative w-full mt-10">
-        <div className="overflow-hidden mb-6 max-w-2xl">
-          <p className="font-montserrat font-bold font-extralight tracking-[8px] uppercase text-[0.95rem] text-[#d4af37] animate-[slide-up_1s_ease-out_forwards]">
-            {/* Global Architecture Collective */}
-            WebAiGen provides a premium platform for developers 
-            and agencies to ship faster, look better, 
-             and dominate the digital landscape.
-          </p>
-        </div>
+      {/* --- DECORATIVE GRID --- */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-        <h1 className="font-cormorant text-[clamp(2rem,6vw,5rem)] leading-[0.85] font-light tracking-tighter">
-          <span className="block overflow-hidden">
-            <span className="block animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.2s_forwards]">
-            Design and build 
-            </span>
-          </span>
-          <span className="block overflow-hidden mt-2">
-            <span className="block italic font-light animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.4s_forwards]">
-            at the{" "}
-              <span className="not-italic stroke-text text-transparent">
-              speed of light.
-              </span>
-            </span>
-          </span>
-        </h1>
-
-        {/* Button */}
-        <div className="mt-16 overflow-hidden">
-          <div className="animate-[slide-up_1.2s_cubic-bezier(0.23,1,0.32,1)_0.8s_forwards] opacity-0">
-            <button className="group cursor-pointer relative px-12 py-5 overflow-hidden border border-white/10 transition-all duration-500 hover:border-[#d4af37]/50">
-              <div className="absolute inset-0 w-0 bg-[#d4af37] transition-all duration-[700ms] cubic-bezier(0.23,1,0.32,1) group-hover:w-full" />
-              <span className="relative z-10 font-bold cursor-pointer font-montserrat text-[0.65rem] tracking-[5px] uppercase text-white group-hover:text-black transition-colors duration-500">
-                Begin Exploration
-              </span>
-              <div className="absolute top-0 left-0 w-2 h-[1px] bg-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-2 h-[1px] bg-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity" />
-            </button>
-          </div>
-        </div>
-
-        <div className="h-px bg-[#d4af37]/40 mt-16 w-0 animate-[grow-h_1.5s_ease-in-out_1s_forwards]" />
-      </div>
-
-      {/* Scroll Indicator */}
-      <div
-        className="absolute bottom-10 left-1/2 z-10 flex flex-col items-center gap-3 pointer-events-none select-none"
-        style={{
-          opacity: Math.max(0, 0.75 - smoothY / 320),
-          transform: `translate3d(-50%, ${Math.min(18, smoothY * 0.06)}px, 0)`,
-        }}
-        role="presentation"
-        aria-hidden="true"
+      {/* --- CONTENT LAYER --- */}
+      <motion.div 
+        style={{ y: y2 }}
+        className="relative z-10 flex h-full flex-col justify-center px-[6%] sm:px-[8%] pt-20"
       >
-        <div className="relative h-14 w-8 rounded-full border border-white/35 bg-white/[0.02] shadow-[0_0_0_1px_rgba(0,0,0,0.35)_inset] backdrop-blur-[2px]">
-          <span className="absolute left-1/2 top-3 h-7 w-px -translate-x-1/2 bg-white/10" />
-          <span className="absolute left-2/3 top-3 h-2 w-2 -translate-x-1/2 rounded-full bg-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.35)] animate-[scrollDot_2.4s_cubic-bezier(0.23,1,0.32,1)_infinite]" />
+        <div className="max-w-5xl">
+          
+          
+
+          {/* Headline */}
+          <h1 className="font-cormorant text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.85] font-light tracking-tight text-white mix-blend-color-dodge">
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="block"
+              >
+                Design and build
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden h-30 text-white/50">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="block italic"
+              >
+                 at the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-amber-200 to-[#d4af37] animate-gradient-x bg-[length:200%_auto]">speed of light.</span>
+              </motion.span>
+
+             
+            </span>
+            
+          </h1>
+
+          {/* Subtext */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="mt-8 max-w-2xl text-base sm:text-lg text-white/60 font-light leading-relaxed border-l border-white/20 pl-6"
+          >
+            WebAiGen helps founders build high-converting interfaces and automate operations. 
+            Deploy production-ready systems that are <span className="text-white">secure by design</span>.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="mt-12 flex flex-wrap items-center gap-4"
+          >
+            <PrimaryButton href="/contact">Start Project</PrimaryButton>
+            <SecondaryButton href="/work">View Case Studies</SecondaryButton>
+          </motion.div>
+
+          {/* Stats / Trust (The "Footer" of the hero) */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 1 }}
+            className="mt-20 flex flex-wrap gap-8 border-t border-white/10 pt-8"
+          >
+             <Stat label="Uptime Guarantee" value="99.9%" />
+             <Stat label="Projects Shipped" value="150+" />
+             <Stat label="Client Valuation" value="$500M+" />
+          </motion.div>
+
         </div>
-        <span className="text-[0.55rem] font-montserrat uppercase tracking-[5px] text-white">
-          Scroll
-        </span>
-      </div>
+      </motion.div>
+    </section>
+  );
+}
 
-      {/* Side Decorative Metadata */}
-      <div className="absolute mt-50 left-12 top-1/2 -rotate-90 origin-left z-10 hidden md:block opacity-20">
-        <p className="text-[0.5rem] tracking-[5px] uppercase font-montserrat whitespace-nowrap">
-          Latitude: 35.6895° N — Longitude: 139.6917° E
-        </p>
-      </div>
+// --- Micro-Components for cleanness ---
 
-      <style jsx>{`
-        .stroke-text {
-          -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-        }
+function PrimaryButton({ children, href }: { children: React.ReactNode, href: string }) {
+  return (
+    <Link href={href} className="group relative overflow-hidden rounded-full bg-white px-8 py-4 transition-all hover:scale-[1.02] active:scale-[0.98]">
+      <span className="relative z-10 font-montserrat text-xs font-bold uppercase tracking-[3px] text-black">
+        {children}
+      </span>
+      {/* Hover Shine Effect */}
+      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+    </Link>
+  );
+}
 
-        @keyframes scrollDot {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -2px);
-          }
-          20% {
-            opacity: 1;
-          }
-          60% {
-            opacity: 1;
-            transform: translate(-50%, 14px);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(-50%, 20px);
-          }
-        }
-      `}</style>
-    </header>
+function SecondaryButton({ children, href }: { children: React.ReactNode, href: string }) {
+  return (
+    <Link href={href} className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-4 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10">
+      <span className="font-montserrat text-xs font-medium uppercase tracking-[3px] text-white">
+        {children}
+      </span>
+      <span className="text-white/50 transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </Link>
+  );
+}
+
+function Stat({ label, value }: { label: string, value: string }) {
+  return (
+    <div className="flex flex-col">
+      <span className="font-cormorant text-2xl text-white/90">{value}</span>
+      <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">{label}</span>
+    </div>
   );
 }
