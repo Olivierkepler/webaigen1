@@ -57,7 +57,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="bg-[#050505] pt-30 md:pt-0 min-h-screen text-white selection:bg-[#d4af37] selection:text-black">
+    <main className="bg-[#050505] pt-10 md:pt-0 min-h-screen text-white selection:bg-[#d4af37] selection:text-black">
       {/* 1) INITIAL PAGE PRELOADER */}
       <div
         className={`fixed inset-0 z-[100] bg-[#050505] flex items-center justify-center transition-transform duration-[1500ms] cubic-bezier ${
