@@ -11,7 +11,7 @@ import Vision from "./components/Vision";
 import LogoLoader from "./components/LogoLoader";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
-import Subnav from "./components/Subnav";
+// import Subnav from "./components/Subnav";
 import Testimonial from "./components/ArchitectureTestimonials";
 import SelectedWorks from "./components/SelectedWorks"
 
@@ -76,9 +76,7 @@ export default function Home() {
       >
         <Navbar />
         {/* Subnav appears only after scrolling down */}
-        <Subnav
-        
-        />
+        {/* <Subnav/> */}
         <Hero />
         
       </section>
