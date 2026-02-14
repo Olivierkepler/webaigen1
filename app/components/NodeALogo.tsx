@@ -10,7 +10,7 @@ type LogoProps = {
 
 export default function NodeALogo({
   size = 50,
-  color = "#d4af37",
+  color = "white",
   strokeWidth = 8,
   durationMs = 5000, // Increased for a more deliberate, high-end pace
   delayMs = 500,    // Added a slight initial start delay

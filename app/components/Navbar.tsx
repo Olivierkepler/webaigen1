@@ -42,7 +42,7 @@ export default function Navbar() {
               aria-label="Home"
             >
               <div className="absolute inset-0 bg-[#d4af37] opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-15" />
-              <NodeALogo size={44} />
+              <NodeALogo size={54} />
             </Link>
 
             <div className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
@@ -50,7 +50,7 @@ export default function Navbar() {
             {/* Wordmark */}
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
               <Link href="/" className="overflow-hidden">
-                <span className="block text-base md:text-lg font-bold tracking-[10px] md:tracking-[12px] text-[#d4af37] font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[13px] md:group-hover:tracking-[15px]">
+                <span className="block text-base md:text-lg font-bold tracking-[10px] md:tracking-[12px] text-white font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[13px] md:group-hover:tracking-[15px]">
                   WebAiGen
                 </span>
               </Link>

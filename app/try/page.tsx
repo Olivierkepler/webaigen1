@@ -1,16 +1,15 @@
-import Navbar from "./navbar"
+// import Navbar from "./Navbar";
+import NeuralTriad from "./NeuralTriad";
 
 export  default function page(){
 
 return (
     <div >
 
-      
-<br />
-<br />
-<br />
+     
 
-        <Navbar/>
+<NeuralTriad/>
+        {/* <Navbar/> */}
     </div>
 )
 }
