@@ -51,7 +51,7 @@ export default function Navbar() {
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
               <Link href="/" className="overflow-hidden">
                 <span className="block text-base md:text-lg font-bold tracking-[10px] md:tracking-[12px] text-white font-montserrat uppercase leading-none transition-all duration-700 group-hover:tracking-[13px] md:group-hover:tracking-[15px]">
-                  WebAiGen
+                  Web<span className="text-[#d4af37]">Ai</span>Gen
                 </span>
               </Link>
 

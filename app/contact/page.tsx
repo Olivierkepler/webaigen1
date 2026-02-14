@@ -15,7 +15,7 @@ export default function ContactPage() {
               <span className="text-[#d4af37] text-[0.7rem] tracking-[5px] uppercase font-montserrat block mb-6">
                 Connect with the Archive
               </span>
-              <h1 className="font-cormorant text-6xl md:text-8xl font-light italic leading-tight">
+              <h1 className="font-cormorant text-5xl md:text-7xl font-light italic leading-tight">
                 Inquiry <br /> & Concept.
 
                
