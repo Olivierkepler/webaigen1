@@ -17,6 +17,8 @@ export default function ContactPage() {
               </span>
               <h1 className="font-cormorant text-6xl md:text-8xl font-light italic leading-tight">
                 Inquiry <br /> & Concept.
+
+               
               </h1>
               <p className="font-montserrat mt-8 text-white/50 max-w-md leading-relaxed tracking-wide">
                 Whether you are looking to contribute to the archive, inquire about a 

@@ -126,9 +126,9 @@ export default function AiSolutionsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[0.9]"
+                className="text-5xl md:text-7xl lg:text-8xl  font-cormorant  font-light italic leading-tight tracking-tight leading-[0.9]"
             >
-                Synthetic <br />
+                Synthetic {" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/20">
                     Intelligence.
                 </span>

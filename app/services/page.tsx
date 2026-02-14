@@ -183,7 +183,7 @@ export default function ServicesConsole() {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-white">
+            <h1 className="text-5xl md:text-7xl  font-cormorant  font-light italic leading-tight tracking-tight text-white">
               Protocol <span className="text-white/30">Index</span>
             </h1>
 
