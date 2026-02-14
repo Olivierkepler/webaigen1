@@ -96,7 +96,7 @@ export default function InteractiveGrid() {
           </div>
 
           <p className="font-montserrat text-sm text-white/30 leading-relaxed max-w-sm border-l border-white/10 pl-6 italic">
-            "The monolith is not a shape; it is a weight. We design for the pressure of space."
+            "Webaigen is not a shape; it is a weight. We design for the pressure of space."
           </p>
 
           {/* Magnetic Interaction Button */}

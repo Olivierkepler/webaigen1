@@ -27,7 +27,7 @@ export default function LogoLoader({
         <span className="absolute inset-0 rounded-full bg-white/10 blur-xl" />
 
         {/* spinning ring */}
-        <span className="absolute inset-0 rounded-full border-2 border-white/10 border-t-[#d4af37] animate-spin" />
+        <span className="absolute inset-0 rounded-full border-2 border-white/10 border-t-white animate-spin" />
 
         {/* logo */}
         <div className="absolute inset-0 grid place-items-center">
@@ -46,7 +46,7 @@ export default function LogoLoader({
         </div>
       </div>
 
-      {showLabel && <span className="text-sm text-[#d4af37]">{label}</span>}
+      {showLabel && <span className="text-sm text-white">Loading WEBAIGEN </span>}
     </div>
   );
 }

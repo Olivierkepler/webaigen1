@@ -27,7 +27,7 @@ export default function RefractiveLens() {
       {/* 1. The "Blurred" Base Layer */}
       <div className="absolute inset-0 z-0 opacity-20 blur-sm saturate-0 transition-all duration-700">
         <div className="absolute inset-0 flex items-center justify-center text-[25vw] font-cormorant italic font-light text-white tracking-tighter opacity-10">
-          MONOLITH
+          Webaigen
         </div>
         <img 
           src="https://images.unsplash.com/photo-1491841315801-654f4949514e?auto=format&fit=crop&w=1920&q=80" 
