@@ -152,7 +152,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative h-[100svh] w-full overflow-hidden bg-[#020202] text-white selection:bg-[#d4af37] selection:text-black"
+      className="relative pt-10 h-[100svh] w-full overflow-hidden bg-[#020202] text-white selection:bg-[#d4af37] selection:text-black"
     >
       {/* =====================================================
           LAYER 1: Background image + cinematic overlays
