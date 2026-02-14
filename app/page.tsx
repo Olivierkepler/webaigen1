@@ -13,6 +13,7 @@ import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Subnav from "./components/Subnav";
 import Testimonial from "./components/ArchitectureTestimonials";
+import SelectedWorks from "./components/SelectedWorks"
 
 const projects = [
   {
@@ -76,6 +77,7 @@ export default function Home() {
         <Navbar />
         <Subnav />
         <Hero />
+        
       </section>
 
       {/* 3) CONTENT FLOW */}
@@ -85,26 +87,7 @@ export default function Home() {
           <Vision />
         </section>
 
-        {/* Selected Works */}
-        <section
-          id="selected-works"
-          className="scroll-mt-28 px-[10%] py-40 md:py-60 bg-[#050505]"
-        >
-          <div className="mb-32 flex flex-col md:flex-row justify-between items-end gap-8">
-            <h2 className="font-cormorant text-6xl md:text-8xl font-light tracking-tighter">
-              Selected <br /> <span className="italic opacity-50">Works.</span>
-            </h2>
-            <p className="font-montserrat text-[0.6rem] tracking-[5px] uppercase text-white/40 max-w-[300px] leading-relaxed">
-              A curated archive of structures built between silence and noise. 2018 — 2026.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-12 md:gap-x-12 gap-y-24 md:gap-y-48">
-            {projects.map((p) => (
-              <ProjectCard key={p.id} project={p} onOpen={setSelectedImg} />
-            ))}
-          </div>
-        </section>
+       <SelectedWorks/>
       </div>
 
       {/* Pricing */}

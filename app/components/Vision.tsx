@@ -81,9 +81,9 @@ export default function InteractiveGrid() {
             </span>
 
             <h2 className="font-cormorant text-7xl md:text-9xl font-light leading-none tracking-tighter relative z-10">
-              <span className="block text-[#d4af37] mix-blend-difference">Curating</span>
+              <span className="block text-[clamp(3rem,7vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)]  text-[#d4af37] mix-blend-difference">Curating</span>
               <span
-                className="block text-white transition-all duration-300 ease-out"
+                className="block text-[clamp(3rem,7vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)]  text-white transition-all duration-300 ease-out"
                 style={{
                   transform: `skewX(${smoothMouse.x * -10}deg)`,
                   filter: `blur(${Math.abs(smoothMouse.x) * 2}px)`,
