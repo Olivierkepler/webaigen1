@@ -46,7 +46,7 @@ export default function ContactSubnav() {
         
         className={`
           z-50 w-full select-none
-          fixed top-4 left-0 right-0 px-4
+          fixed top-10 left-0 right-0 px-4
           md:hidden
           ${!isScrolled && "hidden"} /* Hide on mobile initially via CSS to prevent flash */
         `}
