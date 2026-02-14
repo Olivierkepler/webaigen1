@@ -97,7 +97,7 @@ export default function SelectedWorks() {
     <section
       ref={containerRef}
       id="selected-works"
-      className="relative z-10 bg-[#050505] px-[5%] py-32 md:py-48 overflow-hidden text-white"
+      className="relative z-10 bg-[#050505] px-[5%] py-32 md:py-10 overflow-hidden text-white"
     >
       {/* Background Texture - Keeping it subtle */}
       <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />

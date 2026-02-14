@@ -29,7 +29,7 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-[#050505] py-32 md:py-48 px-[5%] md:px-[10%] border-t border-white/5 select-none relative overflow-hidden">
+    <section className="bg-[#050505] py-32 md:py-38 px-[5%] md:px-[10%] border-t border-white/5 select-none relative overflow-hidden">
       
       {/* Background Decorator */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#d4af37]/5 blur-[120px] rounded-full pointer-events-none" />
