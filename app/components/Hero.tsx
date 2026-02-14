@@ -228,7 +228,7 @@ export default function Hero() {
     </motion.div>
 
     {/* --- HEADLINE --- */}
-    <h1 className="font-cormorant text-[clamp(2.25rem,7vw,8rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
+    <h1 className="font-cormorant text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
       <span className="block text-white/45 text-[0.42em] mb-4 font-mono tracking-[0.32em] uppercase pl-1">
         <DecryptText text="Next Gen Intelligence" />
       </span>
