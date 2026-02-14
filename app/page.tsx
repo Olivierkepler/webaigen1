@@ -15,6 +15,7 @@ import FAQ from "./components/FAQ";
 import Testimonial from "./components/ArchitectureTestimonials";
 import SelectedWorks from "./components/SelectedWorks"
 
+
 const projects = [
   {
     id: "01",
@@ -49,6 +50,7 @@ const projects = [
 export default function Home() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+ 
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
@@ -64,7 +66,7 @@ export default function Home() {
           !isLoading ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <LogoLoader size={110} label="Loading Monolith…" />
+        <LogoLoader size={110} label="Loading WebAiGen…" />
       </div>
 
       {/* 2) NAVIGATION + HERO */}
