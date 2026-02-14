@@ -108,12 +108,12 @@ export default function InteractiveGrid() {
               SYSTEM_V2
             </span>
 
-            <h2 className="font-cormorant text-6xl md:text-8xl font-light leading-[0.9] tracking-tighter relative z-10">
+            <h2 className="font-cormorant text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
               <span className="block text-[#d4af37] mix-blend-screen drop-shadow-lg">
                 Neural
               </span>
               <span
-                className="block text-white transition-all duration-100 ease-out"
+                className="block font-cormorant text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl"
                 style={{
                   // Text "Glitch" / Skew based on mouse movement speed
                   transform: `skewX(${smoothMouse.x * -15}deg)`,

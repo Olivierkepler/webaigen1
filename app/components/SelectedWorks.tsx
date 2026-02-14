@@ -106,7 +106,9 @@ export default function SelectedWorks() {
       <div className="relative mb-32 flex flex-col md:flex-row md:items-end md:justify-between gap-10 border-b border-white/10 pb-12">
         <motion.h2 
           style={{ y: yTitle }}
-          className="font-cormorant text-[clamp(3.5rem,8vw,7rem)] font-light tracking-tighter leading-[0.9]"
+          // className="font-cormorant text-[clamp(3.5rem,8vw,7rem)] font-light tracking-tighter leading-[0.9]"
+          className="font-cormorant text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl"
+
         >
           <span className="block overflow-hidden">
             <motion.span 

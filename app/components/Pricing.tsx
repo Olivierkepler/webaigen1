@@ -49,9 +49,9 @@ export default function Pricing() {
       <div className="max-w-7xl mx-auto">
         
         {/* Header Section */}
-        <div className="mb-24 space-y-4">
+        <div className="mb-24 space-y-4 ">
           <p className="font-mono text-[0.6rem] tracking-[6px] uppercase text-[#d4af37]">Capital Allocation</p>
-          <h2 className="font-cormorant text-6xl md:text-8xl font-light tracking-tighter text-white">
+          <h2 className="font-cormorant text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
             Systems <span className="italic text-white/30">& Value.</span>
           </h2>
         </div>
