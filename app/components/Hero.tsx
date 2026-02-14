@@ -116,28 +116,12 @@ export default function Hero() {
 
   // 3) Curated background set (memoized)
   const bgImages = [
-    // Neural / AI / conceptual
-    "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=2600&q=80", // your current neural
-    "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2600&q=80", // modern AI abstract (great hero)
-  
-    // Code / web dev
-    "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=2600&q=80", // code close-up (classic)
-    "https://images.unsplash.com/photo-1641593629558-5a2bb7d1c16f?auto=format&fit=crop&w=2600&q=80", // modern dev/terminal vibe
-    "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?auto=format&fit=crop&w=2600&q=80", // “AI/web” abstract tech
-  
-    // Infrastructure / compute
-    "https://images.unsplash.com/photo-1555664424-778a69032334?auto=format&fit=crop&w=2600&q=80", // your current chip/core
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2600&q=80", // circuits (clean + premium)
-  
-    // Data stream / fiber / networking
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2600&q=80", // your current data stream
-    "https://images.unsplash.com/photo-1606755962773-d324e7a7a61b?auto=format&fit=crop&w=2600&q=80", // fiber optic streak
-    "https://images.unsplash.com/photo-1488229297570-58520851e868?auto=format&fit=crop&w=2600&q=80", // network light lines
-  
-    // UI / geometric “systems”
-    "https://images.unsplash.com/photo-1752533809748-6d875f1f83c2?auto=format&fit=crop&w=2600&q=80", // geometric black tech (super premium)
-    "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=2600&q=80", // abstract grid / UI-like
-  ];
+  "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=1392&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",// UI / geometric “systems”
+  "https://images.unsplash.com/photo-1716436329475-4c55d05383bb?q=80&w=1828&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  // "https://images.unsplash.com/photo-1763568258235-f40425a94af9?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+ "https://images.unsplash.com/photo-1764664281860-c5725fafa634?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+ "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1806&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+     ];
   
 
   useEffect(() => {
@@ -201,7 +185,7 @@ export default function Hero() {
       {/* =====================================================
           LAYER 3: 3D grid floor (softer + cleaner)
           ===================================================== */}
-      <div className="absolute inset-0 z-[1] [perspective:1000px] pointer-events-none" aria-hidden="true">
+      <div className="absolute  inset-0 z-[1] [perspective:1000px] pointer-events-none" aria-hidden="true">
         <div className="absolute bottom-[-22%] left-[-20%] right-[-20%] top-[22%] bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:56px_56px] transform rotate-x-[62deg] opacity-25" />
       </div>
 
@@ -244,7 +228,7 @@ export default function Hero() {
     </motion.div>
 
     {/* --- HEADLINE --- */}
-    <h1 className="font-cormorant text-[clamp(3.25rem,7vw,8rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
+    <h1 className="font-cormorant text-[clamp(2.25rem,7vw,8rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
       <span className="block text-white/45 text-[0.42em] mb-4 font-mono tracking-[0.32em] uppercase pl-1">
         <DecryptText text="Next Gen Intelligence" />
       </span>
