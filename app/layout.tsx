@@ -6,7 +6,7 @@ import CustomCursor from "./components/CustomCursor";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["100", "300", "600"],
+  weight: ["100", "300", "400", "600", "700"],
   variable: "--font-montserrat",
 });
 
@@ -17,9 +17,34 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 });
 
+/* --- WebAiGen SEO + Branding --- */
 export const metadata: Metadata = {
-  title: "MONOLITH | Global Architectural Archive",
-  description: "A cinematic digital archive of global brutalist and modern architecture.",
+  title: {
+    default: "WebAiGen | AI-Powered Web Creation",
+    template: "%s | WebAiGen",
+  },
+  description:
+    "WebAiGen is an AI-powered platform that designs, builds, and launches modern websites, products, and digital experiences in seconds. Faster development. Smarter design. Infinite possibilities.",
+  keywords: [
+    "AI website builder",
+    "AI web development",
+    "WebAiGen",
+    "AI design platform",
+    "automated web creation",
+    "Next.js AI tools",
+    "AI product generation",
+  ],
+  authors: [{ name: "WebAiGen Team" }],
+  creator: "WebAiGen",
+  metadataBase: new URL("https://webaigen.com"), // update if different
+  openGraph: {
+    title: "WebAiGen | Build the Future with AI",
+    description:
+      "Create powerful websites and digital products instantly using AI. WebAiGen transforms ideas into production-ready experiences.",
+    url: "https://webaigen.com",
+    siteName: "WebAiGen",
+    type: "website",
+  },
   icons: {
     icon: [
       { url: "/images/favicon_black_multi.ico" },
@@ -36,15 +61,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    /* Added bg-black to html to fix mobile overscroll "white flash" */
-    <html lang="en" className={`${montserrat.variable} ${cormorant.variable} bg-[#050505]`}>
+    /* Dark futuristic base to prevent mobile white flash */
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${cormorant.variable} bg-[#050505]`}
+    >
       <body
-        className={`bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black min-h-screen`}
+        className="bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black min-h-screen"
       >
         <CustomCursor />
         <Navbar />
-        
-        {/* main tag ensures the content area at least fills the mobile viewport */}
+
+        {/* Main ensures full viewport coverage */}
         <main className="min-h-screen">
           {children}
         </main>
