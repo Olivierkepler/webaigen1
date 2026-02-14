@@ -3,16 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function InteractiveGrid() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [smoothMouse, setSmoothMouse] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 }); // Raw mouse pos
+  const [smoothMouse, setSmoothMouse] = useState({ x: 0, y: 0 }); // Lerped mouse pos
+  const containerRef = useRef<HTMLElement>(null);
 
+  // 1. Linear Interpolation for Smoothness (The "Weighty" feel)
   useEffect(() => {
     let animationFrameId: number;
     const lerp = () => {
       setSmoothMouse((prev) => ({
-        x: prev.x + (mousePos.x - prev.x) * 0.1,
-        y: prev.y + (mousePos.y - prev.y) * 0.1,
+        x: prev.x + (mousePos.x - prev.x) * 0.08, // Lower = smoother/heavier
+        y: prev.y + (mousePos.y - prev.y) * 0.08,
       }));
       animationFrameId = requestAnimationFrame(lerp);
     };
@@ -20,6 +21,7 @@ export default function InteractiveGrid() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [mousePos]);
 
+  // 2. Track Mouse Relative to Container (-0.5 to 0.5)
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
     const { left, top, width, height } = containerRef.current.getBoundingClientRect();
@@ -34,81 +36,120 @@ export default function InteractiveGrid() {
       id="vision"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative bg-[#050505] py-40 px-[5%] md:px-[10%] overflow-hidden group/section"
+      className="relative bg-[#050505] py-32 md:py-48 px-[5%] md:px-[10%] overflow-hidden group/section border-t border-white/5"
     >
-      {/* Scanner line */}
+      {/* Background Grid (Tech aesthetic) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+      {/* Dynamic Scanner Line (Follows Mouse X) */}
       <div
-        className="absolute inset-y-0 w-px bg-gradient-to-b from-transparent via-[#d4af37]/30 to-transparent z-0 transition-opacity duration-500 opacity-0 group-hover/section:opacity-100"
-        style={{ left: `${(smoothMouse.x + 0.5) * 100}%` }}
+        className="absolute inset-y-0 w-px bg-gradient-to-b from-transparent via-[#d4af37]/60 to-transparent z-0 transition-opacity duration-300 opacity-0 group-hover/section:opacity-100 mix-blend-screen"
+        style={{ 
+            left: `${(mousePos.x + 0.5) * 100}%`,
+            transition: "left 0.1s ease-out" 
+        }}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-center relative z-10">
+        
+        {/* --- LEFT: 3D Image Container --- */}
         <div className="md:col-span-6 relative aspect-[4/5] perspective-[2000px]">
           <div
-            className="w-full h-full relative transition-transform duration-100 ease-linear"
+            className="w-full h-full relative transition-transform duration-100 ease-linear transform-gpu"
             style={{
-              transform: `rotateY(${smoothMouse.x * 15}deg) rotateX(${smoothMouse.y * -15}deg)`,
+              // Rotates based on mouse position
+              transform: `rotateY(${smoothMouse.x * 20}deg) rotateX(${smoothMouse.y * -20}deg)`,
               transformStyle: "preserve-3d",
             }}
           >
-            <div className="absolute inset-0 overflow-hidden shadow-[20px_20px_50px_rgba(0,0,0,0.5)]">
+            {/* The Image Wrapper */}
+            <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0px_0px_100px_rgba(212,175,55,0.05)]">
+              {/* Scanlines Overlay */}
+              <div className="absolute inset-0 z-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-2 bg-[length:100%_2px,3px_100%] pointer-events-none" />
+
               <img
-                src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=80"
-                className="w-full h-full object-cover grayscale brightness-50 group-hover/section:brightness-100 group-hover/section:grayscale-0 transition-all duration-1000"
+                // Tech/Neural Network Image
+                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop"
+                className="w-full h-full object-cover opacity-60 grayscale transition-all duration-700 group-hover/section:opacity-100 group-hover/section:grayscale-0 group-hover/section:scale-110"
                 style={{
-                  transform: `scale(1.2) translate(${smoothMouse.x * -20}px, ${smoothMouse.y * -20}px)`,
+                  transform: `scale(1.1) translate(${smoothMouse.x * -30}px, ${smoothMouse.y * -30}px)`,
                 }}
-                alt="Brutalist Structure"
+                alt="WebAiGen Neural Network"
               />
             </div>
 
+            {/* Floating HUD Badge (3D Effect) */}
             <div
-              className="absolute -top-6 -right-6 p-6 bg-black/80 backdrop-blur-xl border border-white/10 z-20"
+              className="absolute -top-6 -right-6 p-4 bg-[#050505]/90 backdrop-blur-md border border-[#d4af37]/30 z-20 shadow-2xl"
               style={{
-                transform: `translateZ(50px) translate(${smoothMouse.x * 30}px, ${smoothMouse.y * 30}px)`,
+                transform: `translateZ(60px) translate(${smoothMouse.x * 40}px, ${smoothMouse.y * 40}px)`,
               }}
             >
-              <p className="font-mono text-[10px] text-[#d4af37] tracking-[4px] uppercase">Ref. 088-X</p>
-              <p className="text-white text-[10px] tracking-widest mt-1 opacity-50">SHADOW MAPPING</p>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="h-1.5 w-1.5 bg-[#d4af37] animate-pulse rounded-full" />
+                <p className="font-mono text-[9px] text-[#d4af37] tracking-[2px] uppercase">
+                  Live Feed
+                </p>
+              </div>
+              <p className="font-mono text-[9px] text-white/50 tracking-widest uppercase">
+                X: {mousePos.x.toFixed(2)} <br/> 
+                Y: {mousePos.y.toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-6 space-y-12">
+        {/* --- RIGHT: Content --- */}
+        <div className="md:col-span-6 space-y-10 pl-0 md:pl-10">
           <div className="relative">
-            <span className="absolute -top-10 -left-4 text-[10vw] font-cormorant italic text-white/5 select-none pointer-events-none">
-              Silence
+            {/* Background Watermark */}
+            <span className="absolute -top-16 -left-10 text-[8rem] font-bold font-mono text-white/[0.02] select-none pointer-events-none overflow-hidden whitespace-nowrap">
+              SYSTEM_V2
             </span>
 
-            <h2 className="font-cormorant text-7xl md:text-9xl font-light leading-none tracking-tighter relative z-10">
-              <span className="block text-[clamp(3rem,7vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)]  text-[#d4af37] mix-blend-difference">Curating</span>
+            <h2 className="font-cormorant text-6xl md:text-8xl font-light leading-[0.9] tracking-tighter relative z-10">
+              <span className="block text-[#d4af37] mix-blend-screen drop-shadow-lg">
+                Neural
+              </span>
               <span
-                className="block text-[clamp(3rem,7vw,7.5rem)] sm:text-[clamp(3.5rem,8vw,7.5rem)]  text-white transition-all duration-300 ease-out"
+                className="block text-white transition-all duration-100 ease-out"
                 style={{
-                  transform: `skewX(${smoothMouse.x * -10}deg)`,
-                  filter: `blur(${Math.abs(smoothMouse.x) * 2}px)`,
+                  // Text "Glitch" / Skew based on mouse movement speed
+                  transform: `skewX(${smoothMouse.x * -15}deg)`,
+                  opacity: 1 - Math.abs(smoothMouse.x * 0.5), // Fades slightly on heavy skew
                 }}
               >
-                THE VOID
+                ARCHITECTS
               </span>
             </h2>
           </div>
 
-          <p className="font-montserrat text-sm text-white/30 leading-relaxed max-w-sm border-l border-white/10 pl-6 italic">
-            "The monolith is not a shape; it is a weight. We design for the pressure of space."
+          <p className="font-sans text-sm md:text-base text-white/40 leading-relaxed max-w-md border-l border-[#d4af37]/20 pl-6">
+            <span className="text-white">WebAiGen</span> bridges the gap between human intent and machine execution. 
+            We design autonomous systems that don't just exist—they <span className="text-[#d4af37] italic">evolve</span>.
           </p>
 
-          {/* CTA now navigates */}
-          <Link
-            href="/#selected-works"
-            className="inline-block relative px-8 py-4 overflow-hidden group"
-          >
-            <span className="relative z-10 font-montserrat text-[0.6rem] tracking-[6px] uppercase text-white transition-colors duration-500 group-hover:text-black">
-              Access Blueprint
-            </span>
-            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#d4af37] group-hover:h-full transition-all duration-500" />
-          </Link>
+          {/* Tech Button */}
+          <div className="pt-4">
+            <Link
+                href="/#tech-stack"
+                className="inline-flex items-center justify-center relative px-8 py-4 overflow-hidden group border border-white/10 bg-white/5 backdrop-blur-sm hover:border-[#d4af37]/50 transition-colors"
+            >
+                {/* Button Scanline */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+                
+                <span className="relative z-10 font-mono text-[10px] tracking-[4px] uppercase text-white group-hover:text-[#d4af37] transition-colors">
+                Initialize Protocol
+                </span>
+                
+                {/* Corner Accents */}
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 group-hover:border-[#d4af37] transition-colors" />
+                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 group-hover:border-[#d4af37] transition-colors" />
+            </Link>
+          </div>
         </div>
+
       </div>
     </section>
   );
