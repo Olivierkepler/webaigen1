@@ -11,6 +11,7 @@ import {
   useReducedMotion,
   AnimatePresence,
 } from "framer-motion";
+import NeuralTriad from "../components/NeuralTriad"
 
 /* =========================================================
    Decrypt Effect — polished (RAF-based, stable, less jitter)
@@ -207,72 +208,94 @@ export default function Hero() {
       {/* =====================================================
           LAYER 4: Content
           ===================================================== */}
-      <motion.div
-        style={{ y: yContent }}
-        className="relative z-20 flex h-full flex-col justify-center px-[6%] sm:px-[8%]"
-      >
-        <div className="max-w-6xl">
-          {/* Top Tag */}
-          <motion.div
-            initial={{ opacity: 0, y: -18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10 flex items-center gap-3"
-          >
-            <div className="flex h-7 px-3.5 items-center justify-center rounded-sm border border-[#d4af37]/25 bg-[#d4af37]/10 backdrop-blur-md">
-              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4af37]">
-                System Online
-              </span>
-            </div>
-            <span className="h-px w-12 bg-[#d4af37]/20" />
-          </motion.div>
+     <motion.div
+  style={{ y: yContent }}
+  className="relative z-20 flex h-full flex-col justify-center px-[6%] sm:px-[8%]"
+>
+  <div className="max-w-6xl">
 
-          {/* Headline */}
-          <h1 className="font-cormorant text-[clamp(3.25rem,7vw,8rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
-            <span className="block text-white/45 text-[0.42em] mb-3 font-mono tracking-[0.32em] uppercase pl-1">
-              <DecryptText text="Next Gen Intelligence" />
-            </span>
-
-            <span className="block">Design & Build</span>
-
-            <span className="block italic">
-              at the{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-yellow-100 to-[#d4af37]">
-                Speed of Light.
-              </span>
-            </span>
-          </h1>
-
-          {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.55, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-col sm:flex-row items-start gap-6 sm:gap-12"
-          >
-            <div className="h-px w-12 sm:w-24 bg-gradient-to-r from-[#d4af37] to-transparent mt-4" />
-            <p className="max-w-xl font-sans text-sm sm:text-lg text-white/82 leading-relaxed drop-shadow-md">
-              WebAiGen engineers high-performance interfaces and autonomous systems.
-              We deploy production-ready intelligence that is{" "}
-              <span className="text-white font-medium border-b border-[#d4af37]/50 pb-0.5">
-                secure by design
-              </span>
-              .
-            </p>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 flex w-full flex-col gap-5 sm:flex-row sm:w-auto sm:items-center"
-          >
-            <PrimaryButton href="/contact">Initialize Project</PrimaryButton>
-            <SecondaryButton href="/work">Access Case Studies</SecondaryButton>
-          </motion.div>
+    {/* --- TOP ROW: System Status + Neural Visual --- */}
+    <motion.div
+      initial={{ opacity: 0, y: -18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="mb-12 flex items-center justify-between"
+    >
+      {/* Left: System Tag */}
+      <div className="flex items-center gap-4">
+        <div className="flex h-7 px-3.5 items-center justify-center rounded-sm border border-[#d4af37]/25 bg-[#d4af37]/10 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.08)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4af37]">
+            System Online
+          </span>
         </div>
+
+        <span className="h-px w-12 bg-[#d4af37]/20" />
+      </div>
+
+      {/* Right: Neural Visual (hidden on small screens) */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 0.9, scale: 1 }}
+        transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className=" absolute right-20 top-50  hidden md:block opacity-80 hover:opacity-100 transition-opacity duration-500"
+      >
+        <NeuralTriad  />
       </motion.div>
+    </motion.div>
+
+    {/* --- HEADLINE --- */}
+    <h1 className="font-cormorant text-[clamp(3.25rem,7vw,8rem)] leading-[0.9] font-light tracking-tight text-white drop-shadow-2xl">
+      <span className="block text-white/45 text-[0.42em] mb-4 font-mono tracking-[0.32em] uppercase pl-1">
+        <DecryptText text="Next Gen Intelligence" />
+      </span>
+
+      <span className="block">Design & Build</span>
+
+      <span className="block italic">
+        at the{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-yellow-100 to-[#d4af37]">
+          Speed of Light.
+        </span>
+      </span>
+    </h1>
+
+    {/* --- DESCRIPTION --- */}
+    <motion.div
+      initial={{ opacity: 0, x: -18 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.55, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-12 flex flex-col sm:flex-row items-start gap-6 sm:gap-12"
+    >
+      <div className="h-px w-12 sm:w-24 bg-gradient-to-r from-[#d4af37] to-transparent mt-4" />
+
+      <p className="max-w-xl font-sans text-sm sm:text-lg text-white/82 leading-relaxed drop-shadow-md">
+        WebAiGen engineers high-performance interfaces and autonomous systems.
+        We deploy production-ready intelligence that is{" "}
+        <span className="text-white font-medium border-b border-[#d4af37]/50 pb-0.5">
+          secure by design
+        </span>.
+      </p>
+    </motion.div>
+
+    {/* --- CTAs --- */}
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.75, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-16 flex w-full flex-col gap-5 sm:flex-row sm:w-auto sm:items-center"
+    >
+      <PrimaryButton href="/contact">
+        Initialize Project
+      </PrimaryButton>
+
+      <SecondaryButton href="/work">
+        Access Case Studies
+      </SecondaryButton>
+    </motion.div>
+
+  </div>
+</motion.div>
+
 
       {/* =====================================================
           Footer stats — cleaner, more “enterprise”
