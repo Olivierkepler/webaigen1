@@ -75,7 +75,10 @@ export default function Home() {
         }`}
       >
         <Navbar />
-        <Subnav />
+        {/* Subnav appears only after scrolling down */}
+        <Subnav
+        
+        />
         <Hero />
         
       </section>
