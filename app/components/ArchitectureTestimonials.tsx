@@ -31,11 +31,12 @@ const testimonials = [
   },
   {
     id: "04",
-    quote: "Total transformation. Our conversion rate doubled when we deployed the neural interface. This is the difference between a vendor and a visionary partner.",
-    author: "Elena Rossi",
-    position: "VP Marketing, Saphire",
+    quote:
+    "WebAiGen turned my personal food ML project into a real product — clean pipeline, trained model, and a polished web app I’m proud to show.",
+ author: "Barbara Joseph",
+    position: "Machine Learning",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=faces"
+    image: "/images/barbara.JPG"
   }
 ];
 
