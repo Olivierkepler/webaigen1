@@ -14,7 +14,7 @@ import FAQ from "./components/FAQ";
 // import Subnav from "./components/Subnav";
 import Testimonial from "./components/ArchitectureTestimonials";
 import SelectedWorks from "./components/SelectedWorks"
-import Chatbot from "./components/Chatbot";
+
 
 
 const projects = [
@@ -116,7 +116,7 @@ export default function Home() {
       </footer>
 
       <div className="fixed bottom-0 right-6 z-50">
-          <Chatbot />
+      
         </div>
 
       {/* Lightbox overlay */}

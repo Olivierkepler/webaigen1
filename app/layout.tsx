@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
 import CookieConsent from "./components/CookieConsent"; // <--- 1. IMPORT ADDED
-
+import Chatbot from "./components/Chatbot";
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["100", "300", "400", "600", "700"],
@@ -76,8 +76,9 @@ export default function RootLayout({
         {/* Main ensures full viewport coverage */}
         <main className="min-h-screen">
           {children}
+          
         </main>
-
+<Chatbot/>
         {/* 2. COMPONENT ADDED HERE */}
         <CookieConsent />
       </body>

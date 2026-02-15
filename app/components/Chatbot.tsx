@@ -398,7 +398,7 @@ export default function Chatbot() {
       }
 
       return (
-        <div className="relative group my-3 border border-white/10 rounded-sm overflow-hidden bg-black">
+        <div className="relative z-[99999] group my-3 border border-white/10 rounded-sm overflow-hidden bg-black">
            {/* Code Header */}
            <div className="flex items-center justify-between px-3 py-1 bg-white/5 border-b border-white/5">
              <div className="flex gap-1.5">
@@ -449,7 +449,7 @@ export default function Chatbot() {
       {!open && (
        <button
        onClick={() => setOpen(true)}
-       className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 pl-5 pr-1.5 py-1.5 bg-[#050505]/80 backdrop-blur-xl border border-[#d4af37]/30 rounded-full shadow-[0_5px_25px_-5px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-105 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+       className="fixed bottom-6 right-6 z-[1001] group flex items-center gap-3 pl-5 pr-1.5 py-1.5 bg-[#050505]/80 backdrop-blur-xl border border-[#d4af37]/30 rounded-full shadow-[0_5px_25px_-5px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-105 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
      >
        {/* Text Prompt (The "Emma" Style Label) */}
        <div className="flex flex-col items-start mr-1">
@@ -488,7 +488,7 @@ export default function Chatbot() {
       {/* 2. OPEN STATE: Main Interface */}
       {open && (
         <div className={`
-            fixed bottom-4 right-4 sm:bottom-6 sm:right-6
+            fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[1001]
             w-[95vw] sm:w-[480px] md:w-[600px]
             ${estimatorOpen ? "md:w-[90vw] xl:w-[1200px]" : ""}
             h-[85vh] sm:h-[800px] max-h-[90vh]
