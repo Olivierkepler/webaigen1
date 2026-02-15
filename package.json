@@ -10,10 +10,16 @@
   },
   "dependencies": {
     "framer-motion": "^12.34.0",
+    "highlight.js": "^11.11.1",
+    "jspdf": "^4.1.0",
+    "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.564.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
