@@ -1,90 +1,137 @@
-// utils/generatePDF.ts
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-type EstimateData = {
-  roomType: string;
-  sqft: number;
-  material: string;
-  laborCost: number;
-  materialCost: number;
+// 1. Updated Type Definition for AI Projects
+export type EstimateData = {
+  service: string;      // e.g., "AI_SaaS_Platform"
+  units: number;        // e.g., 5 (Modules/Pages)
+  aiModel: string;      // e.g., "L3: Agentic System"
+  devCost: number;      // Engineering Hours
+  computeCost: number;  // API/Token/Training Costs
   total: number;
 };
 
 export function generateEstimatePDF(data: EstimateData) {
-  const pdf = new jsPDF({ unit: "pt" });
+  const doc = new jsPDF({ unit: "pt" });
+  
+  // Brand Colors (Gold & Black Theme)
+  const COLOR_BG = [10, 10, 10] as [number, number, number];       // Almost Black
+  const COLOR_ACCENT = [212, 175, 55] as [number, number, number]; // Gold (#d4af37)
+  const COLOR_TEXT_MUTED = [150, 150, 150] as [number, number, number];
 
-  /* -------- BRAND HEADER (Bold Contractor Style) -------- */
-  pdf.setFillColor(30, 30, 30); // black header
-  pdf.rect(0, 0, 600, 90, "F");
+  /* --------------------------------------------------------
+     1. HEADER: "The Terminal Look"
+  -------------------------------------------------------- */
+  // Dark Header Block
+  doc.setFillColor(...COLOR_BG);
+  doc.rect(0, 0, 600, 100, "F");
 
-  pdf.setFontSize(26);
-  pdf.setTextColor(255, 130, 0); // orange
-  pdf.setFont("helvetica", "bold");
-  pdf.text("MARK-REMODELING", 30, 55);
+  // Logo / Brand Name
+  doc.setFontSize(22);
+  doc.setTextColor(...COLOR_ACCENT);
+  doc.setFont("courier", "bold"); // Monospaced for tech feel
+  doc.text("WEBAIGEN_CORE", 40, 55);
 
-  pdf.setFontSize(11);
-  pdf.setTextColor(255, 255, 255);
-  pdf.setFont("helvetica", "normal");
-  pdf.text("Official Renovation Estimate", 32, 75);
+  // Subtitle / Protocol ID
+  doc.setFontSize(10);
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("courier", "normal");
+  doc.text(`PROTOCOL_ID: ${Math.floor(Math.random() * 1000000)}`, 40, 75);
+  
+  // Timestamp
+  doc.setTextColor(...COLOR_TEXT_MUTED);
+  doc.text(`GENERATED: ${new Date().toLocaleDateString()}`, 400, 75);
 
-  /* -------- CUSTOMER SECTION -------- */
-  pdf.setFontSize(14);
-  pdf.setTextColor(0, 0, 0);
-  pdf.setFont("helvetica", "bold");
-  pdf.text("Project Summary", 30, 130);
+  /* --------------------------------------------------------
+     2. SYSTEM PARAMETERS (Project Specs)
+  -------------------------------------------------------- */
+  doc.setFontSize(12);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont("helvetica", "bold");
+  doc.text("SYSTEM ARCHITECTURE", 40, 140);
 
-  autoTable(pdf, {
+  autoTable(doc, {
     startY: 150,
     theme: "grid",
-    headStyles: { fillColor: [255, 130, 0] },
-    bodyStyles: { fontSize: 11 },
-    head: [["Field", "Value"]],
+    styles: {
+      font: "courier",
+      fontSize: 10,
+      cellPadding: 8,
+      lineColor: [200, 200, 200],
+      lineWidth: 0.5,
+    },
+    headStyles: {
+      fillColor: COLOR_BG,
+      textColor: COLOR_ACCENT,
+      fontStyle: "bold",
+    },
+    head: [["PARAMETER", "CONFIGURATION"]],
     body: [
-      ["Room Type", data.roomType],
-      ["Square Footage", `${data.sqft} sq ft`],
-      ["Material Choice", data.material],
+      ["ARCH_TYPE", data.service.toUpperCase()],
+      ["SCALE_UNITS", `${data.units} UNITS`],
+      ["NEURAL_MODEL", data.aiModel.toUpperCase()],
     ],
   });
 
-  /* -------- COST BREAKDOWN -------- */
-  pdf.setFontSize(14);
-  pdf.setFont("helvetica", "bold");
-  pdf.text("Cost Breakdown", 30, (pdf as any).lastAutoTable?.finalY + 40);
+  /* --------------------------------------------------------
+     3. RESOURCE ALLOCATION (Cost Breakdown)
+  -------------------------------------------------------- */
+  const finalY1 = (doc as any).lastAutoTable?.finalY || 150;
+  
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("RESOURCE ALLOCATION", 40, finalY1 + 40);
 
-  autoTable(pdf, {
-    startY: (pdf as any).lastAutoTable?.finalY + 60,
-    theme: "grid",
-    headStyles: { fillColor: [0, 0, 0] },
-    head: [["Description", "Amount"]],
+  autoTable(doc, {
+    startY: finalY1 + 50,
+    theme: "striped",
+    styles: { font: "courier", fontSize: 10, cellPadding: 8 },
+    headStyles: { fillColor: [50, 50, 50], textColor: [255, 255, 255] },
+    head: [["RESOURCE", "ALLOCATION (USD)"]],
     body: [
-      ["Labor Cost", `$${data.laborCost.toLocaleString()}`],
-      ["Material Cost", `$${data.materialCost.toLocaleString()}`],
+      ["Engineering & Dev Protocols", `$${data.devCost.toLocaleString()}`],
+      ["Neural Compute & Training", `$${data.computeCost.toLocaleString()}`],
     ],
   });
 
-  /* -------- TOTAL BOX -------- */
-  const finalY = (pdf as any).lastAutoTable?.finalY + 50;
+  /* --------------------------------------------------------
+     4. TOTAL COMPUTE (The Big Box)
+  -------------------------------------------------------- */
+  const finalY2 = (doc as any).lastAutoTable?.finalY + 40;
 
-  pdf.setFillColor(255, 130, 0); // bold orange box
-  pdf.rect(30, finalY, 540, 70, "F");
+  // Gold Accent Bar
+  doc.setFillColor(...COLOR_ACCENT);
+  doc.rect(40, finalY2, 515, 5, "F");
 
-  pdf.setTextColor(255, 255, 255);
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(22);
-  pdf.text("ESTIMATED TOTAL:", 40, finalY + 32);
+  // Total Container
+  doc.setFillColor(245, 245, 245); // Light grey box
+  doc.rect(40, finalY2 + 5, 515, 70, "F");
 
-  pdf.setFontSize(28);
-  pdf.text(`$${data.total.toLocaleString()}`, 40, finalY + 62);
+  // Labels
+  doc.setTextColor(...COLOR_BG);
+  doc.setFont("courier", "bold");
+  doc.setFontSize(14);
+  doc.text("TOTAL PROJECTED COMPUTE:", 60, finalY2 + 45);
 
-  /* -------- FOOTER -------- */
-  pdf.setTextColor(120);
-  pdf.setFontSize(10);
-  pdf.text(
-    "This estimate is based on average labor & material pricing in your area. Final quote may vary after inspection.",
-    30,
+  // Big Price
+  doc.setFontSize(24);
+  doc.setTextColor(...COLOR_ACCENT); // Gold Text
+  doc.text(`$${data.total.toLocaleString()}`, 350, finalY2 + 45);
+
+  /* --------------------------------------------------------
+     5. FOOTER
+  -------------------------------------------------------- */
+  doc.setFontSize(8);
+  doc.setTextColor(150);
+  doc.setFont("helvetica", "normal");
+  doc.text(
+    "NOTE: This data packet is an algorithmic estimate. Final resource consumption may vary based on neural complexity.",
+    40,
     780
   );
+  doc.text("WebAiGen Systems © 2024 // END OF LINE", 40, 795);
 
-  pdf.save(`estimate-${data.roomType.replace(" ", "_")}.pdf`);
+  // Save File
+  const filename = `WEBAIGEN_${data.service.replace(/\s+/g, "_")}_EST.pdf`;
+  doc.save(filename);
 }

@@ -6,117 +6,74 @@ import {
   ChevronLeft,
   ChevronRight,
   Check,
-  FileOutput,
+  ClipboardList,
+  Ruler, // Used for Scale
   Layers,
-  Calculator,
+  Sparkles,
+  Brain,
   Globe,
   Layout,
   ShoppingCart,
   Database,
-  Search,
-  FileText,
+  MessageSquare,
   Cpu,
-  ArrowRight,
-  RefreshCw,
-  Bot,
-  Workflow,
-  BrainCircuit,
-  Sparkles,
 } from "lucide-react";
 import { generateEstimatePDF } from "../../utils/generatePDF";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ----------------------------------------------------
-   Type Definitions (WebAiGen Specific)
+   1. Domain Specific Types & Data
 ---------------------------------------------------- */
-type ServiceType = "landing" | "website" | "ecommerce";
-type TierLevel = "startup" | "business" | "enterprise";
-
-// NEW: Extra Modules
-type ExtraKey =
-  | "copywriting"
-  | "seo"
-  | "cms"
-  | "automation"
-  | "ml";
+type ServiceType = "landing" | "website" | "ecommerce" | "ai_platform";
+type AILevel = "integration" | "fine_tune" | "autonomous";
 
 type EstimatorPanelProps = {
   open: boolean;
   onClose: () => void;
   onSendToChat: (markdown: string) => void;
-  isDark: boolean;
 };
 
-// 1. Service Definitions
+// Labels
 const serviceLabels: Record<ServiceType, string> = {
-  landing: "Landing_Page",
-  website: "Full_Website",
+  landing: "Landing Page",
+  website: "Corporate Site",
   ecommerce: "E-Commerce",
+  ai_platform: "AI SaaS Platform",
 };
 
-// 2. Complexity Tiers
-const tierLabels: Record<TierLevel, string> = {
-  startup: "Tier_1 (MVP)",
-  business: "Tier_2 (Growth)",
-  enterprise: "Tier_3 (Scale)",
+const aiLabels: Record<AILevel, string> = {
+  integration: "L1: API Wrapper",
+  fine_tune: "L2: RAG + Fine-Tune",
+  autonomous: "L3: Agentic System",
 };
 
-// 3. Pricing Logic (Web Dev Market Rates)
+// Pricing Constants
 const baseMinCost: Record<ServiceType, number> = {
-  landing: 500,
-  website: 1500,
-  ecommerce: 3000,
+  landing: 800,
+  website: 2500,
+  ecommerce: 4000,
+  ai_platform: 8000,
 };
 
-const costPerPage: Record<ServiceType, number> = {
-  landing: 200,
-  website: 300,
-  ecommerce: 500,
+const costPerUnit: Record<ServiceType, number> = {
+  landing: 250, // per section
+  website: 400, // per page
+  ecommerce: 600, // per product category
+  ai_platform: 1200, // per feature module
 };
 
-const tierMultipliers: Record<ServiceType, Record<TierLevel, number>> = {
-  landing: { startup: 1.0, business: 1.5, enterprise: 2.5 },
-  website: { startup: 1.0, business: 1.4, enterprise: 2.0 },
-  ecommerce: { startup: 1.0, business: 1.3, enterprise: 1.8 },
-};
-
-// 4. NEW: Module pricing (AI Automation + ML)
-// Note: priced as add-ons on top of core web build.
-// You can tweak these numbers easily without changing UI.
-const moduleCosts = {
-  copywriting: (units: number) => units * 100 + 200, // existing
-  seo: (service: ServiceType) => (service === "ecommerce" ? 1500 : 800),
-  cms: (service: ServiceType) => (service === "landing" ? 300 : 1200),
-
-  // NEW: Automation systems (Zapier/Make/n8n + webhooks + docs)
-  // priced per “flow” proxy = units-based baseline + tier scaling.
-  automation: (units: number, tier: TierLevel) => {
-    const base = 900; // discovery + system wiring
-    const perFlow = 220; // per automation flow
-    const tierBoost = tier === "startup" ? 1.0 : tier === "business" ? 1.25 : 1.6;
-    // Heuristic: flows ≈ ceil(units / 3) (more pages → more funnels/forms/integrations)
-    const flows = Math.max(2, Math.ceil(units / 3));
-    return (base + flows * perFlow) * tierBoost;
-  },
-
-  // NEW: Machine learning (food/personal project style) — data → model → simple deploy
-  // priced per “dataset/model complexity proxy” = units-based baseline + tier scaling.
-  ml: (units: number, tier: TierLevel, service: ServiceType) => {
-    const base = 1800; // data audit + pipeline + baseline model
-    const perUnit = service === "ecommerce" ? 180 : 140; // ecommerce usually needs richer signals
-    const tierBoost = tier === "startup" ? 1.0 : tier === "business" ? 1.3 : 1.75;
-    // Heuristic: model scope grows slower than pages, so use sqrt-ish scaling:
-    const complexity = Math.max(1, Math.round(Math.sqrt(units)));
-    return (base + complexity * perUnit) * tierBoost;
-  },
+const aiMultipliers: Record<AILevel, number> = {
+  integration: 1.1,
+  fine_tune: 1.8,
+  autonomous: 3.5,
 };
 
 const STEPS = [
-  { id: 1, label: "PROTOCOL", description: "Select Architecture" },
-  { id: 2, label: "SCOPE", description: "Page/Section Vol" },
-  { id: 3, label: "INTEL", description: "AI & Design Depth" },
-  { id: 4, label: "MODULES", description: "Integrations" },
-  { id: 5, label: "COMPILE", description: "Generate Quote" },
+  { id: 1, label: "Architecture", description: "Select the core system type." },
+  { id: 2, label: "Scale", description: "Define scope (Pages/Modules)." },
+  { id: 3, label: "Intelligence", description: "Select AI Model sophistication." },
+  { id: 4, label: "Modules", description: "Add neural capabilities." },
+  { id: 5, label: "Protocol", description: "Review and initialize." },
 ];
 
 export default function EstimatorPanel({
@@ -124,139 +81,100 @@ export default function EstimatorPanel({
   onClose,
   onSendToChat,
 }: EstimatorPanelProps) {
+  // State
   const [step, setStep] = useState<number>(1);
   const [service, setService] = useState<ServiceType | null>(null);
-  const [pageCount, setPageCount] = useState<string>("");
-  const [tier, setTier] = useState<TierLevel>("business");
-
-  // UPDATED extras to include automation + ml
-  const [extras, setExtras] = useState<Record<ExtraKey, boolean>>({
-    copywriting: false,
-    seo: false,
-    cms: false,
-    automation: false,
-    ml: false,
+  const [unitInput, setUnitInput] = useState<string>("");
+  const [aiLevel, setAiLevel] = useState<AILevel>("integration");
+  const [extras, setExtras] = useState({
+    vector_db: false,
+    voice_synth: false,
+    predictive: false,
   });
 
   // ------------------------------------------------------------------
-  // Logic
+  // Logic Engine
   // ------------------------------------------------------------------
-  const parsedCount = useMemo(() => {
-    const n = Number(pageCount);
+  const parsedUnits = useMemo(() => {
+    const n = Number(unitInput);
     return Number.isFinite(n) && n > 0 ? n : null;
-  }, [pageCount]);
+  }, [unitInput]);
 
   const estimate = useMemo(() => {
-    if (!service || !parsedCount) return null;
+    if (!service || !parsedUnits) return null;
 
     const base = baseMinCost[service];
-    const perUnit = costPerPage[service];
-    const mult = tierMultipliers[service][tier];
+    const perUnit = costPerUnit[service];
+    const multiplier = aiMultipliers[aiLevel];
 
-    // Core Calc: (Base + (Pages * Cost)) * Multiplier
-    let core = (base + perUnit * parsedCount) * mult;
-    let total = core;
-
+    // Core Calculation: (Base + (Scale * UnitCost)) * AI Multiplier
+    let total = (base + (perUnit * parsedUnits)) * multiplier;
+    
     const breakdown: string[] = [];
-    breakdown.push(`Core_Architecture: ~$${core.toFixed(0)}`);
+    breakdown.push(`Core Architecture & Logic: $${total.toFixed(0)}`);
 
-    // Extras (existing)
-    if (extras.copywriting) {
-      const copyCost = moduleCosts.copywriting(parsedCount);
-      total += copyCost;
-      breakdown.push(`AI_Content_Gen: +$${copyCost.toFixed(0)}`);
+    // Extras Calculation
+    if (extras.vector_db) {
+      total += 2500;
+      breakdown.push("Vector Database Setup: $2,500");
+    }
+    if (extras.voice_synth) {
+      total += 1800;
+      breakdown.push("Voice Synthesis Module: $1,800");
+    }
+    if (extras.predictive) {
+      total += 5000;
+      breakdown.push("Predictive ML Engine: $5,000");
     }
 
-    if (extras.seo) {
-      const seoCost = moduleCosts.seo(service);
-      total += seoCost;
-      breakdown.push(`SEO_Matrix_Setup: +$${seoCost.toFixed(0)}`);
-    }
+    return {
+      total,
+      low: total * 0.9,
+      high: total * 1.2,
+      breakdown,
+    };
+  }, [service, parsedUnits, aiLevel, extras]);
 
-    if (extras.cms) {
-      const cmsCost = moduleCosts.cms(service);
-      total += cmsCost;
-      breakdown.push(`CMS_Admin_Panel: +$${cmsCost.toFixed(0)}`);
-    }
-
-    // NEW: AI Automation
-    if (extras.automation) {
-      const automationCost = moduleCosts.automation(parsedCount, tier);
-      total += automationCost;
-      breakdown.push(`AI_Automation_Systems: +$${automationCost.toFixed(0)}`);
-      breakdown.push(`└─ Flows: ~${Math.max(2, Math.ceil(parsedCount / 3))} (heuristic)`);
-    }
-
-    // NEW: Machine Learning
-    if (extras.ml) {
-      const mlCost = moduleCosts.ml(parsedCount, tier, service);
-      total += mlCost;
-      breakdown.push(`Machine_Learning_Module: +$${mlCost.toFixed(0)}`);
-      breakdown.push(`└─ Pipeline: Data→Train→Eval→Deploy (baseline)`);
-    }
-
-    // Range
-    const low = total * 0.9;
-    const high = total * 1.15;
-
-    return { total, low, high, breakdown, core };
-  }, [service, parsedCount, tier, extras]);
-
+  // Navigation Guards
   const canNext = () => {
     if (step === 1) return !!service;
-    if (step === 2) return !!parsedCount;
-    if (step === 3) return !!tier;
+    if (step === 2) return !!parsedUnits;
+    if (step === 3) return !!aiLevel;
     return true;
   };
 
-  const next = () => {
-    if (!canNext()) return;
-    setStep((prev) => (prev < 5 ? prev + 1 : prev));
-  };
-
-  const back = () => {
-    setStep((prev) => (prev > 1 ? prev - 1 : prev));
-  };
-
+  const next = () => { if (canNext()) setStep((prev) => Math.min(prev + 1, 5)); };
+  const back = () => { setStep((prev) => Math.max(prev - 1, 1)); };
+  
   const reset = () => {
     setStep(1);
     setService(null);
-    setPageCount("");
-    setTier("business");
-    setExtras({
-      copywriting: false,
-      seo: false,
-      cms: false,
-      automation: false,
-      ml: false,
-    });
+    setUnitInput("");
+    setAiLevel("integration");
+    setExtras({ vector_db: false, voice_synth: false, predictive: false });
   };
 
+  // ------------------------------------------------------------------
+  // Handlers
+  // ------------------------------------------------------------------
   const handleSendToChat = () => {
-    if (!service || !parsedCount || !estimate) return;
-    const { low, high, breakdown } = estimate;
+    if (!service || !parsedUnits || !estimate) return;
 
     const selectedExtras = Object.entries(extras)
       .filter(([, v]) => v)
-      .map(([k]) => k.toUpperCase());
+      .map(([k]) => k.replace("_", " ").toUpperCase());
 
     const markdown = [
-      `### ⚡ WEBAIGEN_ESTIMATE: ${serviceLabels[service]}`,
+      `### 🧬 SYSTEM ESTIMATE: ${serviceLabels[service]}`,
       "",
-      `**// SYSTEM PARAMETERS**`,
-      `- **Arch:** ${serviceLabels[service]}`,
-      `- **Scope:** ${parsedCount} ${service === "landing" ? "SECTIONS" : "PAGES"}`,
-      `- **Tier:** ${tierLabels[tier]}`,
-      `- **Modules:** ${selectedExtras.length ? selectedExtras.join(" + ") : "N/A"}`,
+      `- **Architecture:** ${serviceLabels[service]}`,
+      `- **Scale:** ${parsedUnits} Units`,
+      `- **Model:** ${aiLabels[aiLevel]}`,
+      selectedExtras.length ? `- **Modules:** ${selectedExtras.join(", ")}` : `- **Modules:** Standard`,
       "",
-      `**// COST PROJECTION**`,
-      `# $${low.toFixed(0)} – $${high.toFixed(0)}`,
+      `**Projected Investment:** $${estimate.low.toFixed(0)} – $${estimate.high.toFixed(0)}`,
       "",
-      breakdown.length
-        ? `**// DATA STREAM:**\n${breakdown.map((b) => `> ${b}`).join("\n")}`
-        : "",
-      "",
-      `_Projection uses a heuristic blend of build hours + AI module complexity. Final scope confirmed after discovery._`,
+      "> *Note: algorithmic estimate. Final compute costs vary based on API usage.*",
     ].join("\n");
 
     onSendToChat(markdown);
@@ -264,452 +182,334 @@ export default function EstimatorPanel({
     reset();
   };
 
-  // ------------------------------------------------------------------
-  // UI Render
-  // ------------------------------------------------------------------
+  const handleDownloadPDF = () => {
+    if (!service || !parsedUnits || !estimate) return;
+
+    generateEstimatePDF({
+      service: serviceLabels[service],
+      units: parsedUnits,
+      aiModel: aiLabels[aiLevel],
+      devCost: estimate.total * 0.6,
+      computeCost: estimate.total * 0.4,
+      total: estimate.total,
+    });
+  };
+
+  // Helper for icons
+  const getServiceIcon = (s: ServiceType) => {
+    switch (s) {
+      case "landing": return Layout;
+      case "website": return Globe;
+      case "ecommerce": return ShoppingCart;
+      case "ai_platform": return Brain;
+    }
+  };
+
+  const currentStepMeta = STEPS.find((s) => s.id === step);
+
   return (
     <AnimatePresence mode="wait">
       {open && (
         <motion.div
-          key="panel"
+          key="estimatorPanel"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
-          className="h-full flex flex-col bg-[#050505] text-white font-sans relative overflow-hidden"
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="h-full"
         >
-          {/* Background Grid */}
-          <div
-            className="absolute inset-0 opacity-[0.05] pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-              backgroundSize: "20px 20px",
-            }}
-          />
-
-          {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/5 backdrop-blur-md relative z-10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 flex items-center justify-center border border-[#d4af37]/40 bg-[#d4af37]/10 rounded-sm">
-                <Calculator className="w-4 h-4 text-[#d4af37]" />
-              </div>
-              <div>
-                <div className="font-mono text-[10px] text-[#d4af37] tracking-[0.2em] uppercase">
-                  WebAiGen_OS
+          {/* Main Container - Glassmorphism Cyberpunk Style */}
+          <div className="h-full flex flex-col rounded-2xl border border-[#d4af37]/20 shadow-[0_0_50px_-12px_rgba(0,0,0,0.9)] bg-[#080808]/95 backdrop-blur-xl text-slate-50 overflow-hidden">
+            
+            {/* 1. Header */}
+            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-[#d4af37]/20 bg-gradient-to-r from-[#d4af37]/5 to-transparent">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/30">
+                  <ClipboardList className="w-4 h-4 text-[#d4af37]" />
                 </div>
-                <div className="font-bold text-sm tracking-wide text-white/90">
-                  PROJECT_CALCULATOR
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#d4af37] font-bold">
+                      System Architect
+                    </span>
+                    <span className="inline-flex items-center rounded-sm px-1.5 py-0.5 text-[9px] font-mono bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30">
+                      V 2.0
+                    </span>
+                  </div>
+                  <div className="text-sm font-bold flex items-center gap-2 text-white">
+                    <span>{step}. {currentStepMeta?.label}</span>
+                    {service && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded border border-white/20 bg-white/5 text-white/70 uppercase">
+                        {serviceLabels[service].split(' ')[0]}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <button
-              onClick={onClose}
-              className="p-2 text-white/30 hover:text-white transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
 
-          {/* Progress Strip */}
-          <div className="flex w-full h-1 bg-white/10">
-            {STEPS.map((s) => (
-              <div
-                key={s.id}
-                className={`h-full transition-all duration-300 ${
-                  s.id <= step ? "bg-[#d4af37]" : "bg-transparent"
-                }`}
-                style={{ width: `${100 / STEPS.length}%` }}
-              />
-            ))}
-          </div>
-
-          {/* Main Content Area */}
-          <div className="flex-1 overflow-y-auto custom-scroll p-6 relative z-10">
-            {/* Step Label */}
-            <div className="mb-6 flex items-end justify-between border-b border-white/10 pb-2">
-              <div>
-                <span className="font-mono text-4xl text-white/10 font-bold block -mb-1">
-                  {step < 10 ? `0${step}` : step}
-                </span>
-                <span className="font-mono text-xs text-[#d4af37] tracking-widest uppercase">
-                  // {STEPS[step - 1].label}
-                </span>
-              </div>
-              <span className="font-mono text-[9px] text-white/40 uppercase mb-1">
-                {STEPS[step - 1].description}
-              </span>
-            </div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="min-h-[200px]"
+              <button
+                onClick={onClose}
+                className="group p-2 rounded-full hover:bg-white/10 transition-colors"
               >
-                {/* ---------------- STEP 1: SERVICE ---------------- */}
-                {step === 1 && (
-                  <div className="grid grid-cols-1 gap-3">
-                    {[
-                      {
-                        id: "landing",
-                        label: "LANDING_PAGE",
-                        icon: Layout,
-                        desc: "Single-page conversion funnel. High impact.",
-                      },
-                      {
-                        id: "website",
-                        label: "FULL_WEBSITE",
-                        icon: Globe,
-                        desc: "Multi-page identity. Scalable architecture.",
-                      },
-                      {
-                        id: "ecommerce",
-                        label: "ECOMMERCE",
-                        icon: ShoppingCart,
-                        desc: "Storefront + payments + product flows.",
-                      },
-                    ].map((s) => (
-                      <button
-                        key={s.id}
-                        onClick={() => setService(s.id as ServiceType)}
+                <X className="w-4 h-4 text-white/50 group-hover:text-white" />
+              </button>
+            </div>
+
+            {/* 2. Progress Indicator */}
+            <div className="px-4 pt-4 pb-2">
+              <div className="flex items-center justify-between relative">
+                {/* Background Line */}
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -z-0" />
+                
+                {STEPS.map((s) => {
+                  const isCompleted = s.id < step;
+                  const isActive = s.id === step;
+                  return (
+                    <div key={s.id} className="relative z-10 flex flex-col items-center gap-2">
+                      <div
                         className={`
-                          group relative p-4 border rounded-sm text-left transition-all duration-300
-                          ${
-                            service === s.id
-                              ? "bg-[#d4af37]/10 border-[#d4af37] text-white"
-                              : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:border-white/30"
-                          }
+                          flex items-center justify-center h-5 w-5 rounded-full text-[9px] font-bold transition-all duration-300
+                          ${isCompleted ? "bg-[#d4af37] text-black scale-100" 
+                            : isActive ? "bg-[#d4af37] text-black scale-125 shadow-[0_0_10px_#d4af37]" 
+                            : "bg-[#1a1a1a] border border-white/20 text-white/30"}
                         `}
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <s.icon
-                              className={`w-4 h-4 ${
-                                service === s.id ? "text-[#d4af37]" : "text-white/40"
-                              }`}
-                            />
-                            <span className="font-mono text-xs tracking-wider uppercase font-bold">
-                              {s.label}
-                            </span>
-                          </div>
-                          {service === s.id && (
-                            <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-pulse" />
-                          )}
-                        </div>
-                        <div className="mt-2 text-[10px] opacity-60 font-sans leading-relaxed max-w-[90%] pl-7">
-                          {s.desc}
-                        </div>
+                        {isCompleted ? <Check className="w-3 h-3" /> : s.id}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
 
-                        <div
-                          className={`absolute top-0 left-0 w-2 h-2 border-t border-l transition-colors ${
-                            service === s.id ? "border-[#d4af37]" : "border-transparent"
-                          }`}
-                        />
-                        <div
-                          className={`absolute bottom-0 right-0 w-2 h-2 border-b border-r transition-colors ${
-                            service === s.id ? "border-[#d4af37]" : "border-transparent"
-                          }`}
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
+            {/* 3. Main Content Area */}
+            <div className="flex-1 px-4 py-2 space-y-4 overflow-y-auto custom-scroll relative">
+               {/* Background Grid Pattern */}
+               <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+                    style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '20px 20px' }} />
 
-                {/* ---------------- STEP 2: SIZE ---------------- */}
-                {step === 2 && (
-                  <div className="space-y-6">
-                    <div className="bg-black border border-white/20 p-4 rounded-sm flex items-center gap-4">
-                      <Layers className="w-5 h-5 text-[#d4af37]" />
-                      <div className="flex-1">
-                        <label className="block text-[9px] font-mono text-white/40 uppercase mb-1">
-                          {service === "landing" ? "Section Count" : "Page Count"}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="space-y-4 relative z-10"
+                >
+                  {/* STEP 1: SERVICE */}
+                  {step === 1 && (
+                    <div className="grid grid-cols-1 gap-2 mt-2">
+                      {(Object.keys(serviceLabels) as ServiceType[]).map((s) => {
+                        const Icon = getServiceIcon(s);
+                        const isActive = service === s;
+                        return (
+                          <button
+                            key={s}
+                            onClick={() => setService(s)}
+                            className={`
+                              group relative overflow-hidden flex items-center gap-4 p-3 rounded-lg border text-left transition-all duration-200
+                              ${isActive 
+                                ? "bg-[#d4af37]/10 border-[#d4af37] text-white" 
+                                : "bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:border-white/20"}
+                            `}
+                          >
+                            <div className={`p-2 rounded-md ${isActive ? 'bg-[#d4af37] text-black' : 'bg-black/50 text-white/50'}`}>
+                              <Icon className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-bold uppercase tracking-wide">{serviceLabels[s]}</div>
+                              <div className="text-[10px] text-white/40">Base Protocol: ${baseMinCost[s]}</div>
+                            </div>
+                            {isActive && <div className="absolute right-0 top-0 bottom-0 w-1 bg-[#d4af37] shadow-[0_0_10px_#d4af37]" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* STEP 2: SCALE */}
+                  {step === 2 && (
+                    <div className="space-y-6 mt-4">
+                      <div className="bg-black/40 border border-[#d4af37]/30 p-6 rounded-xl text-center relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-[#d4af37]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        
+                        <label className="text-xs uppercase tracking-widest text-[#d4af37] mb-2 block">
+                           Define System Scale
                         </label>
-                        <input
-                          type="number"
-                          value={pageCount}
-                          onChange={(e) => setPageCount(e.target.value)}
-                          placeholder="00"
-                          className="w-full bg-transparent text-2xl font-mono text-white placeholder:text-white/20 outline-none border-none p-0"
-                          autoFocus
-                        />
-                      </div>
-                      <span className="font-mono text-xs text-white/40">UNITS</span>
-                    </div>
-
-                    <div className="p-3 bg-[#d4af37]/5 border-l-2 border-[#d4af37] text-[11px] text-white/70">
-                      <strong className="text-[#d4af37] block mb-1">
-                        Estimation Protocol:
-                      </strong>
-                      {service === "landing"
-                        ? "Count distinct scroll sections (Hero, Features, Testimonials, CTA)."
-                        : "Count unique URLs (Home, About, Services, Contact, Blog)."}
-                    </div>
-                  </div>
-                )}
-
-                {/* ---------------- STEP 3: TIER ---------------- */}
-                {step === 3 && (
-                  <div className="space-y-3">
-                    {(["startup", "business", "enterprise"] as TierLevel[]).map((lvl) => (
-                      <button
-                        key={lvl}
-                        onClick={() => setTier(lvl)}
-                        className={`
-                          w-full flex items-center justify-between p-3 border-b border-white/5 hover:bg-white/5 transition-colors text-left
-                          ${tier === lvl ? "text-[#d4af37]" : "text-white/60"}
-                        `}
-                      >
-                        <div>
-                          <div className="font-mono text-xs uppercase tracking-wider mb-0.5">
-                            {tierLabels[lvl]}
-                          </div>
-                          <div className="text-[10px] opacity-50">
-                            {lvl === "startup" && "Standard templates. Rapid deployment."}
-                            {lvl === "business" && "Custom UI/UX. Brand-aligned motion."}
-                            {lvl === "enterprise" && "Complex flows. Full integrations."}
-                          </div>
-                        </div>
-                        <div
-                          className={`w-4 h-4 border flex items-center justify-center rounded-sm ${
-                            tier === lvl
-                              ? "border-[#d4af37] bg-[#d4af37]/20"
-                              : "border-white/20"
-                          }`}
-                        >
-                          {tier === lvl && <Check className="w-3 h-3" />}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* ---------------- STEP 4: EXTRAS ---------------- */}
-                {step === 4 && (
-                  <div className="space-y-2">
-                    {[
-                      {
-                        key: "copywriting",
-                        label: "AI_COPY_GEN",
-                        icon: FileText,
-                        desc: "Automated SEO-optimized text generation.",
-                      },
-                      {
-                        key: "seo",
-                        label: "SEO_MATRIX",
-                        icon: Search,
-                        desc: "Meta tags, schema markup, and analytics setup.",
-                      },
-                      {
-                        key: "cms",
-                        label: "CMS_INTEGRATION",
-                        icon: Database,
-                        desc: "Admin panel for content updates.",
-                      },
-
-                      // NEW: Automation
-                      {
-                        key: "automation",
-                        label: "AI_AUTOMATION",
-                        icon: Workflow,
-                        desc: "n8n/Make/Zapier flows + webhooks + lead routing + notifications.",
-                      },
-
-                      // NEW: Machine Learning
-                      {
-                        key: "ml",
-                        label: "MACHINE_LEARNING",
-                        icon: BrainCircuit,
-                        desc: "Data→Model→API→UI. Ideal for personal projects (ex: food ML).",
-                      },
-                    ].map((opt) => (
-                      <label
-                        key={opt.key}
-                        className={`
-                          flex items-start gap-3 p-3 border rounded-sm cursor-pointer transition-all
-                          ${(extras as any)[opt.key]
-                            ? "bg-[#d4af37]/10 border-[#d4af37]/50"
-                            : "bg-white/5 border-white/5 hover:border-white/20"}
-                        `}
-                      >
-                        <div
-                          className={`mt-0.5 p-1 rounded-sm ${
-                            (extras as any)[opt.key] ? "text-[#d4af37]" : "text-white/40"
-                          }`}
-                        >
-                          <opt.icon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <span
-                              className={`font-mono text-xs uppercase tracking-wider ${
-                                (extras as any)[opt.key] ? "text-[#d4af37]" : "text-white/80"
-                              }`}
-                            >
-                              {opt.label}
-                            </span>
+                        
+                        <div className="flex items-center justify-center gap-2">
                             <input
-                              type="checkbox"
-                              checked={(extras as any)[opt.key]}
-                              onChange={(e) =>
-                                setExtras((prev) => ({ ...prev, [opt.key]: e.target.checked }))
-                              }
-                              className="accent-[#d4af37]"
+                            type="number"
+                            min={1}
+                            autoFocus
+                            value={unitInput}
+                            onChange={(e) => setUnitInput(e.target.value)}
+                            className="bg-transparent text-5xl font-mono text-white outline-none w-24 text-center placeholder:text-white/10"
+                            placeholder="0"
                             />
-                          </div>
-                          <p className="text-[10px] text-white/40 mt-1">{opt.desc}</p>
-
-                          {/* mini cost hint */}
-                          {service && parsedCount && (
-                            <p className="mt-2 font-mono text-[9px] tracking-widest text-white/35 uppercase">
-                              est:{" "}
-                              <span className="text-white/60">
-                                {opt.key === "copywriting" &&
-                                  `$${moduleCosts.copywriting(parsedCount).toFixed(0)}`}
-                                {opt.key === "seo" &&
-                                  `$${moduleCosts.seo(service).toFixed(0)}`}
-                                {opt.key === "cms" &&
-                                  `$${moduleCosts.cms(service).toFixed(0)}`}
-                                {opt.key === "automation" &&
-                                  `$${moduleCosts.automation(parsedCount, tier).toFixed(0)}`}
-                                {opt.key === "ml" &&
-                                  `$${moduleCosts.ml(parsedCount, tier, service).toFixed(0)}`}
-                              </span>
-                            </p>
-                          )}
                         </div>
-                      </label>
-                    ))}
-                  </div>
-                )}
-
-                {/* ---------------- STEP 5: SUMMARY ---------------- */}
-                {step === 5 && estimate && (
-                  <div className="space-y-4 font-mono text-xs">
-                    <div className="bg-black border border-dashed border-white/20 p-4 rounded-sm text-white/70 space-y-2 relative">
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-                      <div className="flex justify-between border-b border-white/10 pb-2 mb-2">
-                        <span>ARCH:</span>
-                        <span className="text-white">{serviceLabels[service!]}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>VOLUME:</span>
-                        <span className="text-white">{parsedCount} UNITS</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>INTEL_LVL:</span>
-                        <span className="text-white">{tierLabels[tier]}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>MODULES:</span>
-                        <span className="text-white text-right max-w-[55%]">
-                          {Object.values(extras).some(Boolean)
-                            ? Object.entries(extras)
-                                .filter(([, v]) => v)
-                                .map(([k]) => k.toUpperCase())
-                                .join(" + ")
-                            : "NONE"}
-                        </span>
+                        <div className="text-[10px] text-white/40 mt-2 font-mono">UNITS / PAGES / MODULES</div>
                       </div>
 
-                      <div className="pt-4 mt-2 border-t border-white/10">
-                        <div className="flex justify-between items-end">
-                          <span className="text-[#d4af37] tracking-widest">
-                            TOTAL PROJECTION
-                          </span>
-                          <span className="text-xl font-bold text-[#d4af37]">
-                            ${(estimate.low).toFixed(0)} - ${(estimate.high).toFixed(0)}
-                          </span>
-                        </div>
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/5 text-xs text-white/60">
+                        <span className="text-[#d4af37] font-bold">NOTE:</span> "Units" refers to unique page layouts for websites, or functional feature modules for AI platforms.
                       </div>
                     </div>
+                  )}
 
-                    <div className="border border-white/10 bg-white/5 p-3 rounded-sm">
-                      <div className="flex items-center gap-2 text-[#d4af37] mb-2">
-                        <Sparkles className="w-4 h-4" />
-                        <span className="font-mono text-[10px] tracking-widest uppercase">
-                          Breakdown Stream
-                        </span>
-                      </div>
-                      <div className="space-y-1 text-white/60 text-[11px]">
-                        {estimate.breakdown.map((b, i) => (
-                          <div key={i} className="flex gap-2">
-                            <span className="text-white/25">›</span>
-                            <span>{b}</span>
-                          </div>
+                  {/* STEP 3: AI LEVEL */}
+                  {step === 3 && (
+                    <div className="space-y-3 mt-2">
+                      {(Object.keys(aiLabels) as AILevel[]).map((level) => {
+                        const isActive = aiLevel === level;
+                        return (
+                           <button
+                             key={level}
+                             onClick={() => setAiLevel(level)}
+                             className={`
+                               w-full p-4 rounded-lg border text-left transition-all relative overflow-hidden
+                               ${isActive 
+                                 ? "bg-gradient-to-r from-[#d4af37]/20 to-transparent border-[#d4af37]" 
+                                 : "bg-white/5 border-white/5 hover:border-white/20"}
+                             `}
+                           >
+                             <div className="flex justify-between items-center mb-1">
+                               <span className={`text-sm font-bold uppercase ${isActive ? "text-[#d4af37]" : "text-white/80"}`}>
+                                 {aiLabels[level]}
+                               </span>
+                               {isActive && <Check className="w-4 h-4 text-[#d4af37]" />}
+                             </div>
+                             <div className="text-[10px] text-white/50">
+                               Multiplier: <span className="font-mono text-white">x{aiMultipliers[level]}</span>
+                             </div>
+                           </button>
+                        )
+                      })}
+                    </div>
+                  )}
+
+                  {/* STEP 4: EXTRAS */}
+                  {step === 4 && (
+                     <div className="space-y-2 mt-2">
+                        {[
+                          { key: 'vector_db', label: 'Vector Database', icon: Database, price: 2500 },
+                          { key: 'voice_synth', label: 'Voice Synthesis', icon: MessageSquare, price: 1800 },
+                          { key: 'predictive', label: 'Predictive Analytics', icon: Sparkles, price: 5000 }
+                        ].map((item) => (
+                           <label
+                             key={item.key}
+                             className={`
+                               flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all
+                               ${extras[item.key as keyof typeof extras] 
+                                 ? "bg-white/10 border-[#d4af37]/50 text-white" 
+                                 : "bg-white/5 border-transparent text-white/50 hover:bg-white/10"}
+                             `}
+                           >
+                              <div className={`p-2 rounded ${extras[item.key as keyof typeof extras] ? "bg-[#d4af37] text-black" : "bg-black/50"}`}>
+                                 <item.icon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1">
+                                 <div className="text-xs font-bold uppercase">{item.label}</div>
+                                 <div className="text-[10px] opacity-70">+${item.price}</div>
+                              </div>
+                              <input
+                                type="checkbox"
+                                className="hidden"
+                                checked={extras[item.key as keyof typeof extras]}
+                                onChange={(e) => setExtras(prev => ({...prev, [item.key]: e.target.checked}))}
+                              />
+                              {extras[item.key as keyof typeof extras] && <div className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />}
+                           </label>
                         ))}
-                      </div>
+                     </div>
+                  )}
+
+                  {/* STEP 5: SUMMARY */}
+                  {step === 5 && estimate && (
+                    <div className="space-y-4">
+                       <div className="bg-[#050505] border border-[#d4af37]/30 rounded-lg p-5 relative overflow-hidden">
+                          {/* Scanline effect */}
+                          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,10,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 pointer-events-none bg-[length:100%_4px,3px_100%] opacity-20" />
+                          
+                          <div className="relative z-10 space-y-3">
+                             <div className="flex justify-between items-center pb-3 border-b border-white/10">
+                                <div className="text-xs text-white/50 uppercase">Architecture</div>
+                                <div className="text-sm font-bold text-white">{serviceLabels[service!]}</div>
+                             </div>
+                             
+                             <div className="grid grid-cols-2 gap-4 pb-3 border-b border-white/10">
+                                <div>
+                                   <div className="text-xs text-white/50 uppercase">Scale</div>
+                                   <div className="text-sm text-white font-mono">{parsedUnits} Units</div>
+                                </div>
+                                <div className="text-right">
+                                   <div className="text-xs text-white/50 uppercase">Model</div>
+                                   <div className="text-sm text-white font-mono">{aiLabels[aiLevel].split(':')[0]}</div>
+                                </div>
+                             </div>
+
+                             <div className="pt-2">
+                                <div className="text-[10px] text-[#d4af37] uppercase tracking-widest mb-1">Estimated Investment</div>
+                                <div className="text-2xl font-bold text-white tracking-tight">
+                                   ${estimate.low.toFixed(0)} <span className="text-white/30 text-lg mx-1">-</span> ${estimate.high.toFixed(0)}
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+
+                       <button
+                         onClick={handleDownloadPDF}
+                         className="w-full py-3 rounded-lg border border-[#d4af37]/30 hover:bg-[#d4af37]/10 text-[#d4af37] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+                       >
+                          <ClipboardList className="w-4 h-4" /> Export Data Packet (PDF)
+                       </button>
+
+                       <p className="text-[10px] text-white/30 text-center">
+                          Initiating this protocol does not bind resources. <br/>Final calibration required by human architect.
+                       </p>
                     </div>
+                  )}
 
-                    <button
-                      onClick={() =>
-                        generateEstimatePDF({
-                          roomType: serviceLabels[service!],
-                          sqft: parsedCount!,
-                          material: tierLabels[tier],
-                          laborCost: estimate.total * 0.6,
-                          materialCost: estimate.total * 0.4,
-                          total: estimate.total,
-                        })
-                      }
-                      className="w-full py-3 flex items-center justify-center gap-2 border border-white/20 text-white/60 hover:text-white hover:bg-white/5 transition-all text-xs uppercase tracking-wider"
-                    >
-                      <FileOutput className="w-3 h-3" /> Export_Data_PDF
-                    </button>
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* 4. Footer Controls */}
+            <div className="px-4 py-3 border-t border-white/10 bg-[#0a0a0a] flex items-center justify-between">
+               
+               {/* Back / Close */}
+               <button
+                  onClick={step === 1 ? onClose : back}
+                  className="px-3 py-1.5 rounded-md text-xs text-white/50 hover:bg-white/10 hover:text-white transition-colors flex items-center gap-1"
+               >
+                  {step === 1 ? <X className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
+                  {step === 1 ? "Abort" : "Back"}
+               </button>
+
+               <div className="flex items-center gap-2">
+                  <button onClick={reset} className="px-3 py-1.5 text-[10px] text-white/30 hover:text-white transition-colors">
+                     RESET
+                  </button>
+
+                  {/* Next / Initialize */}
+                  <button
+                    onClick={step === 5 ? handleSendToChat : next}
+                    disabled={!canNext()}
+                    className={`
+                       px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all
+                       ${canNext() 
+                         ? "bg-[#d4af37] text-black hover:bg-[#b5952f] shadow-[0_0_15px_rgba(212,175,55,0.4)]" 
+                         : "bg-white/10 text-white/20 cursor-not-allowed"}
+                    `}
+                  >
+                     {step === 5 ? "Initialize" : "Next"}
+                     {step === 5 ? <Cpu className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+                  </button>
+               </div>
+            </div>
+
           </div>
-
-          {/* Footer Navigation */}
-          <div className="p-4 border-t border-white/10 bg-[#0a0a0a] z-20 flex justify-between items-center">
-            {step === 1 ? (
-              <button
-                onClick={reset}
-                className="text-white/20 hover:text-white transition-colors p-2"
-              >
-                <RefreshCw className="w-4 h-4" />
-              </button>
-            ) : (
-              <button
-                onClick={back}
-                className="text-white/40 hover:text-white flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest"
-              >
-                <ChevronLeft className="w-3 h-3" /> Back
-              </button>
-            )}
-
-            {step < 5 ? (
-              <button
-                onClick={next}
-                disabled={!canNext()}
-                className={`
-                   flex items-center gap-2 px-6 py-2 rounded-sm font-mono text-xs font-bold uppercase tracking-widest transition-all
-                   ${
-                     canNext()
-                       ? "bg-[#d4af37] text-black hover:bg-[#b5952f]"
-                       : "bg-white/10 text-white/20 cursor-not-allowed"
-                   }
-                 `}
-              >
-                Next <ChevronRight className="w-3 h-3" />
-              </button>
-            ) : (
-              <button
-                onClick={handleSendToChat}
-                className="flex items-center gap-2 px-6 py-2 bg-[#d4af37] text-black rounded-sm font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#b5952f] transition-all shadow-[0_0_15px_rgba(212,175,55,0.4)]"
-              >
-                Initialize <ArrowRight className="w-3 h-3" />
-              </button>
-            )}
-          </div>
-
-          {/* Decorative Corner */}
-          <div className="absolute bottom-4 right-4 w-12 h-12 border-b border-r border-[#d4af37]/10 pointer-events-none" />
         </motion.div>
       )}
     </AnimatePresence>

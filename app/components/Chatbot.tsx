@@ -22,6 +22,7 @@ import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import EstimatorPanel from "./EstimatorPanel";
 import Image from "next/image";
+import Logo from "../components/logo1";
 
 /* ----------------------------------------------------
    Type Definitions (Unchanged)
@@ -539,7 +540,8 @@ export default function Chatbot() {
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-black/20">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-[#d4af37]/10 border border-[#d4af37]/20">
-                <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                {/* <Sparkles className="w-4 h-4 text-[#d4af37]" /> */}
+               <Logo/> 
               </div>
               <div>
                 <h3
@@ -559,41 +561,43 @@ export default function Chatbot() {
             </div>
 
             <div className="flex items-center gap-1">
-              <button
-                onClick={() => setEstimatorOpen((prev) => !prev)}
-                className={`
-                    hidden sm:flex items-center gap-1 px-2 py-1 rounded-sm border transition-all
-                    ${
-                      estimatorOpen
-                        ? "bg-[#d4af37]/20 border-[#d4af37]/50 text-[#d4af37]"
-                        : "bg-transparent border-white/10 text-white/40 hover:text-white"
-                    }
-                  `}
-              >
-                <Cpu className="w-3 h-3" />
-                <span className="font-mono text-[9px] uppercase">Tools</span>
-              </button>
+            <button
+  onClick={() => setEstimatorOpen((prev) => !prev)}
+  className={`
+      hidden sm:flex items-center cursor-pointer gap-2 px-4 py-1.5 rounded-sm border transition-all duration-300 group
+      ${
+        estimatorOpen
+          ? "bg-[#d4af37] border-[#d4af37] text-black shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+          : "bg-[#d4af37]/10 border-[#d4af37]/50 text-[#d4af37] hover:bg-[#d4af37] hover:text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+      }
+    `}
+>
+  <Cpu className={`w-3.5 h-3.5 ${estimatorOpen ? "animate-spin-slow" : ""}`} />
+  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">
+    {estimatorOpen ? "Active" : "Launch_Estimator"}
+  </span>
+</button>
 
-              <button
+              {/* <button
                 onClick={() => setTheme((prev) => (prev === "light" ? "dark" : "light"))}
                 className="p-2 text-white/20 hover:text-white transition-colors"
               >
                 {isDark ? <Sun className="w-3 h-3" /> : <Moon className="w-3 h-3" />}
-              </button>
+              </button> */}
 
               <button
                 onClick={clearChat}
-                className="p-2 text-white/20 hover:text-white transition-colors"
+                className="p-2 cursor-pointer text-white/20 hover:text-white transition-colors"
                 title="Clear Memory"
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-4 h-4" />
               </button>
 
               <button
                 onClick={() => setOpen(false)}
-                className="p-2 text-white/20 hover:text-red-500 transition-colors"
+                className="p-2 cursor-pointer text-white/20 hover:text-white transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -619,7 +623,7 @@ export default function Chatbot() {
                 open={estimatorOpen}
                 onClose={() => setEstimatorOpen(false)}
                 onSendToChat={handleEstimatorSendToChat}
-                isDark={isDark}
+                // isDark={isDark}
               />
             </div>
 
