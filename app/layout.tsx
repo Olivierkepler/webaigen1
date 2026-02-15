@@ -3,6 +3,7 @@ import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
+import CookieConsent from "./components/CookieConsent"; // <--- 1. IMPORT ADDED
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -76,6 +77,9 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
+
+        {/* 2. COMPONENT ADDED HERE */}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -50,6 +50,7 @@ const projects = [
 export default function Home() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
  
 
   useEffect(() => {

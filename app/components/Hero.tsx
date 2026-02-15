@@ -12,10 +12,11 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import NeuralTriad from "../components/NeuralTriad";
-import ProjectModal from "../components/ProjectModal"; // Adjust path if necessary
+import ProjectModal from "../components/ProjectModal"; 
+import SchedulingModal from "../components/SchedulingModal";
 
 /* =========================================================
-   Decrypt Effect — polished (RAF-based, stable, less jitter)
+   Decrypt Effect
    ========================================================= */
 function useDecrypt(text: string, speedMs = 18, delayMs = 120) {
   const [out, setOut] = useState(text);
@@ -83,15 +84,19 @@ function DecryptText({
 }
 
 /* =========================================================
-   Hero — polished for premium / high-end feel
+   Hero
    ========================================================= */
 export default function Hero() {
   const [bgIndex, setBgIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false); // <--- NEW STATE
+  
+  // MODAL STATES
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+
   const containerRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
-  // 1) Mouse spotlight (scoped to section; not global window)
+  // 1) Mouse spotlight
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -111,17 +116,17 @@ export default function Hero() {
     transparent 72%
   )`;
 
-  // 2) Scroll parallax (gentler)
+  // 2) Scroll parallax
   const { scrollY } = useScroll();
   const yContent = useTransform(scrollY, [0, 1000], [0, -90]);
   const yBg = useTransform(scrollY, [0, 1000], [0, 170]);
 
-  // 3) Curated background set (memoized)
+  // 3) Backgrounds
   const bgImages = [
-    "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=1392&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1716436329475-4c55d05383bb?q=80&w=1828&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1764664281860-c5725fafa634?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1806&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=1392&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1716436329475-4c55d05383bb?q=80&w=1828&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1764664281860-c5725fafa634?q=80&w=1740&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1806&auto=format&fit=crop"
   ];
 
   useEffect(() => {
@@ -139,15 +144,22 @@ export default function Hero() {
       className="relative pt-10 h-[100svh] w-full overflow-hidden bg-[#020202] text-white selection:bg-[#d4af37] selection:text-black"
     >
       {/* =====================================================
-          LAYER 0: MODAL (Rendered at top level)
+          LAYER 0: MODALS
           ===================================================== */}
       <ProjectModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
 
+      <SchedulingModal 
+        isOpen={isScheduleOpen}
+        onClose={() => setIsScheduleOpen(false)}
+        // Paste your real Google Calendar link here
+        calendarUrl="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ..." 
+      />
+
       {/* =====================================================
-          LAYER 1: Background image + cinematic overlays
+          LAYER 1: Background
           ===================================================== */}
       <motion.div
         style={{ y: yBg, scale: 1.08 }}
@@ -166,11 +178,9 @@ export default function Hero() {
           />
         </AnimatePresence>
 
-        {/* Vignette + bottom readability */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_92%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-[#020202]/40" />
 
-        {/* subtle film grain */}
         <div
           className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
           style={{
@@ -180,7 +190,7 @@ export default function Hero() {
       </motion.div>
 
       {/* =====================================================
-          LAYER 2: Spotlight (mouse-follow)
+          LAYER 2: Spotlight
           ===================================================== */}
       {!reduceMotion && (
         <motion.div
@@ -191,7 +201,7 @@ export default function Hero() {
       )}
 
       {/* =====================================================
-          LAYER 3: 3D grid floor (softer + cleaner)
+          LAYER 3: 3D grid
           ===================================================== */}
       <div className="absolute  inset-0 z-[1] [perspective:1000px] pointer-events-none" aria-hidden="true">
         <div className="absolute bottom-[-22%] left-[-20%] right-[-20%] top-[22%] bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:56px_56px] transform rotate-x-[62deg] opacity-25" />
@@ -206,25 +216,22 @@ export default function Hero() {
       >
         <div className="max-w-6xl">
 
-          {/* --- TOP ROW: System Status + Neural Visual --- */}
+          {/* --- TOP ROW --- */}
           <motion.div
             initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="mb-12 flex items-center justify-between"
           >
-            {/* Left: System Tag */}
             <div className="flex items-center gap-4">
               <div className="flex h-7 px-3.5 items-center justify-center rounded-sm border border-[#d4af37]/25 bg-[#d4af37]/10 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.08)]">
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4af37]">
                   System Online
                 </span>
               </div>
-
               <span className="h-px w-12 bg-[#d4af37]/20" />
             </div>
 
-            {/* Right: Neural Visual (hidden on small screens) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 0.9, scale: 1 }}
@@ -240,9 +247,7 @@ export default function Hero() {
             <span className="block text-white/45 text-[0.42em] mb-4 font-mono tracking-[0.32em] uppercase pl-1">
               <DecryptText text="Next Gen Intelligence" />
             </span>
-
             <span className="block">Design & Build</span>
-
             <span className="block italic">
               at the{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-yellow-100 to-[#d4af37]">
@@ -259,7 +264,6 @@ export default function Hero() {
             className="mt-12 flex flex-col sm:flex-row items-start gap-6 sm:gap-12"
           >
             <div className="h-px w-12 sm:w-24 bg-gradient-to-r from-[#d4af37] to-transparent mt-4" />
-
             <p className="max-w-xl font-sans text-sm sm:text-lg text-white/82 leading-relaxed drop-shadow-md">
               WebAiGen engineers high-performance interfaces and autonomous systems.
               We deploy production-ready intelligence that is{" "}
@@ -276,13 +280,14 @@ export default function Hero() {
             transition={{ delay: 0.75, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="mt-16 flex w-full flex-col gap-5 sm:flex-row sm:w-auto sm:items-center"
           >
-            {/* UPDATED: Uses onClick to trigger modal */}
+            {/* Project Initialization Button */}
             <PrimaryButton onClick={() => setIsModalOpen(true)}>
               Initialize Project
             </PrimaryButton>
 
-            <SecondaryButton href="/work">
-              Access Case Studies
+            {/* Calendar Schedule Button */}
+            <SecondaryButton onClick={() => setIsScheduleOpen(true)}>
+              Schedule Briefing
             </SecondaryButton>
           </motion.div>
 
@@ -290,7 +295,7 @@ export default function Hero() {
       </motion.div>
 
       {/* =====================================================
-          Footer stats — cleaner, more “enterprise”
+          Footer stats
           ===================================================== */}
       <div className="absolute bottom-0 left-0 right-0 z-30 hidden sm:flex justify-between px-[6%] py-6 border-t border-white/10 bg-black/20 backdrop-blur-sm">
         <Stat label="Latency" value="12ms" />
@@ -303,7 +308,7 @@ export default function Hero() {
 }
 
 /* =========================================================
-   Micro Components — refined interactions & accessibility
+   Micro Components
    ========================================================= */
 
 function PrimaryButton({
@@ -317,14 +322,12 @@ function PrimaryButton({
 }) {
   const innerContent = (
     <>
-      {/* animated bracket frame */}
       <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="absolute left-0 top-0 h-3 w-3 border-l-2 border-t-2 border-black" />
         <div className="absolute right-0 top-0 h-3 w-3 border-r-2 border-t-2 border-black" />
         <div className="absolute left-0 bottom-0 h-3 w-3 border-l-2 border-b-2 border-black" />
         <div className="absolute right-0 bottom-0 h-3 w-3 border-r-2 border-b-2 border-black" />
       </div>
-
       <span className="relative z-10 font-mono text-xs font-bold uppercase tracking-[0.22em] text-black">
         {children}
       </span>
@@ -338,43 +341,41 @@ function PrimaryButton({
         active:scale-[0.99]`;
 
   if (href) {
-    return (
-      <Link href={href} className={className}>
-        {innerContent}
-      </Link>
-    );
+    return <Link href={href} className={className}>{innerContent}</Link>;
   }
-
-  return (
-    <button onClick={onClick} className={className}>
-      {innerContent}
-    </button>
-  );
+  return <button onClick={onClick} className={className}>{innerContent}</button>;
 }
 
+// Updated SecondaryButton to support onClick OR href
 function SecondaryButton({
   children,
   href,
+  onClick
 }: {
   children: React.ReactNode;
-  href: string;
+  href?: string;
+  onClick?: () => void;
 }) {
-  return (
-    <Link
-      href={href}
-      className="group relative flex w-full items-center justify-center gap-3
-        border border-white/20 bg-black/35 px-8 py-4 backdrop-blur-sm
-        transition-all duration-300
-        hover:border-[#d4af37]/70 hover:bg-black/45
-        active:scale-[0.99]
-        sm:w-auto"
-    >
+  const innerContent = (
+    <>
       <span className="h-1.5 w-1.5 rounded-full bg-[#d4af37] animate-pulse" />
       <span className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-white/90 group-hover:text-[#d4af37] transition-colors">
         {children}
       </span>
-    </Link>
+    </>
   );
+
+  const className = `group relative flex w-full items-center justify-center gap-3
+        border border-white/20 bg-black/35 px-8 py-4 backdrop-blur-sm
+        transition-all duration-300
+        hover:border-[#d4af37]/70 hover:bg-black/45
+        active:scale-[0.99]
+        sm:w-auto cursor-pointer`;
+
+  if (href) {
+    return <Link href={href} className={className}>{innerContent}</Link>;
+  }
+  return <button onClick={onClick} className={className}>{innerContent}</button>;
 }
 
 function Stat({
