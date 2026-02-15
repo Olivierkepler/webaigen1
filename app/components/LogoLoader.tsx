@@ -46,7 +46,7 @@ export default function LogoLoader({
         </div>
       </div>
 
-      {showLabel && <span className="text-sm text-white">Loading WEBAIGEN...</span>}
+      {showLabel && <span className="text-sm text-white">{label}</span>}
     </div>
   );
 }

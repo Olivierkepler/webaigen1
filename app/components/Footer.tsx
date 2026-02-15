@@ -394,7 +394,7 @@ export default function Footer() {
                 Telemetry
               </h4>
 
-              <div className="space-y-6">
+              {/* <div className="space-y-6">
                 <div className="group">
                   <p className="font-mono text-[9px] text-white/30 uppercase mb-1 group-hover:text-[#d4af37] transition-colors">
                     Server // NYC
@@ -419,7 +419,7 @@ export default function Footer() {
                     {formatTime("Asia/Tokyo")}
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

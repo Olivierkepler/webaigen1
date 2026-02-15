@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, Globe, Wifi } from "lucide-react";
+import LogoLoader from "../components/LogoLoader";
+
 
 type ModalProps = {
   isOpen: boolean;
@@ -76,10 +78,11 @@ export default function SchedulingModal({
             <div className="relative flex-grow bg-white">
                {isConnecting ? (
                  <div className="absolute inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center gap-4 z-20">
-                    <Wifi className="w-12 h-12 text-[#d4af37] animate-pulse" />
-                    <div className="font-mono text-xs text-[#d4af37] uppercase tracking-widest">
+                    {/* <Wifi className="w-12 h-12 text-[#d4af37] animate-pulse" /> */}
+                    <LogoLoader size={110} label="Loading WebAiGen…" />
+                    {/* <div className="font-mono text-xs text-[#d4af37] uppercase tracking-widest">
                         Encrypting Channel...
-                    </div>
+                    </div> */}
                  </div>
                ) : (
                  <iframe 
