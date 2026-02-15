@@ -126,7 +126,7 @@ export default function Hero() {
     "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=1392&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1716436329475-4c55d05383bb?q=80&w=1828&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1764664281860-c5725fafa634?q=80&w=1740&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1806&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=1156&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   ];
 
   useEffect(() => {

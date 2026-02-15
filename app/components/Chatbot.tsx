@@ -28,7 +28,7 @@ import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import EstimatorPanel from "./EstimatorPanel"; // Assuming this exists
 // import NodeALogo from "../components/NodeALogo"; // Uncomment if you have this
-
+import Image from "next/image";
 /* ----------------------------------------------------
    Type Definitions (Unchanged)
 ---------------------------------------------------- */
@@ -447,21 +447,42 @@ export default function Chatbot() {
       
       {/* 1. CLOSED STATE: Floating Orb */}
       {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 group"
-        >
-          {/* Pulse Effect */}
-          <div className="absolute inset-0 rounded-full bg-[#d4af37] opacity-20 group-hover:opacity-40 animate-ping duration-[2000ms]" />
-          
-          {/* Main Button */}
-          <div className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#050505] border border-[#d4af37]/50 shadow-[0_0_20px_rgba(212,175,55,0.2)] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
-            <Bot className="w-6 h-6 text-[#d4af37]" />
-            
-            {/* Notification Dot */}
-            <div className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-[#050505] animate-pulse" />
-          </div>
-        </button>
+       <button
+       onClick={() => setOpen(true)}
+       className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 pl-5 pr-1.5 py-1.5 bg-[#050505]/80 backdrop-blur-xl border border-[#d4af37]/30 rounded-full shadow-[0_5px_25px_-5px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-105 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+     >
+       {/* Text Prompt (The "Emma" Style Label) */}
+       <div className="flex flex-col items-start mr-1">
+         <span className="text-[9px] font-mono text-[#d4af37] tracking-[0.15em] uppercase leading-none mb-0.5">
+           System Online
+         </span>
+         <span className="text-sm font-bold text-white tracking-wide">
+           Ask WebAiGen
+         </span>
+       </div>
+     
+       {/* Avatar Container */}
+       <div className="relative w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37]/20 to-black border border-[#d4af37]/50 shrink-0 overflow-hidden">
+         
+         {/* Inner Pulse Effect */}
+         <div className="absolute inset-0 bg-[#d4af37] opacity-0 group-hover:opacity-20 animate-pulse transition-opacity duration-500" />
+         
+         <Image
+           src="/images/robot.png"
+           width={32}
+           height={32}
+           alt="AI Chatbot"
+           className="w-7 h-7 object-contain relative z-10 drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]"
+           priority
+         />
+       </div>
+     
+       {/* Notification Badge (Positioned on the avatar edge) */}
+       <div className="absolute top-1 right-1 flex h-3.5 w-3.5">
+         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+         <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-[#050505]"></span>
+       </div>
+     </button>
       )}
 
       {/* 2. OPEN STATE: Main Interface */}
