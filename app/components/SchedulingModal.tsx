@@ -85,11 +85,15 @@ export default function SchedulingModal({
                     </div> */}
                  </div>
                ) : (
-                 <iframe 
-                   src={calendarUrl} 
-                   className="w-full h-full border-0"
-                   title="Schedule Appointment"
-                 />
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&src=Y2xhc3Nyb29tMTA2NTUyOTc2MzcyMDA5NzgwNjc5QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%231967d2"
+                  className="border-0"
+                  width={900}
+                  height={600}
+                  frameBorder={0}
+                  scrolling="no"
+                  title="Scheduling Calendar"
+                ></iframe>
                )}
             </div>
             
