@@ -258,7 +258,7 @@ export default function Chatbot() {
      Chat API
   ---------------------------------------------------- */
   const fetchReply = async (chatMessages: Message[]): Promise<string> => {
-    const res = await fetch("/api/chat", {
+    const res = await fetch("/ai/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: chatMessages }),
