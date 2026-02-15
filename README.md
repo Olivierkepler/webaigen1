@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+ files add  for  the chatbot:
+ 1. app/components/Chatbot.tsx: 
+    to use this install: npm install react-markdown remark-gfm rehype-highlight highlight.js
+ 2. app/components/EstimatroPanel.tsx
+ 3. utils/generatePDF.ts: 
+    to use this install: npm install jspdf jspdf-autotable
+ 4. .env.local
+ 5. app/api/chat/route.ts: 
+    to use this install: npm install openai
+ 6. data/mock.json

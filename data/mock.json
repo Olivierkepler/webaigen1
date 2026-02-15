@@ -1,0 +1,122 @@
+{
+    "company": {
+      "name": "Mark-Remodeling",
+      "tagline": "Transforming Houses Into Dream Homes",
+      "description": "Mark-Remodeling provides complete home renovation services including kitchens, bathrooms, flooring, basements, and general home improvements."
+    },
+    "services": {
+      "kitchenRemodeling": {
+        "title": "Kitchen Remodeling",
+        "description": "Full kitchen renovations including cabinetry, countertops, flooring, tilework, lighting, plumbing, and design updates.",
+        "priceRange": "$8,000 – $40,000+"
+      },
+      "bathroomRemodeling": {
+        "title": "Bathroom Remodeling",
+        "description": "Shower rebuilds, bathtub conversions, vanity installs, tiling, plumbing updates, and full redesign.",
+        "priceRange": "$6,000 – $25,000+"
+      },
+      "flooringInstallation": {
+        "title": "Flooring Installation",
+        "description": "Professional installation of hardwood, LVP, tile, and premium laminate.",
+        "priceRange": "$4 – $20 per sq ft"
+      },
+      "basementFinishing": {
+        "title": "Basement Finishing",
+        "description": "Complete basement finishes including framing, drywall, flooring, electrical, and custom room builds.",
+        "priceRange": "$15,000 – $60,000+"
+      },
+      "homeAdditions": {
+        "title": "Home Additions",
+        "description": "Room expansions, sunrooms, structural additions, and custom extensions.",
+        "priceRange": "$25,000 – $120,000+"
+      },
+      "interiorPainting": {
+        "title": "Interior Painting",
+        "description": "High-quality interior painting using durable, low-odor paints.",
+        "priceRange": "$1,200 – $8,000+"
+      },
+      "generalRepairs": {
+        "title": "General Repairs",
+        "description": "Drywall patching, fixture replacement, minor flooring fixes, and small home improvements.",
+        "priceRange": "$75 – $150 per hour"
+      }
+    },
+    "serviceAreas": [
+      "Dallas, TX",
+      "Fort Worth, TX",
+      "Arlington, TX",
+      "Plano, TX",
+      "Frisco, TX",
+      "Richardson, TX",
+      "Garland, TX"
+    ],
+    "process": [
+      "Initial consultation",
+      "On-site visit & measurements",
+      "Detailed project estimate",
+      "Material selection",
+      "Project scheduling",
+      "Renovation & progress updates",
+      "Final walkthrough & approval"
+    ],
+    "contact": {
+      "phone": "(555) 214-9987",
+      "email": "support@mark-remodeling.com",
+      "hours": "Mon–Sat: 8 AM – 6 PM",
+      "responseTime": "Replies within 1–2 hours"
+    },
+    "warranty": {
+      "labor": "2-year workmanship warranty",
+      "materials": "Manufacturer material warranties apply",
+      "satisfaction": "Customer satisfaction guaranteed — issues are corrected at no extra cost."
+    },
+    "faqs": [
+      {
+        "q": "Do you offer free estimates?",
+        "a": "Yes, all estimates are free."
+      },
+      {
+        "q": "How long does a kitchen remodel take?",
+        "a": "Typically 3–6 weeks depending on scope."
+      },
+      {
+        "q": "Are you licensed and insured?",
+        "a": "Yes, all technicians are fully licensed and insured."
+      },
+      {
+        "q": "Do I need to leave my home during renovation?",
+        "a": "In most cases no — we work to minimize disruption."
+      }
+    ],
+    "promotions": {
+      "currentOffer": "10% off all kitchen remodels for this month.",
+      "financing": "Financing is available for projects over $10,000."
+    },
+    "quotePricing": {
+      "kitchenRemodeling": {
+        "baseCostPerSqFt": 150,
+        "materialMultiplier": {
+          "basic": 1,
+          "standard": 1.3,
+          "premium": 1.6
+        }
+      },
+      "bathroomRemodeling": {
+        "baseCostPerSqFt": 130,
+        "materialMultiplier": {
+          "basic": 1,
+          "standard": 1.25,
+          "premium": 1.5
+        }
+      },
+      "flooringInstallation": {
+        "baseCostPerSqFt": 6,
+        "materialMultiplier": {
+          "basic": 1,
+          "standard": 1.5,
+          "premium": 2
+        }
+      }
+    }
+  }
+  
