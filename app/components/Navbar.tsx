@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "AI Solutions", href: "/ai" },
+  { name: "Solutions", href: "/ai" },
   { name: "Work", href: "/work" },
   { name: "Contact", href: "/contact" },
 ];
@@ -84,6 +84,17 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+
+              {/* ✅ Login CTA (Desktop) */}
+              <Link
+                href="/login"
+                className="group relative inline-flex items-center justify-center px-5 py-2 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
+              >
+                <span className="font-montserrat text-[0.7rem] tracking-[4px] uppercase font-bold text-[#d4af37] group-hover:text-black transition-colors">
+                  Login
+                </span>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-[#d4af37]/20 transition-opacity duration-500" />
+              </Link>
             </div>
           </div>
 
@@ -92,6 +103,16 @@ export default function Navbar() {
             <div className="w-[240px]">
               <SearchBar />
             </div>
+
+            {/* ✅ Login CTA (Tablet) */}
+            <Link
+              href="/login"
+              className="px-4 py-2 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
+            >
+              <span className="text-[0.7rem] font-montserrat tracking-[4px] uppercase font-bold text-[#d4af37] hover:text-black">
+                Login
+              </span>
+            </Link>
 
             <button
               onClick={() => setIsOpen(true)}
@@ -193,6 +214,17 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+
+              {/* ✅ Login CTA (Drawer) */}
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="mt-2 inline-flex items-center justify-center px-5 py-3 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
+              >
+                <span className="font-montserrat text-[0.75rem] tracking-[5px] uppercase font-bold text-[#d4af37] hover:text-black">
+                  Login
+                </span>
+              </Link>
             </div>
 
             <div className="mt-auto pt-10">

@@ -2,18 +2,18 @@
 import { useEffect, useState } from "react";
 
 // Components
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import ProjectCard from "./components/Gallery/ProjectCard";
-import Lightbox from "./components/Lightbox";
-import Footer from "./components/Footer";
-import Vision from "./components/Vision";
-import LogoLoader from "./components/LogoLoader";
-import Pricing from "./components/Pricing";
-import FAQ from "./components/FAQ";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+
+import Lightbox from "../components/Lightbox";
+import Footer from "../components/Footer";
+import Vision from "../components/Vision";
+import LogoLoader from "../components/LogoLoader";
+import Pricing from "../components/Pricing";
+import FAQ from "../components/FAQ";
 // import Subnav from "./components/Subnav";
-import Testimonial from "./components/ArchitectureTestimonials";
-import SelectedWorks from "./components/SelectedWorks"
+import Testimonial from "../components/ArchitectureTestimonials";
+import SelectedWorks from "../components/SelectedWorks"
 
 
 

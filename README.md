@@ -168,3 +168,127 @@ The structure for Core Automation
 
 
 
+_______________________________code structure_________________________________
+
+WebAiGen AI Automation (Code Structure)
+├─ app/
+│  ├─ api/
+│  │  ├─ leads/route.ts                 # POST: capture lead, validate, store, trigger automations
+│  │  ├─ schedule/route.ts              # POST: create Google Calendar event (or return booking options)
+│  │  ├─ chat/route.ts                  # POST: chatbot (LLM) responses
+│  │  ├─ webhook/
+│  │  │  ├─ stripe/route.ts             # optional: payments/subscriptions
+│  │  │  └─ calendar/route.ts           # optional: calendar push notifications
+│  │  └─ health/route.ts                # GET: uptime/monitoring
+│  │
+│  ├─ (site)/
+│  │  ├─ page.tsx                       # landing/home
+│  │  ├─ services/page.tsx              # services page
+│  │  └─ contact/page.tsx               # contact page (lead form)
+│  │
+│  ├─ (dashboard)/                      # optional: admin portal
+│  │  ├─ layout.tsx
+│  │  ├─ page.tsx                       # overview
+│  │  ├─ leads/page.tsx                 # leads table (reads from Sheets/DB)
+│  │  └─ automations/page.tsx           # workflow status + logs
+│  │
+│  ├─ layout.tsx                        # root layout (Navbar, cursor, etc.)
+│  └─ globals.css
+│
+├─ components/
+│  ├─ chatbot/
+│  │  ├─ Chatbot.tsx                    # your UI (messages + input)
+│  │  ├─ MessageBubble.tsx              # presentational
+│  │  ├─ MarkdownRenderer.tsx           # react-markdown config
+│  │  └─ useChatScroll.ts               # scroll-to-bottom + keyboard handling hooks
+│  │
+│  ├─ scheduling/
+│  │  ├─ ScheduleModal.tsx              # UI for selecting availability
+│  │  ├─ AvailabilityPicker.tsx         # date/time grid
+│  │  └─ timezone.ts                    # timezone utilities
+│  │
+│  ├─ estimator/
+│  │  ├─ EstimatorPanel.tsx             # your calculator UI
+│  │  └─ pricing.ts                     # pricing logic + add-on costs
+│  │
+│  ├─ ui/
+│  │  ├─ Button.tsx
+│  │  ├─ Modal.tsx
+│  │  └─ Input.tsx
+│  │
+│  └─ Navbar.tsx
+│
+├─ lib/
+│  ├─ env.ts                            # env var validation
+│  ├─ validators/
+│  │  ├─ lead.ts                        # zod schema for lead payloads
+│  │  └─ schedule.ts                    # zod schema for booking payloads
+│  │
+│  ├─ automations/
+│  │  ├─ orchestrator.ts                # runs "LeadReceived" workflow steps
+│  │  ├─ steps/
+│  │  │  ├─ saveLead.ts                 # save to Sheets/DB
+│  │  │  ├─ sendEmail.ts                # email confirmation + followups
+│  │  │  ├─ notifyTeam.ts               # Slack/SMS/Discord
+│  │  │  ├─ upsertCRM.ts                # HubSpot/Airtable optional
+│  │  │  ├─ createCalendarHold.ts       # optional: calendar hold
+│  │  │  └─ logEvent.ts                 # structured logs
+│  │  └─ types.ts                       # workflow types
+│  │
+│  ├─ integrations/
+│  │  ├─ google/
+│  │  │  ├─ auth.ts                     # OAuth/service account helpers
+│  │  │  ├─ calendar.ts                 # create/list events, freebusy
+│  │  │  └─ sheets.ts                   # append/read rows
+│  │  ├─ email/
+│  │  │  ├─ resend.ts                   # Resend client
+│  │  │  └─ templates/
+│  │  │     ├─ leadConfirmation.tsx      # email templates
+│  │  │     └─ followup.tsx
+│  │  └─ llm/
+│  │     ├─ client.ts                   # OpenAI client wrapper
+│  │     └─ prompts.ts                  # system prompts
+│  │
+│  ├─ db/
+│  │  ├─ index.ts                       # DB client (optional)
+│  │  └─ models.ts                      # Prisma/Drizzle models (optional)
+│  │
+│  └─ logging/
+│     ├─ logger.ts                      # console/json logger
+│     └─ redact.ts                      # remove sensitive fields
+│
+├─ utils/
+│  ├─ generatePDF.ts                    # jsPDF/autoTable export
+│  ├─ format.ts                         # helpers
+│  └─ rateLimit.ts                      # basic rate limiting for api routes
+│
+├─ config/
+│  ├─ services.ts                       # service catalog (web, automation, ML)
+│  └─ pricing.ts                        # pricing constants
+│
+├─ middleware.ts                         # optional: auth, rate limit, security headers
+├─ .env.example                          # required env vars list
+└─ README.md
+
+
+
+
+_________________________The authentification structure ____________________
+
+app/
+  api/auth/[...nextauth]/route.ts     # Auth.js endpoint
+  (auth)/
+    login/page.tsx                    # Sign-in page
+  (dashboard)/
+    dashboard/page.tsx                # User dashboard
+    dashboard/settings/page.tsx
+  (admin)/
+    admin/page.tsx                    # Admin dashboard
+    admin/users/page.tsx
+    admin/logs/page.tsx
+lib/
+  auth.ts                             # auth config + helpers
+  access.ts                           # role checks / route guards
+db/
+  schema.ts                           # user model with role
+middleware.ts                         # protect /dashboard + /admin

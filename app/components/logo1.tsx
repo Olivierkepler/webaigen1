@@ -1,7 +1,8 @@
 import React from "react";
 
 type LogoProps = {
-  size?: number;
+  size?: number;           // optional fixed size
+  className?: string;      // allows Tailwind sizing
   color?: string;
   strokeWidth?: number;
   durationMs?: number;
@@ -9,7 +10,8 @@ type LogoProps = {
 };
 
 export default function NodeALogo({
-  size = 20,
+  size,
+  className,
   color = "#d4af37",
   strokeWidth = 8,
   durationMs = 1200,
@@ -27,25 +29,17 @@ export default function NodeALogo({
 
   return (
     <svg
-      width={size}
-      height={Math.round(size * 0.94)}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Logo"
-      style={{ overflow: "visible" }}
+      className={className}
+      style={{
+        width: size ? size : undefined,
+        height: size ? size : undefined,
+        overflow: "visible",
+      }}
     >
-      <defs>
-        {/* Premium Glow Filter */}
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
       <style>{`
         .draw-line {
           stroke-dasharray: ${lineLength};
@@ -67,7 +61,6 @@ export default function NodeALogo({
         }
 
         .logo-group {
-          filter: drop-shadow(0 0 0px ${color});
           animation: glowPulse 4s ease-in-out ${durationMs + delayMs + 500}ms infinite;
         }
 
@@ -91,7 +84,6 @@ export default function NodeALogo({
       `}</style>
 
       <g className="logo-group">
-        {/* LEFT DIAGONAL LINE */}
         <line
           className="draw-line"
           x1={top.x} y1={top.y}
@@ -101,7 +93,6 @@ export default function NodeALogo({
           strokeLinecap="round"
         />
 
-        {/* RIGHT DIAGONAL LINE */}
         <line
           className="draw-line"
           style={{ animationDelay: `${delayMs + 150}ms` }}
@@ -112,7 +103,6 @@ export default function NodeALogo({
           strokeLinecap="round"
         />
 
-        {/* INNER BAR */}
         <line
           className="draw-bar"
           x1={barStart.x} y1={barStart.y}
@@ -122,21 +112,26 @@ export default function NodeALogo({
           strokeLinecap="round"
         />
 
-        {/* NODES */}
-        <circle 
-          className="pop-circle" 
-          style={{ animationDelay: `${delayMs}ms, ${durationMs + delayMs + 500}ms`, transformOrigin: `${top.x}px ${top.y}px` }}
-          cx={top.x} cy={top.y} r={r} fill={color} 
+        <circle
+          className="pop-circle"
+          cx={top.x}
+          cy={top.y}
+          r={r}
+          fill={color}
         />
-        <circle 
-          className="pop-circle" 
-          style={{ animationDelay: `${delayMs + durationMs * 0.7}ms, ${durationMs + delayMs + 650}ms`, transformOrigin: `${left.x}px ${left.y}px` }}
-          cx={left.x} cy={left.y} r={r} fill={color} 
+        <circle
+          className="pop-circle"
+          cx={left.x}
+          cy={left.y}
+          r={r}
+          fill={color}
         />
-        <circle 
-          className="pop-circle" 
-          style={{ animationDelay: `${delayMs + durationMs * 0.85}ms, ${durationMs + delayMs + 800}ms`, transformOrigin: `${right.x}px ${right.y}px` }}
-          cx={right.x} cy={right.y} r={r} fill={color} 
+        <circle
+          className="pop-circle"
+          cx={right.x}
+          cy={right.y}
+          r={r}
+          fill={color}
         />
       </g>
     </svg>

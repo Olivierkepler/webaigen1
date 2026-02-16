@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+
 import CustomCursor from "./components/CustomCursor";
 import CookieConsent from "./components/CookieConsent"; // <--- 1. IMPORT ADDED
-import Chatbot from "./components/Chatbot";
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["100", "300", "400", "600", "700"],
@@ -71,14 +71,13 @@ export default function RootLayout({
         className="bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black min-h-screen"
       >
         <CustomCursor />
-        <Navbar />
-
+     
         {/* Main ensures full viewport coverage */}
         <main className="min-h-screen">
           {children}
           
         </main>
-<Chatbot/>
+
         {/* 2. COMPONENT ADDED HERE */}
         <CookieConsent />
       </body>

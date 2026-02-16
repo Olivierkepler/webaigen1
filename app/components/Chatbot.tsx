@@ -296,7 +296,7 @@ export default function Chatbot() {
      Chat API
   ---------------------------------------------------- */
   const fetchReply = async (chatMessages: Message[]): Promise<string> => {
-    const res = await fetch("/ai/chat", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: chatMessages }),
@@ -425,14 +425,14 @@ export default function Chatbot() {
 
       if (inline) {
         return (
-          <code className="px-1.5 py-0.5 rounded-sm bg-[#d4af37]/10 text-[#d4af37] text-xs font-mono border border-[#d4af37]/20">
+          <code className="px-1.5 py-0.5  rounded-sm bg-[#d4af37]/10 text-[#d4af37] text-xs font-mono border border-[#d4af37]/20">
             {children}
           </code>
         );
       }
 
       return (
-        <div className="relative z-[99999] group my-3 border border-white/10 rounded-sm overflow-hidden bg-black">
+        <div className="relative z-[99999]  group my-3 border border-white/10 rounded-sm overflow-hidden bg-black">
           <div className="flex items-center justify-between px-3 py-1 bg-white/5 border-b border-white/5">
             <div className="flex gap-1.5">
               <div className="w-2 h-2 rounded-full bg-red-500/50" />
@@ -481,7 +481,7 @@ export default function Chatbot() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 pl-5 pr-1.5 py-1.5 bg-[#050505]/80 backdrop-blur-xl border border-[#d4af37]/30 rounded-full shadow-[0_5px_25px_-5px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-105 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+          className="fixed bottom-6 right-6 z-50 cursor-pointer group flex items-center gap-3 pl-5 pr-1.5 py-1.5 bg-[#050505]/80 backdrop-blur-xl border border-[#d4af37]/30 rounded-full shadow-[0_5px_25px_-5px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-105 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
         >
           <div className="flex flex-col items-start mr-1">
             <span className="text-[9px] font-mono text-[#d4af37] tracking-[0.15em] uppercase leading-none mb-0.5">
@@ -541,7 +541,7 @@ export default function Chatbot() {
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-[#d4af37]/10 border border-[#d4af37]/20">
                 {/* <Sparkles className="w-4 h-4 text-[#d4af37]" /> */}
-               <Logo/> 
+                <Logo className="w-6 h-6" />
               </div>
               <div>
                 <h3
