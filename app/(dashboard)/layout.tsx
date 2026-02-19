@@ -25,7 +25,7 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider>
         <DashboardNavbar user={session.user ?? { name: "Operator", email: "User" }} />
-      <div className="flex h-screen w-full bg-[#030303] text-white overflow-hidden font-sans selection:bg-[#d4af37] selection:text-black">
+      <div className="flex  w-full bg-[#030303] text-white overflow-hidden font-sans selection:bg-[#d4af37] selection:text-black">
         
         {/* The Sidebar component handles its own width based on Context */}
         <Sidebar userEmail={email} userRole={role} />

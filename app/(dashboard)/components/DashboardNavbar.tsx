@@ -98,7 +98,7 @@ export default function DashboardNavbar({ user, onToggleSidebar }: Props) {
               label="Clients"
             />
             <NavLink
-              href="/dashboard/meetings"
+              href="/dashboard/schedule"
               icon={<Calendar className="w-4 h-4" />}
               label="Meetings"
             />

@@ -156,8 +156,7 @@ export default function SchedulingModal({
 
                {/* B. THE ACTUAL CALENDAR IFRAME */}
                <iframe
-                 src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&src=Y2xhc3Nyb29tMTA2NTUyOTc2MzcyMDA5NzgwNjc5QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%231967d2" 
-                 className="w-full h-full border-0"
+                    className="w-full h-full border-0"
                  title="Consultation Schedule"
                  // "allow" permissions are important for modern calendars
                  allow="camera; microphone; fullscreen; display-capture; autoplay" 

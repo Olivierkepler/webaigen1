@@ -36,7 +36,7 @@ export default function Sidebar({
 
   return (
     <aside 
-      className={`relative hidden h-screen flex-col border-r border-white/5 bg-[#050505] transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] lg:flex ${
+      className={`relative hidden flex-col border-r border-white/5 bg-[#050505] transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] lg:flex ${
         isCollapsed ? "w-[72px]" : "w-64"
       }`}
     >
@@ -107,7 +107,7 @@ export default function Sidebar({
       </nav>
 
       {/* --- Footer: User Profile --- */}
-      <div className="  bottom-0  shrink-0 border-t border-white/5 p-3">
+      <div className=" max-w-sm fixed left-0 right-0 bottom-0 z-20 border-t border-white/5 p-3 bg-[#030303] bg-opacity-95 backdrop-blur-md">
         <div className={`group flex items-center rounded-xl border border-white/5 bg-white/[0.02] p-2 transition-colors hover:bg-white/5 ${isCollapsed ? "justify-center" : "justify-between"}`}>
           <div className="flex items-center gap-3 overflow-hidden">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#8a7020] text-[10px] font-bold text-black ring-2 ring-black">
