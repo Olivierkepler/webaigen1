@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 const adminEmails =
   process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim()) || [];
@@ -18,14 +19,12 @@ async function refreshGoogleAccessToken(token: any) {
     });
 
     const refreshed = await res.json();
-
     if (!res.ok) throw refreshed;
 
     return {
       ...token,
       accessToken: refreshed.access_token,
       accessTokenExpires: Date.now() + refreshed.expires_in * 1000,
-      // Google may not always return refresh_token again
       refreshToken: refreshed.refresh_token ?? token.refreshToken,
     };
   } catch (err) {
@@ -41,14 +40,17 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          // Required for Calendar
           scope:
             "openid email profile https://www.googleapis.com/auth/calendar",
-          // So we can refresh tokens
           access_type: "offline",
           prompt: "consent",
         },
       },
+    }),
+
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
 
@@ -56,25 +58,37 @@ const handler = NextAuth({
 
   callbacks: {
     async jwt({ token, account, profile }) {
-      // Initial sign-in
-      if (account && profile) {
+      // first sign-in (either provider)
+      if (account) {
+        token.provider = account.provider;
         token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token; // only returned on first consent
-        token.accessTokenExpires = Date.now() + ((typeof account.expires_in === "number" ? account.expires_in : 3600) * 1000);
-        token.email = profile.email;
 
-        token.role = profile.email && adminEmails.includes(profile.email)
-          ? "admin"
-          : "user";
+        const email = (profile as any)?.email;
+        if (email) token.email = email;
+
+        token.role =
+          token.email && adminEmails.includes(token.email as string)
+            ? "admin"
+            : "user";
+
+        // Google-only fields for refresh
+        if (account.provider === "google") {
+          token.refreshToken = account.refresh_token; // only first consent
+          const expiresIn =
+            typeof account.expires_in === "number" ? account.expires_in : 3600;
+          token.accessTokenExpires = Date.now() + expiresIn * 1000;
+        } else {
+          // GitHub usually doesn't give refresh tokens
+          token.refreshToken = undefined;
+          token.accessTokenExpires = undefined;
+        }
       }
 
-      // If token still valid, return it
-      if (token.accessTokenExpires && Date.now() < (token.accessTokenExpires as number)) {
-        return token;
+      // refresh only for Google
+      if (token.provider === "google" && token.accessTokenExpires) {
+        if (Date.now() < (token.accessTokenExpires as number)) return token;
+        if (token.refreshToken) return await refreshGoogleAccessToken(token);
       }
-
-      // Refresh if expired and we have refresh token
-      if (token.refreshToken) return await refreshGoogleAccessToken(token);
 
       return token;
     },
@@ -83,6 +97,7 @@ const handler = NextAuth({
       if (session.user) {
         session.user.email = token.email as string;
         (session.user as any).role = token.role;
+        (session as any).provider = token.provider;
         (session as any).accessToken = token.accessToken;
         (session as any).error = token.error;
       }
