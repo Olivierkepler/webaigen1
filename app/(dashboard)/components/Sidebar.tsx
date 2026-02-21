@@ -107,15 +107,15 @@ export default function Sidebar({
       </nav>
 
       {/* --- Footer: User Profile --- */}
-      <div className=" max-w-sm fixed left-0 right-0 bottom-0 z-20 border-t border-white/5 p-3 bg-[#030303] bg-opacity-95 backdrop-blur-md">
-        <div className={`group flex items-center rounded-xl border border-white/5 bg-white/[0.02] p-2 transition-colors hover:bg-white/5 ${isCollapsed ? "justify-center" : "justify-between"}`}>
-          <div className="flex items-center gap-3 overflow-hidden">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#8a7020] text-[10px] font-bold text-black ring-2 ring-black">
+      <div className=" fixed left-0  bottom-10 z-20 border-t border-white/5 p-3 bg-[#030303] bg-opacity-95 backdrop-blur-md">
+        <div className={`group flex items-center rounded-xl border border-white/5 bg-white/[0.02] py-2 pl-2 transition-colors hover:bg-white/5 ${isCollapsed ? "justify-center  border-none  " : "justify-between "}`}>
+          <div className="flex items-center gap-3 overflow-hidden ">
+            <div className="flex h-8  w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#8a7020] text-[10px] font-bold text-black ring-2 ring-black">
               {userEmail.charAt(0).toUpperCase()}
             </div>
             
-            <div className={`flex flex-col overflow-hidden transition-all duration-300 ${isCollapsed ? "w-0 opacity-0 hidden" : "w-auto opacity-100 block"}`}>
-              <span className="truncate text-xs font-medium text-white/90">
+            <div className={`flex  flex-col overflow-hidden transition-all duration-300 ${isCollapsed ? "w-0 opacity-0 hidden" : "w-auto opacity-100 block"}`}>
+              <span className="truncate text-xs font-medium text-white/90 ">
                 {userEmail}
               </span>
               <span className="truncate text-[10px] font-mono text-white/40 uppercase">
