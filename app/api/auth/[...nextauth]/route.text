@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 
@@ -33,20 +33,21 @@ async function refreshGoogleAccessToken(token: any) {
   }
 }
 
-// We export this so getServerSession can use it in other files
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: "openid email profile https://www.googleapis.com/auth/calendar",
+          scope:
+            "openid email profile https://www.googleapis.com/auth/calendar",
           access_type: "offline",
           prompt: "consent",
         },
       },
     }),
+
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, account, profile }) {
+      // first sign-in (either provider)
       if (account) {
         token.provider = account.provider;
         token.accessToken = account.access_token;
@@ -69,14 +71,20 @@ export const authOptions: NextAuthOptions = {
             ? "admin"
             : "user";
 
+        // Google-only fields for refresh
         if (account.provider === "google") {
-          token.refreshToken = account.refresh_token;
+          token.refreshToken = account.refresh_token; // only first consent
           const expiresIn =
             typeof account.expires_in === "number" ? account.expires_in : 3600;
           token.accessTokenExpires = Date.now() + expiresIn * 1000;
+        } else {
+          // GitHub usually doesn't give refresh tokens
+          token.refreshToken = undefined;
+          token.accessTokenExpires = undefined;
         }
       }
 
+      // refresh only for Google
       if (token.provider === "google" && token.accessTokenExpires) {
         if (Date.now() < (token.accessTokenExpires as number)) return token;
         if (token.refreshToken) return await refreshGoogleAccessToken(token);
@@ -91,12 +99,13 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).role = token.role;
         (session as any).provider = token.provider;
         (session as any).accessToken = token.accessToken;
+        (session as any).error = token.error;
       }
       return session;
     },
   },
-  pages: { signIn: "/login" },
-};
 
-const handler = NextAuth(authOptions);
+  pages: { signIn: "/login" },
+});
+
 export { handler as GET, handler as POST };

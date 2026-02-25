@@ -9,8 +9,8 @@ type LogoProps = {
 };
 
 export default function NodeALogo({
-  size = 90,
-  color = "#d4af37",
+  size = 150,
+  color = "white",
   strokeWidth = 8,
   durationMs = 1200,
   delayMs = 0,

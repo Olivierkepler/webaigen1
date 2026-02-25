@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-// Update this path based on your actual file location
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; 
-import { sql } from "@/utils/db";
+import { authOptions } from "../../../api/auth/[...nextauth]/route"; 
+import { sql } from "../../../../utils/db";
 import {
   Settings,
   MessagesSquare,
@@ -17,7 +16,7 @@ import {
 } from "lucide-react";
 
 export default async function DashboardPage() {
-  // 1. Authenticate Session
+  // 1. Authenticate Session - Passing authOptions is mandatory for getServerSession in App Router
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
@@ -33,7 +32,6 @@ export default async function DashboardPage() {
 
   try {
     // Direct SQL using the Neon Serverless driver
-    // This fetches only the bots belonging to the logged-in user
     myBots = await sql`
       SELECT * FROM chatbots 
       WHERE user_email = ${userEmail} 
@@ -152,7 +150,7 @@ export default async function DashboardPage() {
 }
 
 /* -------------------------------------------------------------------------
-   SUB-COMPONENTS
+   SUB-COMPONENTS (Error-Free Definitions)
 ------------------------------------------------------------------------- */
 
 function Card({ title, children }: { title: string, children: React.ReactNode }) {

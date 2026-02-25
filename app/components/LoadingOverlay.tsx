@@ -11,10 +11,10 @@ export default function LoadingOverlay({ open, label }: LoadingOverlayProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm"
+      className="fixed p-10 inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm"
       aria-hidden={!open}
     >
-      <LogoLoader size={90} label={label ?? "Loading…"} />
+      <LogoLoader size={180} label={label ?? "Loading WebAiGen…"} />
     </div>
   );
 }

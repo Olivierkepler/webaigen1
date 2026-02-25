@@ -68,7 +68,7 @@ export default function Home() {
           !isLoading ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <LogoLoader size={110} label="Loading WebAiGen…" />
+        <LogoLoader size={250} label="Loading WebAiGen…" />
       </div>
 
       {/* 2) NAVIGATION + HERO */}
