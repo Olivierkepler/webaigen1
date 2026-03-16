@@ -86,7 +86,7 @@ export default function Navbar() {
               ))}
 
               {/* ✅ Login CTA (Desktop) */}
-              <Link
+              {/* <Link
                 href="/login"
                 className="group relative inline-flex items-center justify-center px-5 py-2 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
               >
@@ -94,7 +94,7 @@ export default function Navbar() {
                   Login
                 </span>
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-[#d4af37]/20 transition-opacity duration-500" />
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -105,14 +105,14 @@ export default function Navbar() {
             </div>
 
             {/* ✅ Login CTA (Tablet) */}
-            <Link
+            {/* <Link
               href="/login"
               className="px-4 py-2 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
             >
               <span className="text-[0.7rem] font-montserrat tracking-[4px] uppercase font-bold text-[#d4af37] hover:text-black">
                 Login
               </span>
-            </Link>
+            </Link> */}
 
             <button
               onClick={() => setIsOpen(true)}
