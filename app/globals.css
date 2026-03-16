@@ -1,23 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  /* MONOLITH Brand Colors */
-  --background: #050505;
-  --foreground: #ffffff;
-  --accent: #d4af37;
-  
-  /* Cubic Bezier for Luxury Transitions */
-  --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+@layer base {
+  :root {
+    /* --- Light Mode (Alabaster & Gold) --- */
+    --background: #f8f9fa;
+    --foreground: #0a0a0a;
+    --accent: #b8860b; 
+    --surface: #ffffff;
+    --border: rgba(0, 0, 0, 0.08);
+    --grid-line: rgba(0, 0, 0, 0.04);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    
+    /* Cubic Bezier for Luxury Transitions */
+    --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .dark {
+    /* --- Dark Mode (Obsidian & Gold) --- */
+    --background: #020202;
+    --foreground: #ffffff;
+    --accent: #d4af37;
+    --surface: #0a0a0a;
+    --border: rgba(255, 255, 255, 0.08);
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --glass-bg: rgba(0, 0, 0, 0.45);
+  }
+
+  /* Universal Transition Logic: The Secret to High-End UI */
+  * {
+    transition: background-color 0.5s var(--ease-luxury), 
+                border-color 0.5s var(--ease-luxury), 
+                color 0.3s ease,
+                backdrop-filter 0.5s var(--ease-luxury);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-border-subtle: var(--border);
+  
   --font-montserrat: var(--font-montserrat);
   --font-cormorant: var(--font-cormorant);
   
-  /* Adding the animation to the Tailwind theme for easy use */
   --animate-marquee: marquee 50s linear infinite;
 }
 
@@ -31,32 +58,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animation Definitions */
+/* --- Million Dollar Polish --- */
 
-/* Optimized Marquee: Use -100% for the double-buffer loop technique */
+/* Updated Grid: Responds to Theme via var(--grid-line) */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+/* Luxury Glassmorphism: Responds to Theme via var(--glass-bg) */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- Animation Definitions --- */
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes slide-up {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes grow-v {
-  from { height: 0; opacity: 0; }
-  to { height: 100px; opacity: 1; }
-}
-
-@keyframes grow-h {
-  from { width: 0; }
-  to { width: 300px; }
+  from { opacity: 0; transform: scale(0.99) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* Utility Classes */
@@ -64,22 +92,25 @@ body {
   display: flex;
   width: max-content;
   animation: var(--animate-marquee);
-  will-change: transform; /* Forces GPU rendering for smoothness */
+  will-change: transform;
 }
 
-/* Pause marquee on hover for better readability if the user wants to look closer */
 .group:hover .animate-marquee {
   animation-play-state: paused;
 }
 
 .animate-in {
-  animation: fadeIn 0.5s var(--ease-luxury) forwards;
+  animation: fadeIn 0.8s var(--ease-luxury) forwards;
 }
 
 /* Scrollbar & Selection */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--background); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+::-webkit-scrollbar-thumb { 
+  background: var(--accent); 
+  border-radius: 10px;
+  border: 1px solid var(--background); 
+}
 
 ::selection {
   background-color: var(--accent);

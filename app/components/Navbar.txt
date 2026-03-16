@@ -216,7 +216,7 @@ export default function Navbar() {
               ))}
 
               {/* ✅ Login CTA (Drawer) */}
-              {/* <Link
+              <Link
                 href="/login"
                 onClick={() => setIsOpen(false)}
                 className="mt-2 inline-flex items-center justify-center px-5 py-3 border border-[#d4af37]/40 bg-[#d4af37]/10 hover:bg-[#d4af37] transition-all duration-300"
@@ -224,7 +224,7 @@ export default function Navbar() {
                 <span className="font-montserrat text-[0.75rem] tracking-[5px] uppercase font-bold text-[#d4af37] hover:text-black">
                   Login
                 </span>
-              </Link> */}
+              </Link>
             </div>
 
             <div className="mt-auto pt-10">
