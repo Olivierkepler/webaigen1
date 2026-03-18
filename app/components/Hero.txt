@@ -1,4 +1,4 @@
- "use client";
+how  to make this interact in light and dark mode: "use client";
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";

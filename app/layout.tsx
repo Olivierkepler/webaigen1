@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
+import { Providers } from "./providers";
 import CustomCursor from "./components/CustomCursor";
-import CookieConsent from "./components/CookieConsent"; // <--- 1. IMPORT ADDED
+import CookieConsent from "./components/CookieConsent";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "WebAiGen Team" }],
   creator: "WebAiGen",
-  metadataBase: new URL("https://webaigen.com"), // update if different
+  metadataBase: new URL("https://webaigen.com"),
   openGraph: {
     title: "WebAiGen | Build the Future with AI",
     description:
@@ -62,24 +63,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    /* Dark futuristic base to prevent mobile white flash */
     <html
       lang="en"
-      className={`${montserrat.variable} ${cormorant.variable} bg-[#050505]`}
+      suppressHydrationWarning
+      className={`${montserrat.variable} ${cormorant.variable}`}
     >
       <body
-        className="bg-[#050505] text-white antialiased cursor-none selection:bg-[#d4af37] selection:text-black min-h-screen"
+        className="min-h-screen bg-white text-black antialiased cursor-none selection:bg-[#d4af37] selection:text-black dark:bg-[#050505] dark:text-white"
       >
-        <CustomCursor />
-     
-        {/* Main ensures full viewport coverage */}
-        <main className="min-h-screen">
-          {children}
-          
-        </main>
+        <Providers>
+          <CustomCursor />
 
-        {/* 2. COMPONENT ADDED HERE */}
-        <CookieConsent />
+          <main className="min-h-screen">
+            {children}
+          </main>
+
+          <CookieConsent />
+        </Providers>
       </body>
     </html>
   );
