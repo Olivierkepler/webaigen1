@@ -55,13 +55,13 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="mt-14 space-y-8 md:mt-24">
+              <div className=" flex gap-10 space-y-8 mt-8">
                 <div>
                   <p className="mb-2 text-[0.65rem] uppercase tracking-[0.28em] text-[#d4af37]">
-                    Location
+                    Phone
                   </p>
                   <p className="font-montserrat text-sm text-white/75">
-                    Quincy, Massachusetts
+                    617-380-8053
                   </p>
                 </div>
 
@@ -76,8 +76,9 @@ export default function ContactPage() {
                     webaigen3@gmail.com
                   </a>
                 </div>
-              </div>
-            </div>
+              </div> 
+
+   </div>
 
             {/* Right Column */}
             <ContactForm />
