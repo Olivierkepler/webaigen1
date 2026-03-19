@@ -6,7 +6,8 @@ export async function POST(req: Request) {
 
     const fullName = body.fullName?.toString().trim() || "";
     const email = body.email?.toString().trim() || "";
-    const subject = body.subject?.toString().trim() || "";
+    const company = body.company?.toString().trim() || "";
+    const service = body.service?.toString().trim() || "";
     const message = body.message?.toString().trim() || "";
     const website = body.website?.toString().trim() || "";
 
@@ -17,9 +18,9 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!fullName || !email || !subject || !message) {
+    if (!fullName || !email || !service || !message) {
       return NextResponse.json(
-        { message: "All fields are required." },
+        { message: "Full name, email, service, and message are required." },
         { status: 400 }
       );
     }
@@ -44,13 +45,13 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         fullName,
         email,
-        subject,
+        company,
+        service,
         message,
       }),
     });
 
-    // Apps Script web apps often respond with a 302 redirect after successfully running.
-    // When that happens, we treat the submission as successful and avoid following the redirect.
+    // Apps Script web apps often respond with a redirect after running.
     if (response.status === 302 || response.status === 303) {
       return NextResponse.json({ message: "Message sent successfully." });
     }

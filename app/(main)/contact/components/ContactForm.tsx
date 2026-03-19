@@ -17,7 +17,8 @@ export default function ContactForm() {
     const data = {
       fullName: formData.get("fullName")?.toString().trim() || "",
       email: formData.get("email")?.toString().trim() || "",
-      subject: formData.get("subject")?.toString().trim() || "",
+      company: formData.get("company")?.toString().trim() || "",
+      service: formData.get("service")?.toString().trim() || "",
       message: formData.get("message")?.toString().trim() || "",
       website: formData.get("website")?.toString().trim() || "",
     };
@@ -34,7 +35,9 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Something went wrong. Please try again.");
+        throw new Error(
+          result.message || "Something went wrong. Please try again."
+        );
       }
 
       setStatus("Your inquiry has been sent.");
@@ -67,19 +70,19 @@ export default function ContactForm() {
           />
         </div>
 
-        {/* Name */}
+        {/* Full Name */}
         <div className="relative">
           <input
             id="fullName"
             type="text"
             name="fullName"
-            placeholder=" "
+            placeholder="Your full name"
             required
-            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder-transparent outline-none transition-colors duration-300 focus:border-[#d4af37]"
+            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-[#d4af37]"
           />
           <label
             htmlFor="fullName"
-            className="pointer-events-none absolute left-0 top-4 text-[0.72rem] uppercase tracking-[0.22em] text-white/35 transition-all duration-300 peer-focus:-top-3 peer-focus:text-[0.65rem] peer-focus:text-[#d4af37] peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-[0.65rem]"
+            className="mb-2 block text-[0.72rem] uppercase tracking-[0.22em] text-white/60"
           >
             Full Name
           </label>
@@ -91,34 +94,59 @@ export default function ContactForm() {
             id="email"
             type="email"
             name="email"
-            placeholder=" "
+            placeholder="you@example.com"
             required
-            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder-transparent outline-none transition-colors duration-300 focus:border-[#d4af37]"
+            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-[#d4af37]"
           />
           <label
             htmlFor="email"
-            className="pointer-events-none absolute left-0 top-4 text-[0.72rem] uppercase tracking-[0.22em] text-white/35 transition-all duration-300 peer-focus:-top-3 peer-focus:text-[0.65rem] peer-focus:text-[#d4af37] peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-[0.65rem]"
+            className="mb-2 block text-[0.72rem] uppercase tracking-[0.22em] text-white/60"
           >
             Email Address
           </label>
         </div>
 
-        {/* Subject */}
+        {/* Company */}
         <div className="relative">
           <input
-            id="subject"
+            id="company"
             type="text"
-            name="subject"
-            placeholder=" "
-            required
-            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder-transparent outline-none transition-colors duration-300 focus:border-[#d4af37]"
+            name="company"
+            placeholder="Your company"
+            className="peer w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-[#d4af37]"
           />
           <label
-            htmlFor="subject"
-            className="pointer-events-none absolute left-0 top-4 text-[0.72rem] uppercase tracking-[0.22em] text-white/35 transition-all duration-300 peer-focus:-top-3 peer-focus:text-[0.65rem] peer-focus:text-[#d4af37] peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-[0.65rem]"
+            htmlFor="company"
+            className="mb-2 block text-[0.72rem] uppercase tracking-[0.22em] text-white/60"
           >
-            Subject
+            Company Name
           </label>
+        </div>
+
+        {/* Service Needed */}
+        <div className="relative">
+          <label
+            htmlFor="service"
+            className="mb-2 block text-[0.72rem] uppercase tracking-[0.22em] text-white/60"
+          >
+            Service Needed
+          </label>
+          <select
+            id="service"
+            name="service"
+            required
+            defaultValue=""
+            className="w-full border-0 border-b border-white/20 bg-[#050505] py-4 text-sm font-montserrat text-white outline-none transition-colors duration-300 focus:border-[#d4af37]"
+          >
+            <option value="" disabled>
+              Select a service
+            </option>
+            <option value="web-design">Web Design</option>
+            <option value="web-development">Web Development</option>
+            <option value="ui-ux-design">UI/UX Design</option>
+            <option value="branding">Branding</option>
+            <option value="consultation">Consultation</option>
+          </select>
         </div>
 
         {/* Message */}
@@ -127,15 +155,15 @@ export default function ContactForm() {
             id="message"
             name="message"
             rows={5}
-            placeholder=" "
+            placeholder="Your message"
             required
-            className="peer w-full resize-none border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder-transparent outline-none transition-colors duration-300 focus:border-[#d4af37]"
+            className="peer w-full resize-none border-0 border-b border-white/20 bg-transparent py-4 text-sm font-montserrat text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-[#d4af37]"
           />
           <label
             htmlFor="message"
-            className="pointer-events-none absolute left-0 top-4 text-[0.72rem] uppercase tracking-[0.22em] text-white/35 transition-all duration-300 peer-focus:-top-3 peer-focus:text-[0.65rem] peer-focus:text-[#d4af37] peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-[0.65rem]"
+            className="mb-2 block text-[0.72rem] uppercase tracking-[0.22em] text-white/60"
           >
-            Your Message
+            Message
           </label>
         </div>
 
