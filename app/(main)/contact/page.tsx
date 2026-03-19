@@ -22,6 +22,37 @@ export default function ContactPage() {
                   about a specific structure, or discuss a future collaboration,
                   our collective is listening.
                 </p>
+
+                <div className="mt-12 rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6 md:p-8">
+                  <h2 className="font-cormorant text-3xl font-light italic text-white md:text-4xl">
+                    Send an Inquiry
+                  </h2>
+
+                  <p className="mt-4 max-w-lg font-montserrat text-sm leading-7 tracking-wide text-white/60">
+                    Tell us a little about your business and what you need. For
+                    detailed requests, proposals, or custom services, please
+                    complete our project brief form.
+                  </p>
+
+                  <div className="mt-8 border-l border-[#d4af37]/40 pl-5">
+                    <p className="font-montserrat text-[0.68rem] uppercase tracking-[0.28em] text-[#d4af37]">
+                      Looking for a custom solution?
+                    </p>
+
+                    <p className="mt-3 max-w-lg font-montserrat text-sm leading-7 tracking-wide text-white/55">
+                      For larger projects, ongoing services, or tailored
+                      proposals, please complete our detailed inquiry form so we
+                      can understand your needs properly.
+                    </p>
+
+                    <a
+                      href="/"
+                      className="mt-6 inline-flex items-center rounded-full border border-[#d4af37] px-6 py-3 font-montserrat text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#d4af37] transition-all duration-500 hover:bg-[#d4af37] hover:text-black"
+                    >
+                      Complete Project Brief
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="mt-14 space-y-8 md:mt-24">
