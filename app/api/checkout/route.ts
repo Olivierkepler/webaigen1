@@ -18,7 +18,10 @@ export async function POST() {
     }
 
     const appUrl =
-      process.env.NEXT_PUBLIC_APP_URL || "https://test-roan-one-35.vercel.app";
+      // process.env.NEXT_PUBLIC_APP_URL || "https://test-roan-one-35.vercel.app";
+      process.env.NEXT_PUBLIC_APP_URL || "https://www.webaigen.com/";
+
+     
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
