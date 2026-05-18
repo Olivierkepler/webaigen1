@@ -15,6 +15,7 @@ const navLinks = [
   { name: "Solutions", href: "/ai" },
   { name: "Work", href: "/work" },
   { name: "Contact", href: "/contact" },
+  { name: "Checkout", href: "/payment" },
 ];
 
 export default function Navbar() {
@@ -98,7 +99,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <button
+              {/* <button
                 type="button"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
                 className="px-4 py-2 border border-white/10 hover:border-[#d4af37]/60 bg-white/[0.02] text-white/85 hover:text-[#d4af37] text-[0.7rem] font-montserrat tracking-[4px] uppercase transition-colors"
@@ -109,7 +110,7 @@ export default function Navbar() {
                 }
               >
                 {mounted ? (isDark ? "Light" : "Dark") : "Theme"}
-              </button>
+              </button> */}
 
               {/* ✅ Login CTA (Desktop) */}
               {/* <Link
