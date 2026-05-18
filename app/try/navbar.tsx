@@ -6,11 +6,14 @@ import Container from "./ui/container";
 import Button from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const links = [
   { href: "#services", label: "Services" },
   { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
   { href: "#dashboard", label: "Dashboard" },
+  { href: "/checkout", label: "Checkout" },
+  
 ];
 
 export default function Navbar() {
