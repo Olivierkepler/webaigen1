@@ -43,7 +43,7 @@ export async function POST(req: Request) {
             currency: "usd",
             unit_amount: amountInCents,
             product_data: {
-              name: "WebAigen Custom Project Payment",
+              name: "WebAigen Project Payment",
               description:
                 "Secure payment for WebAigen AI automation, software development, and business technology services.",
             },
