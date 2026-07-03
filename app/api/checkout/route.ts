@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       customer_creation: "always",
 
       success_url: `${appUrl}/success`,
-      cancel_url: `${appUrl}/cancel`,
+      cancel_url: "https://webaigensmallbusiness.vercel.app/",
     });
 
     console.log("Stripe checkout session:", session.id);
